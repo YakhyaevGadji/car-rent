@@ -1,0 +1,40 @@
+.header {
+    background-color: var(--blackColor);
+    padding: 20px 0;
+
+    &__list {
+        display: flex;
+        gap: 30px;
+       
+        &-link {
+            color: var(--whiteColor);
+            text-decoration: none;
+            background-image: linear-gradient(currentColor, currentColor);
+            background-position: 0% 100%;
+            background-repeat: no-repeat;
+            background-size: 0% 2px;
+            transition: background-size .3s;
+
+            &:hover {
+                background-size: 100% 2px;
+                color: var(--blueColor);
+                transition: .3s;
+            }
+        }
+    }
+
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__logo {
+        color: var(--whiteColor);
+        font-size: 40px;
+
+        &:hover {
+            color: var(--blueColor);
+            transition: .3s;
+        }
+    }
+}
