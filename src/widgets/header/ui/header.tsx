@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./header.scss";
 
 export const Header = () => {
@@ -6,16 +6,16 @@ export const Header = () => {
         <header className="header">
             <div className="container">
                 <nav className="header__nav">
-                    <Link className="header__logo" to="/">RI</Link>
+                    <NavLink className="header__logo" to="/">RI</NavLink>
                     <ul className="header__list">
                         <li className="header__list-item">
-                            <Link className="header__list-link" to="/">Home</Link>
+                            <NavLink className="header__list-link" to="/">Home</NavLink>
                         </li>
                         <li className="header__list-item">
-                            <Link className="header__list-link" to="/">Cars</Link>
+                            <NavLink className="header__list-link" to="/Cars">Cars</NavLink>
                         </li>
                         <li className="header__list-item">
-                            <Link className="header__list-link" to="/">About</Link>
+                            <NavLink className="header__list-link" to="/About">About</NavLink>
                         </li>
                     </ul>
                 </nav>
@@ -24,4 +24,4 @@ export const Header = () => {
     );
 }
 
-
+export default Header;

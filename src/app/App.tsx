@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Header } from "../widgets/header";
 import Home from "../pages/Home";
+import { Header } from "../widgets/header";
+import { Footer } from "../widgets/footer";
+
 
 const App: React.FC = () => {
     return (
@@ -12,6 +14,7 @@ const App: React.FC = () => {
                     <Route path="/" element={<Home/>}/>
                 </Routes>
             </main>
+            <Footer/>
         </BrowserRouter>
     );
 }

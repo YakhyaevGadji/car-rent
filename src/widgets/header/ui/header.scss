@@ -20,6 +20,10 @@
                 color: var(--blueColor);
                 transition: .3s;
             }
+
+            &.active {
+                color: var(--blueColor);
+            }
         }
     }
 

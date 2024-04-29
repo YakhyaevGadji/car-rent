@@ -1,0 +1,32 @@
+.heading {
+    min-height: 400px;
+    background-image: url("https://kartinki.pics/uploads/posts/2022-12/1669949002_1-kartinkin-net-p-fon-avto-vkontakte-3.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+   
+
+    &::after {
+        content: "";
+        position: absolute;
+        background-color: rgba(#131313, 0.8);
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
+
+    &__text  {
+        position: absolute;
+        z-index: 5;
+        color: var(--whiteColor);
+    }
+
+    &__title {
+        padding: 150px 0;
+    }
+
+   
+}

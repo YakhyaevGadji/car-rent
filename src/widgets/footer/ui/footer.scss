@@ -1,0 +1,51 @@
+.footer {
+    background-color: var(--blackColor);
+    padding: 20px 0;
+
+    &__logo {
+        font-size: 40px;
+        color: var(--whiteColor);
+        margin-bottom: 30px;
+
+        &:hover {
+            color: var(--blueColor);
+            transition: .3s;
+        }
+    }
+
+    &__title {
+        color: var(--whiteColor);
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    &__item {
+        margin-top: 8px;
+    }
+
+    &__link {
+        color: var(--whiteColor);
+        text-decoration: none;
+        background-image: linear-gradient(currentColor, currentColor);
+        background-position: 0% 100%;
+        background-repeat: no-repeat;
+        background-size: 0% 2px;
+        transition: background-size .3s;
+        margin-top: 15px;
+
+        &:hover {
+            background-size: 100% 2px;
+            color: var(--blueColor);
+            transition: .3s;
+        }
+        
+
+        &.active {
+            color: var(--blueColor);
+        }
+    }
+
+   
+}
