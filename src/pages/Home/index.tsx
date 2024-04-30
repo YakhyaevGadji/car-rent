@@ -1,12 +1,3 @@
-import React from "react";
-import { Heading } from "../../widgets/heading";
+import Home from "./ui/Home";
 
-const Home: React.FC = () => {
-    return (
-        <>
-            <Heading/>
-        </>
-    );
-}
- 
-export default Home;
+export { Home };
