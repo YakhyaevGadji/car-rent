@@ -1,0 +1,36 @@
+.advantage {
+    padding: 40px 0;
+
+    &__list {
+        background-color: #f8f8f8;
+        padding: 30px;
+        border-radius: 7px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    &__title {
+        margin-bottom: 40px;
+    }
+
+    &__item {
+        padding: 15px 0;
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        align-items: center;
+        border-bottom: 1px solid #808080;
+        padding: 20px 0;
+
+        &-title {
+            line-height: 30px;
+            max-width: 275px;
+            font-size: 25px;
+        }
+    }
+
+    &__details {
+        max-width: 600px;
+        line-height: 25px;
+    }
+    
+}
