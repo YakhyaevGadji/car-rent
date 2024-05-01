@@ -12,22 +12,6 @@
         margin-bottom: 40px;
     }
 
-    &__item {
-        padding: 15px 0;
-        display: flex;
-        justify-content: space-between;
-        font-size: 15px;
-        align-items: center;
-        border-bottom: 1px solid #808080;
-        padding: 20px 0;
-
-        &-title {
-            line-height: 30px;
-            max-width: 275px;
-            font-size: 25px;
-        }
-    }
-
     &__details {
         max-width: 600px;
         line-height: 25px;
