@@ -12,11 +12,12 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
+        border-radius: 5px;
     }
 
     &__icon {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
     }
 
     &__search {
@@ -24,5 +25,6 @@
         max-width: 500px;
         padding: 10px 5px;
         margin-bottom: 20px;
+        border-radius: 5px;
     }
 }

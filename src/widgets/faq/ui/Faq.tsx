@@ -1,9 +1,11 @@
 import React from "react";
-import questionsData from "../module/questionsData";
+import questionsData from "../model/questionsData";
 import "./faq.scss";
 
 const Faq: React.FC = () => {
     const [searchValue, setSearchValue] = React.useState<string>('');
+
+    const questionsSearch = questionsData.filter((item) => item.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase()))
 
     return (
         <section className="faq">
@@ -11,7 +13,7 @@ const Faq: React.FC = () => {
                 <h2 className="faq">F.A.Q</h2>
                 <input onChange={(event) => setSearchValue(event.target.value)} className="faq__search" value={searchValue} type="text" placeholder="Нужно ли фофрмлять международные права?" />
                 <ul className="faq__list">
-                    {questionsData.map((item, index) => {
+                    {questionsSearch.map((item, index) => {
                         return (
                             <li key={index} className="faq__item">
                                 <p className="faq__text">{item.title}</p>
