@@ -1,0 +1,28 @@
+.faq {
+    margin-bottom: 40px;
+
+    &__list {
+        max-width: 600px;
+    }
+
+    &__item {
+        padding: 5px 10px;
+        border: 1px solid #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    &__icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    &__search {
+        width: 100%;
+        max-width: 500px;
+        padding: 10px 5px;
+        margin-bottom: 20px;
+    }
+}
