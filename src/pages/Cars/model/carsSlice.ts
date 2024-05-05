@@ -1,23 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-
-type TypeCars = {
-    id: number,
-    mainImg: string
-    transmission: string,
-    engine: string,
-    year: number,
-    title: string,
-    price: number,
-    category: string,
-    numberPlaces: number,
-    imgs: string[],
-    brand: string,
-    status: string
-}
-
-interface ICarsState {
-    cars: TypeCars[]
-};
+import { ICarsState } from "./types";
 
 const initialState: ICarsState = {
     cars: []

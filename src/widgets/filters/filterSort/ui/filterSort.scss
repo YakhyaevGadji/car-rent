@@ -1,0 +1,13 @@
+.sort {
+    font-weight: 600;
+    font-size: 20px;
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-size: 35px;
+    }
+}
