@@ -9,4 +9,28 @@
        font-weight: 600;
        font-size: 16px;
     }
+
+    &__list {
+        border: 1px solid;
+        border-radius: 5px;
+        overflow: hidden;
+        width: 190px;
+    }
+
+    &__item {
+        font-size: 14px;
+        font-weight: 400;
+        padding: 5px;
+        cursor: pointer;
+
+        &--active {
+            background-color: #e7e7e7;
+            font-weight: 500;
+        }
+
+        &:hover {
+            background-color: #e7e7e7;
+            font-weight: 500;
+        }
+    }
 }

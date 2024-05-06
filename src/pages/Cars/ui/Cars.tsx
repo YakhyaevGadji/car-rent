@@ -9,9 +9,10 @@ const Cars: React.FC = () => {
 
             </aside>
             <div className="cars">
-                <div className="cars__sort">
-                    <FilterSort/>
-                </div>
+                <FilterSort/>
+                <ul className="cars__list">
+                    
+                </ul>
             </div>
         </div>
     );
