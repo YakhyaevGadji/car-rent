@@ -1,5 +1,5 @@
 
-type TypeItems = {
+export type TypeItems = {
     id: number,
     brand: string,
     category: string,

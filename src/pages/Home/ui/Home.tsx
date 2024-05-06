@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 
 const Home: React.FC = () => {
-    const { items } = useAppSelector((state) => state.cars);
+    const { items, status } = useAppSelector((state) => state.cars);
     const dispatch = useAppDispatch();
 
     const getCars = () => {
@@ -21,7 +21,7 @@ const Home: React.FC = () => {
     return (
         <>
             <Heading/>
-            <SliderCar cars={items}/>
+            <SliderCar cars={items} status={status}/>
             <Advantage/>
             <Faq/>
         </>
