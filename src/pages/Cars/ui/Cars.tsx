@@ -10,9 +10,6 @@ const Cars: React.FC = () => {
             </aside>
             <div className="cars">
                 <FilterSort/>
-                <ul className="cars__list">
-                    
-                </ul>
             </div>
         </div>
     );
