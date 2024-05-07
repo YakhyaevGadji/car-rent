@@ -18,10 +18,12 @@ const Home: React.FC = () => {
         getCars();
     }, []);
 
+    const carsAuto = items.filter((item) => item.transmission === 'automatic');
+
     return (
         <>
             <Heading/>
-            <SliderCar cars={items} status={status}/>
+            <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
             <Advantage/>
             <Faq/>
         </>
