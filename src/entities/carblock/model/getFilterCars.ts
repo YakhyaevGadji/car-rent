@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import {createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { EnumStatus, IInitialState } from "./types";
 
-export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
+export const fetchFilterCars = createAsyncThunk("cars/fetchFilterCars", async () => {
     const { data } = await axios.get(
-      `https://e19221c1c0f44f94.mokky.dev/cars`
+        `https://e19221c1c0f44f94.mokky.dev/cars`
     );
     return data;
-  }
+}
 );
 
 const initialState: IInitialState = {
@@ -16,7 +16,7 @@ const initialState: IInitialState = {
     status: EnumStatus.LOADING,
 };
 
-const carsSlice = createSlice({
+const getCarsSlice = createSlice({
     name: "cars",
     initialState,
     reducers: {
@@ -26,21 +26,21 @@ const carsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchCars.pending, (state) => {
+            .addCase(fetchFilterCars.pending, (state) => {
                 state.status = EnumStatus.LOADING;
                 state.items = [];
             })
-            .addCase(fetchCars.fulfilled, (state, action) => {
+            .addCase(fetchFilterCars.fulfilled, (state, action) => {
                 state.items = action.payload;
                 state.status = EnumStatus.SUCCESS;
             })
-            .addCase(fetchCars.rejected, (state) => {
+            .addCase(fetchFilterCars.rejected, (state) => {
                 state.status = EnumStatus.ERROR;
                 state.items = [];
             });
     },
 });
 
-export const { setItems } = carsSlice.actions;
+export const { setItems } = getCarsSlice.actions;
 
-export default carsSlice.reducer;
+export default getCarsSlice.reducer;

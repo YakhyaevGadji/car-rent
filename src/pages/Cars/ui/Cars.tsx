@@ -1,6 +1,8 @@
 import React from "react";
 import { FilterSort } from "../../../widgets/filters";
 import "./cars.scss";
+import { SearchCars } from "../../../widgets/searchCars";
+import ListCars from "../../../widgets/listCars/ui/ListCars";
 
 const Cars: React.FC = () => {
     return (
@@ -10,6 +12,8 @@ const Cars: React.FC = () => {
             </aside>
             <div className="cars">
                 <FilterSort/>
+                <SearchCars/>
+                <ListCars/>
             </div>
         </div>
     );
