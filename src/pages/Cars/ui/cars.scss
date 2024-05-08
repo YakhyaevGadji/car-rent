@@ -1,3 +1,11 @@
 .cars {
-    padding: 40px 0;
+    &__inner {
+        display: flex;
+        padding: 40px 0;
+        justify-content: space-between;
+    }
+
+    &__filters {
+        width: 300px;
+    }
 }
