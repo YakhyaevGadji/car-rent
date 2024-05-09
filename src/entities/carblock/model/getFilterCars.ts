@@ -7,7 +7,7 @@ export const fetchFilterCars = createAsyncThunk<TypeItems[], IRequestProps>("car
     const { sort, searchCars } = params;
 
     const { data } = await axios.get<TypeItems[]>(
-        `https://e19221c1c0f44f94.mokky.dev/cars?sortBy=${sort.property}&title=*${searchCars}`
+        `https://e19221c1c0f44f94.mokky.dev/cars?sortBy=${sort.property}&title=${searchCars}*`
     );
     return data;
 }
@@ -39,7 +39,7 @@ const getCarsSlice = createSlice({
             .addCase(fetchFilterCars.rejected, (state) => {
                 state.status = EnumStatus.ERROR;
                 state.items = [];
-            });
+            })
     },
 });
 
