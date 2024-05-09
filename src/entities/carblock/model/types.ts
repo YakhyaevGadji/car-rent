@@ -3,7 +3,7 @@ export type TypeItems = {
     id: number,
     brand: string,
     category: string,
-    engine: string,
+    engine: number,
     imgs: string[],
     mainImg: string,
     numberPlaces: number,
@@ -23,4 +23,11 @@ export enum EnumStatus {
 export interface IInitialState {
     items: TypeItems[],
     status: EnumStatus.LOADING | EnumStatus.SUCCESS | EnumStatus.ERROR
+}
+
+export interface IRequestProps {
+    sort: {
+        title: string,
+        property: string
+    }
 }

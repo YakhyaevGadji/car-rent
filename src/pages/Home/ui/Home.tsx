@@ -18,7 +18,7 @@ const Home: React.FC = () => {
         getCars();
     }, []);
 
-    const carsAuto = items.filter((item) => item.transmission === 'automatic');
+    const carsAuto = items.filter((item) => item.transmission === 'Автоматическая');
 
     return (
         <>

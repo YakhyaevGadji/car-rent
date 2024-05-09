@@ -8,15 +8,16 @@ import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars"
 
 const Cars: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
+    const { sort } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars());
+        dispatch(fetchFilterCars({sort}));
     };
 
     React.useEffect(() => {
         getCars()
-    }, []);
+    }, [sort]);
 
     return (
         <div className="container">

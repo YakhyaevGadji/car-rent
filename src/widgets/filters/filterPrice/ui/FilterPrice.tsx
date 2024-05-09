@@ -3,7 +3,7 @@ import React from "react";
 import "./filterPrice.scss";
 
 const FilterPrice: React.FC = () => {
-    const [value1, setValue1] = React.useState<number[]>([20, 37]);
+    const [value1, setValue1] = React.useState<number[]>([10, 30]);
     const minDistance = 10;
 
     const valuetext = (value: number) => {
@@ -44,6 +44,8 @@ const FilterPrice: React.FC = () => {
                 getAriaLabel={() => 'Minimum distance'}
                 value={value1}
                 onChange={handleChange1}
+                // min={10}
+                // max={10000}
                 valueLabelDisplay="auto"
                 getAriaValueText={valuetext}
                 disableSwap

@@ -1,4 +1,6 @@
 .cars-sort {
+    position: relative;
+
     &__text {
         font-size: 15px;
         color: #525252;
@@ -11,6 +13,9 @@
     }
 
     &__list {
+        position: absolute;
+        right: 0;
+        background-color: var(--whiteColor);
         border: 1px solid;
         border-radius: 5px;
         overflow: hidden;

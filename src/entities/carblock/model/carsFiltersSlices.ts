@@ -8,7 +8,7 @@ export type TypeSort = {
 const initialState = {
     sort: {
         title: "По умолчанию",
-        property: "default",
+        property: "",
     },
 };
 

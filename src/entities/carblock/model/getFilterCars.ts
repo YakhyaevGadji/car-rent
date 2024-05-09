@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { EnumStatus, IInitialState } from "./types";
+import { EnumStatus, IInitialState, IRequestProps, TypeItems } from "./types";
 
-export const fetchFilterCars = createAsyncThunk("cars/fetchFilterCars", async () => {
-    const { data } = await axios.get(
-        `https://e19221c1c0f44f94.mokky.dev/cars`
+export const fetchFilterCars = createAsyncThunk<TypeItems[], IRequestProps>("cars/fetchFilterCars", async (params) => {
+    const { sort } = params;
+
+    const { data } = await axios.get<TypeItems[]>(
+        `https://e19221c1c0f44f94.mokky.dev/cars?sortBy=${sort.property}`
     );
     return data;
 }
