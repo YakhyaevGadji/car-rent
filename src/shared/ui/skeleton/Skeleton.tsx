@@ -6,7 +6,7 @@ const Skeleton = () => (
         className="skeleton"
         speed={2}
         width={280}
-        height={318.66}
+        height={300}
         viewBox="0 0 300 318.66"
         backgroundColor="#f3f3f3"
         foregroundColor="#ecebeb"

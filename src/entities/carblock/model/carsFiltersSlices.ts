@@ -10,6 +10,7 @@ const initialState = {
         title: "По умолчанию",
         property: "",
     },
+    searchCars: ""
 };
 
 const filterSlice = createSlice({
@@ -18,10 +19,13 @@ const filterSlice = createSlice({
     reducers: {
         setSort(state, action: PayloadAction<TypeSort>) {
             state.sort = action.payload
+        },
+        setSearchCars(state, action: PayloadAction<string>) {
+            state.searchCars = action.payload
         }
     },
 });
 
-export const { setSort } = filterSlice.actions;
+export const { setSort, setSearchCars } = filterSlice.actions;
 
 export default filterSlice.reducer;

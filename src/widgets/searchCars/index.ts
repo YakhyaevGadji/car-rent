@@ -1,3 +1,3 @@
-import SearchCars from "./ui/SearchCars";
+import Search from "./ui/Search";
 
-export { SearchCars };
+export { Search };

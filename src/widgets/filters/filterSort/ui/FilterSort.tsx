@@ -1,6 +1,6 @@
 import React from "react";
 import "./filterSort.scss";
-import CarsSort from "../../../../features/carsSort/ui/CarsSort";
+import { CarsSort } from "../../../../features/carsSort";
 
 const FilterSort: React.FC = () => {
     return (

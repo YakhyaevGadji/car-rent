@@ -1,23 +1,27 @@
 import React from "react";
 import { FilterPrice, FilterSort } from "../../../widgets/filters";
-import "./cars.scss";
-import { SearchCars } from "../../../widgets/searchCars";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
+import { Search } from "../../../widgets/searchCars";
+import "./cars.scss";
 
-const Cars: React.FC = () => {
+type TypeCarsComp = {
+    getCars: () => void
+}
+
+const Cars: React.FC<TypeCarsComp> = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
-    const { sort } = useAppSelector((state) => state.filters);
+    const { sort, searchCars } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars({sort}));
+        dispatch(fetchFilterCars({sort, searchCars}));
     };
 
     React.useEffect(() => {
         getCars()
-    }, [sort]);
+    }, [sort, searchCars]);
 
     return (
         <div className="container">
@@ -27,7 +31,7 @@ const Cars: React.FC = () => {
                 </aside>
                 <div className="cars">
                     <FilterSort/>
-                    <SearchCars/>
+                    <Search/>
                     <ListCars cars={items} status={status} />
                 </div>
             </div>
