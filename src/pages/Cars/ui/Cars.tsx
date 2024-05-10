@@ -12,16 +12,16 @@ type TypeCarsComp = {
 
 const Cars: React.FC<TypeCarsComp> = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
-    const { sort, searchCars } = useAppSelector((state) => state.filters);
+    const { sort, searchCars, price } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars({sort, searchCars}));
+        dispatch(fetchFilterCars({sort, searchCars, price}));
     };
 
     React.useEffect(() => {
         getCars()
-    }, [sort, searchCars]);
+    }, [sort, searchCars, price]);
 
     return (
         <div className="container">

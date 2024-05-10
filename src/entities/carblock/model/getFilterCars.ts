@@ -4,10 +4,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { EnumStatus, IInitialState, IRequestProps, TypeItems } from "./types";
 
 export const fetchFilterCars = createAsyncThunk<TypeItems[], IRequestProps>("cars/fetchFilterCars", async (params) => {
-    const { sort, searchCars } = params;
+    const { sort, searchCars, price } = params;
 
     const { data } = await axios.get<TypeItems[]>(
-        `https://e19221c1c0f44f94.mokky.dev/cars?sortBy=${sort.property}&title=${searchCars}*`
+        `https://e19221c1c0f44f94.mokky.dev/cars?sortBy=${sort.property}&title=${searchCars}*&price[from]=${price[0]}&price[to]=${price[1]}`
     );
     return data;
 }

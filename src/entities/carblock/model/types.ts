@@ -30,5 +30,6 @@ export interface IRequestProps {
         title: string,
         property: string
     }
-    searchCars: string
+    searchCars: string,
+    price: number[]
 }

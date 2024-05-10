@@ -1,20 +1,17 @@
 import { Slider } from "@mui/material";
 import React from "react";
 import "./filterPrice.scss";
+import debounce from "lodash.debounce";
+import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
+import { setPrice } from "../../../../entities/carblock/model/carsFiltersSlices";
 
 const FilterPrice: React.FC = () => {
-    const [value1, setValue1] = React.useState<number[]>([10, 30]);
+    const [value1, setValue1] = React.useState<number[]>([10, 90]);
+    const { price } = useAppSelector((state) => state.filters);
+    const dispatch = useAppDispatch();
     const minDistance = 10;
 
-    const valuetext = (value: number) => {
-        return `${value}°C`;
-    }
-
-    const handleChange1 = (
-        event: Event,
-        newValue: number | number[],
-        activeThumb: number
-    ) => {
+    const handleChange1 = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
             return;
         }
@@ -30,8 +27,18 @@ const FilterPrice: React.FC = () => {
                 Math.max(newValue[1], value1[0] + minDistance),
             ]);
         }
+
+        updatePriceValue(newValue);
     };
 
+    const updatePriceValue = React.useCallback(
+        debounce((value) => {
+            dispatch(setPrice(value));
+        }, 500),
+        []
+    );
+ 
+    
     return (
         <section className="price">
             <p className="price__title">Фильтр по цене</p>
@@ -47,7 +54,6 @@ const FilterPrice: React.FC = () => {
                 // min={10}
                 // max={10000}
                 valueLabelDisplay="auto"
-                getAriaValueText={valuetext}
                 disableSwap
                 sx={{
                     color: "#49d0ff",
