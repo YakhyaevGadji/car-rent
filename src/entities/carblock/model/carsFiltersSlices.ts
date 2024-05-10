@@ -11,7 +11,8 @@ const initialState = {
         property: "",
     },
     searchCars: "",
-    price: [10, 100]
+    price: [10, 100],
+    brand: ""
 };
 
 const filterSlice = createSlice({
@@ -26,10 +27,13 @@ const filterSlice = createSlice({
         },
         setPrice(state, action: PayloadAction<number[]>) {
             state.price = action.payload;
+        },
+        setbrand(state, action: PayloadAction<string>) {
+            state.brand = action.payload
         }
     },
 });
 
-export const { setSort, setSearchCars, setPrice } = filterSlice.actions;
+export const { setSort, setSearchCars, setPrice, setbrand } = filterSlice.actions;
 
 export default filterSlice.reducer;

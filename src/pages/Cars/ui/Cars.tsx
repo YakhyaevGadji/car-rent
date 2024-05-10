@@ -1,5 +1,5 @@
 import React from "react";
-import { FilterPrice, FilterSort } from "../../../widgets/filters";
+import { FilterBrand, FilterPrice, FilterSort } from "../../../widgets/filters";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
@@ -28,6 +28,7 @@ const Cars: React.FC<TypeCarsComp> = () => {
             <div className="cars__inner">
                 <aside className="cars__filters">
                     <FilterPrice/>
+                    <FilterBrand/>
                 </aside>
                 <div className="cars">
                     <FilterSort/>

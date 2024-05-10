@@ -2,12 +2,11 @@ import { Slider } from "@mui/material";
 import React from "react";
 import "./filterPrice.scss";
 import debounce from "lodash.debounce";
-import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
+import { useAppDispatch } from "../../../../app/appStore";
 import { setPrice } from "../../../../entities/carblock/model/carsFiltersSlices";
 
 const FilterPrice: React.FC = () => {
     const [value1, setValue1] = React.useState<number[]>([10, 90]);
-    const { price } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
     const minDistance = 10;
 
