@@ -8,8 +8,6 @@ const FilterBrand: React.FC = () => {
     const { brand } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
-    console.log(brand);
-
     return (
         <section className="brand">
             <p className="brand__title">Фильтр по маркам</p>

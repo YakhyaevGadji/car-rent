@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+
 import {createAsyncThunk } from "@reduxjs/toolkit";
 import { EnumStatus, IInitialState } from "./types";
+import { instance } from "../../../shared/utils/axios";
 
 export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
-    const { data } = await axios.get(
-      `https://e19221c1c0f44f94.mokky.dev/cars`
-    );
+    const { data } = await instance.get(`/cars`);
     return data;
   }
 );

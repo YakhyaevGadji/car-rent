@@ -12,7 +12,7 @@ const initialState = {
     },
     searchCars: "",
     price: [10, 100],
-    brand: ""
+    brand: "Все"
 };
 
 const filterSlice = createSlice({

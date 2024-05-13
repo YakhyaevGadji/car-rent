@@ -6,17 +6,13 @@ import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars"
 import { Search } from "../../../widgets/searchCars";
 import "./cars.scss";
 
-type TypeCarsComp = {
-    getCars: () => void
-}
-
-const Cars: React.FC<TypeCarsComp> = () => {
+const Cars: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
     const { sort, searchCars, price } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars({sort, searchCars, price}));
+        dispatch(fetchFilterCars({ sort, searchCars, price }));
     };
 
     React.useEffect(() => {
@@ -24,20 +20,22 @@ const Cars: React.FC<TypeCarsComp> = () => {
     }, [sort, searchCars, price]);
 
     return (
-        <div className="container">
-            <div className="cars__inner">
-                <aside className="cars__filters">
-                    <FilterPrice/>
-                    <FilterBrand/>
-                </aside>
-                <div className="cars">
-                    <FilterSort/>
-                    <Search/>
-                    <ListCars cars={items} status={status} />
+        <main>
+            <div className="container">
+                <div className="cars__inner">
+                    <aside className="cars__filters">
+                        <FilterPrice />
+                        <FilterBrand />
+                    </aside>
+                    <div className="cars">
+                        <FilterSort />
+                        <Search />
+                        <ListCars cars={items} status={status} />
+                    </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
- 
+
 export default Cars;

@@ -21,12 +21,12 @@ const Home: React.FC = () => {
     const carsAuto = items.filter((item) => item.transmission === 'Автоматическая');
 
     return (
-        <>
+        <main>
             <Heading/>
             <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
             <Advantage/>
             <Faq/>
-        </>
+        </main>
     );
 }
  

@@ -1,5 +1,17 @@
 .brand {
-    &__list {
-        
+    &__item {
+        padding: 5px;
+        cursor: pointer;
+
+        &--active {
+            font-weight: 500;
+            background-color: #f0f0f0; 
+        }
+
+        &:hover {
+            font-weight: 500;
+            background-color: #f0f0f0;
+            transition: .2s;
+        }
     }
 }

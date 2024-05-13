@@ -1,4 +1,5 @@
 export const brandList = [
+    "Все",
     "Renault",
     "Fiat",
     "Hyundai",
@@ -6,4 +7,4 @@ export const brandList = [
     "Nissan",
     "Citroen",
     "KIA"
-]
+];

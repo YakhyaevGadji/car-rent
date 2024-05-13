@@ -14,12 +14,12 @@ const App: React.FC = () => {
         <BrowserRouter>
             <Provider store={store}>
                 <Header/>
-                <main>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/Cars" element={<Cars/>}/>
-                    </Routes>
-                </main>
+                
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/Cars" element={<Cars/>}/>
+                </Routes>
+            
                 <Footer/>
             </Provider>
         </BrowserRouter>
