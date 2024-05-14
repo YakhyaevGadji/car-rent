@@ -3,7 +3,7 @@ import { CarBlock } from "../../../entities/index";
 import { EnumStatus, TypeItems } from "../../../entities/carblock/model/types";
 import Skeleton from "../../../shared/ui/skeleton/Skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Keyboard, Mousewheel, Navigation, Pagination } from "swiper/modules";
+import { Navigation} from "swiper/modules";
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
