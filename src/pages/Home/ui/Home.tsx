@@ -19,11 +19,13 @@ const Home: React.FC = () => {
     }, []);
 
     const carsAuto = items.filter((item) => item.transmission === 'Автоматическая');
+    const carsMechanical = items.filter((item) => item.transmission === 'Механическая');
 
     return (
         <main>
             <Heading/>
             <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
+            <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
             <Advantage/>
             <Faq/>
         </main>
