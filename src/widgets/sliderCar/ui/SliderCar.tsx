@@ -29,9 +29,31 @@ const SliderCar: React.FC<TypeSliderProps> = ({ cars, status, title }) => {
                 <h2 className="slider-car__title">{title}</h2>
                 <Swiper
                     slidesPerView={4}
-                    spaceBetween={30}
+                    spaceBetween={10}
                     cssMode={true}
                     navigation={true}
+                    breakpoints={{
+                        100: {
+                            slidesPerView: 1,
+                            spaceBetween: 20,
+                        },
+                        640: {
+                          slidesPerView: 2,
+                          spaceBetween: 20,
+                        },
+                        800: {
+                          slidesPerView: 3,
+                          spaceBetween: 10,
+                        },
+                        960: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        1024: {
+                          slidesPerView: 4,
+                          spaceBetween: 10,
+                        },
+                    }}
                     modules={[Navigation]}
                     className="slider-car__list"
                 >            
