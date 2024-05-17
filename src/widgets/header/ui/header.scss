@@ -30,6 +30,7 @@
     &__nav {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     &__logo {
@@ -40,5 +41,9 @@
             color: var(--blueColor);
             transition: .3s;
         }
+    }
+
+    &__sign {
+        height: 100%;
     }
 }

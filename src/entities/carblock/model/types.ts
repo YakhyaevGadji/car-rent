@@ -11,7 +11,7 @@ export type TypeItems = {
     status: string,
     title: string,
     transmission: string,
-    year: number
+    year: number,
 }
 
 export enum EnumStatus {

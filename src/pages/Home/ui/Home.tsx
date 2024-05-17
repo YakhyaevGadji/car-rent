@@ -5,9 +5,11 @@ import { Advantage } from "../../../widgets/advantage";
 import { Faq } from "../../../widgets/faq";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
+import { AuthModal } from "../../../widgets/authModal";
 
 const Home: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.cars);
+    const { popupAuth } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
     const getCars = () => {
@@ -28,6 +30,7 @@ const Home: React.FC = () => {
             <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
             <Advantage/>
             <Faq/>
+            {popupAuth === 'open' ? <AuthModal/> : ''}
         </main>
     );
 }

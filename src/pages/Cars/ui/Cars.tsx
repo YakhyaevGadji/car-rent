@@ -7,7 +7,6 @@ import { Search } from "../../../widgets/searchCars";
 import "./cars.scss";
 
 const Cars: React.FC = () => {
-    const { items, status } = useAppSelector((state) => state.getFilterCars);
     const { sort, searchCars, price } = useAppSelector((state) => state.filters);
     const dispatch = useAppDispatch();
 
@@ -30,7 +29,7 @@ const Cars: React.FC = () => {
                     <div className="cars">
                         <FilterSort />
                         <Search />
-                        <ListCars cars={items} status={status} />
+                        <ListCars/>
                     </div>
                 </div>
             </div>

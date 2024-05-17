@@ -1,5 +1,5 @@
 import React from "react";
-import { CarBlock } from "../../../entities/index";
+import { CarBlock } from "../../../entities/carblock/index";
 import { EnumStatus, TypeItems } from "../../../entities/carblock/model/types";
 import Skeleton from "../../../shared/ui/skeleton/Skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";

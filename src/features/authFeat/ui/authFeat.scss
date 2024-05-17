@@ -1,0 +1,11 @@
+.form {
+    &__pass-block {
+        position: relative;
+    }
+
+    &__icon {
+        position: absolute;
+        top: 32px;
+        right: 12px;
+    }
+}
