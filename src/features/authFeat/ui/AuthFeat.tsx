@@ -14,11 +14,18 @@ const AuthFeat: React.FC = () => {
         formState: { errors },
     } = useForm();
 
+    console.log(errors);
+
+    const onSubmitFrom = (data: any) => { // Change type
+        console.log(data);
+    };
+
     return (
-        <form onSubmit={handleSubmit((data) => console.log(data))} className="form">
+        <form onSubmit={handleSubmit(onSubmitFrom)} className="form">
             <TextField 
-                {...register('email')}
+                {...register('email', {required: "Пожалуйста заполните поле", minLength: {value: 15, message: "Минимум 8 символов"}})}
                 fullWidth
+                type="email"
                 margin='normal' 
                 label="Email" 
                 variant="outlined" 
@@ -26,7 +33,7 @@ const AuthFeat: React.FC = () => {
             />
             <div className="form__pass-block">
                 <TextField 
-                    {...register('password')}
+                    {...register('password', {required: true, minLength: 10})}
                     className="form__password"
                     type={activePass ? 'text' : 'password'}
                     fullWidth
