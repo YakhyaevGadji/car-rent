@@ -48,7 +48,7 @@ const AuthFeat: React.FC = () => {
                 <VisibilityOffIcon onClick={() => setActivePass(!activePass)} className="form__icon"/>
                 }
             </div>
-            <Button type="submit" variant="contained">Войти</Button>
+            <Button className="form__btn" type="submit" variant="contained">Войти</Button>
         </form>
     );
 }
