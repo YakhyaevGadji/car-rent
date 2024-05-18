@@ -1,9 +1,10 @@
 import React from "react";
-import { AuthFeat } from "../../../features/authFeat";
 import CloseIcon from '@mui/icons-material/Close';
-import "./authModal.scss";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { AuthFeat } from "../../../features/authFeat";
 import { useAppDispatch } from "../../../app/appStore";
 import { setPopupAuth } from "../../../entities/viewer/model/userSlice";
+import "./authModal.scss";
 
 const AuthModal: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -17,6 +18,10 @@ const AuthModal: React.FC = () => {
                     </button>
                     <h1 className="auth-modal__title">Войти</h1>
                     <AuthFeat/>
+                    <button className="auth-modal__create">
+                        Sign Up
+                        <AccountCircleIcon className="auth-modal__create-icon"/>
+                    </button>
                 </div>
             </div>
         </div>

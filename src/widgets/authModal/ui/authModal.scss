@@ -40,4 +40,24 @@
     &__user-name {
         width: 300px;
     }
+
+    &__create {
+        position: relative;
+        border: none;
+        background-color: transparent;
+        margin-top: 20px;
+        width: 100px;
+        text-align: left;
+        cursor: pointer;
+
+        &-icon {
+            position: absolute;
+            right: 0;
+            top: -2px;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
