@@ -3,10 +3,14 @@ import { Button, TextField } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../../../app/appStore";
+import { authUser } from "../../../entities/viewer";
 import "./authFeat.scss";
 
 const AuthFeat: React.FC = () => {
     const [activePass, setActivePass] = React.useState<boolean>(false);
+    const { user } = useAppSelector((state) => state.auth);
+    const dispatch = useAppDispatch();
 
     const {
         register,
@@ -14,16 +18,18 @@ const AuthFeat: React.FC = () => {
         formState: { errors },
     } = useForm();
 
-    console.log(errors);
+    const response = async (data: any) => {
+        dispatch(authUser(data));
+    };
 
-    const onSubmitFrom = (data: any) => { // Change type
-        console.log(data);
+    const onSubmitFrom = (data: any) => {
+        response(data);
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmitFrom)} className="form">
             <TextField 
-                {...register('email', {required: "Пожалуйста заполните поле", minLength: {value: 15, message: "Минимум 8 символов"}})}
+                {...register('email', {required: "Пожалуйста заполните поле", minLength: {value: 1, message: "Минимум 8 символов"}})}
                 fullWidth
                 type="email"
                 margin='normal' 
@@ -33,7 +39,7 @@ const AuthFeat: React.FC = () => {
             />
             <div className="form__pass-block">
                 <TextField 
-                    {...register('password', {required: true, minLength: 10})}
+                    {...register('password', {required: true})}
                     className="form__password"
                     type={activePass ? 'text' : 'password'}
                     fullWidth

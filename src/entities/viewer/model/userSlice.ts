@@ -3,14 +3,13 @@ import {createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
 
-export const authUser = createAsyncThunk("auth/authUser", async () => {
-    const { data } = await instance.get(`/auth`);
+export const authUser = createAsyncThunk("auth/authUser", async (props: any) => {
+    const { data } = await instance.post(`/auth`, props);
     return data;
-  }
-);
+});
 
 const initialState = {
-    user: [],
+    user: {},
     status: EnumStatus.LOADING,
     popupAuth: 'closed'
 };
@@ -30,7 +29,7 @@ const authSlice = createSlice({
         builder
             .addCase(authUser.pending, (state) => {
                 state.status = EnumStatus.LOADING;
-                state.user = [];
+                state.user = {};
             })
             .addCase(authUser.fulfilled, (state, action) => {
                 state.user = action.payload;
@@ -38,7 +37,7 @@ const authSlice = createSlice({
             })
             .addCase(authUser.rejected, (state) => {
                 state.status = EnumStatus.ERROR;
-                state.user = [];
+                state.user = {};
             });
     },
 });
