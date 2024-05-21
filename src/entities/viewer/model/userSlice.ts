@@ -10,8 +10,9 @@ export const authUser = createAsyncThunk("auth/authUser", async (props: any) => 
 
 const initialState = {
     user: {},
-    status: EnumStatus.LOADING,
-    popupAuth: 'closed'
+    status: EnumStatus.SUCCESS,
+    popupAuth: 'closed',
+    popupRegist: 'closed'
 };
 
 const authSlice = createSlice({
@@ -23,7 +24,10 @@ const authSlice = createSlice({
         },
         setPopupAuth(state, action: PayloadAction<string>) {
             state.popupAuth = action.payload;
-        }
+        },
+        setPopupRegist(state, action: PayloadAction<string>) {
+            state.popupRegist = action.payload
+        } 
     },
     extraReducers: (builder) => {
         builder
@@ -42,6 +46,6 @@ const authSlice = createSlice({
     },
 });
 
-export const { setItems, setPopupAuth } = authSlice.actions;
+export const { setItems, setPopupAuth, setPopupRegist } = authSlice.actions;
 
 export default authSlice.reducer;

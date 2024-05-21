@@ -1,15 +1,19 @@
 import React from "react";
-import { Button, TextField } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Button, TextField } from "@mui/material";
+import { LoadingButton } from '@mui/lab';
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { authUser } from "../../../entities/viewer";
+import { EnumStatus } from "../../../entities/carblock/model/types";
 import "./authFeat.scss";
 
 const AuthFeat: React.FC = () => {
     const [activePass, setActivePass] = React.useState<boolean>(false);
-    const { user } = useAppSelector((state) => state.auth);
+    const [emailValue, setEmailValue] = React.useState<string>("");
+    const [passwordValue, setPasswordValue] = React.useState<string>("");
+    const { user, status } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
     const {
@@ -19,7 +23,7 @@ const AuthFeat: React.FC = () => {
     } = useForm();
 
     const response = async (data: any) => {
-        dispatch(authUser(data));
+        // dispatch(authUser(data));
     };
 
     const onSubmitFrom = (data: any) => {
@@ -31,6 +35,8 @@ const AuthFeat: React.FC = () => {
             <TextField 
                 {...register('email', {required: "Пожалуйста заполните поле", minLength: {value: 1, message: "Минимум 8 символов"}})}
                 fullWidth
+                onChange={(event) => setEmailValue(event.target.value)}
+                value={emailValue}
                 type="email"
                 margin='normal' 
                 label="Email" 
@@ -40,9 +46,11 @@ const AuthFeat: React.FC = () => {
             <div className="form__pass-block">
                 <TextField 
                     {...register('password', {required: true})}
+                    onChange={(event) => setPasswordValue(event.target.value)}
                     className="form__password"
                     type={activePass ? 'text' : 'password'}
                     fullWidth
+                    value={passwordValue}
                     margin='normal' 
                     label="Password" 
                     variant="outlined" 
@@ -54,7 +62,9 @@ const AuthFeat: React.FC = () => {
                 <VisibilityOffIcon onClick={() => setActivePass(!activePass)} className="form__icon"/>
                 }
             </div>
-            <Button className="form__btn" type="submit" variant="contained">Войти</Button>
+            {status === EnumStatus.SUCCESS && <Button className="form__btn" type="submit" variant="contained">Войти</Button>}
+            {status === EnumStatus.LOADING && <LoadingButton className="form__btn" loading loadingIndicator="Loading…" variant="outlined">Fetch data</LoadingButton>}
+            {status === EnumStatus.ERROR && <Button className="form__btn" type="submit" variant="contained">Войти</Button>}   
         </form>
     );
 }
