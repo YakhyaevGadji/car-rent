@@ -1,3 +1,3 @@
-import AuthFeat from "./ui/AuthFeat";
+import LoginFeat from "./loginFeat/ui/LoginFeat";
 
-export { AuthFeat };
+export { LoginFeat };

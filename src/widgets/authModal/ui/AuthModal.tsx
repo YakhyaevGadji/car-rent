@@ -1,7 +1,7 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { AuthFeat } from "../../../features/authFeat";
+// import { AuthFeat } from "../../../features/authFeat";
 import { useAppDispatch } from "../../../app/appStore";
 import { setPopupAuth, setPopupRegist } from "../../../entities/viewer/model/userSlice";
 import "./authModal.scss";
@@ -17,7 +17,7 @@ const AuthModal: React.FC = () => {
                         <CloseIcon sx={{ fontSize: 40 }}/>
                     </button>
                     <h1 className="auth-modal__title">Войти</h1>
-                    <AuthFeat/>
+                    {/* <AuthFeat/> */}
                     <button onClick={() => dispatch(setPopupRegist('open'))} className="auth-modal__create">
                         Sign Up
                         <AccountCircleIcon className="auth-modal__create-icon"/>

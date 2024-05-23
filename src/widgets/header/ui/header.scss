@@ -44,6 +44,9 @@
     }
 
     &__sign {
-        height: 100%;
+        background-color: var(--blueColor);
+        padding: 5px 8px;
+        color: var(--whiteColor);
+        border-radius: 3px;
     }
 }

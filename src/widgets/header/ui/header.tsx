@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { useAppDispatch } from "../../../app/appStore";
 import { setPopupAuth } from "../../../entities/viewer/model/userSlice";
 import "./header.scss";
+import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
     const dispath = useAppDispatch();
@@ -28,7 +29,7 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">About</NavLink>
                         </li>
                     </ul>
-                    <Button onClick={onCliclSignIn} className="header__sign" size="small" variant="contained">Sign / In</Button>
+                    <NavLink className="header__sign" to="/login">Sign / In</NavLink>
                 </nav>
             </div>
         </header>
