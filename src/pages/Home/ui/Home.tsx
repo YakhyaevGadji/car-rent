@@ -5,7 +5,6 @@ import { Advantage } from "../../../widgets/advantage";
 import { Faq } from "../../../widgets/faq";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
-import { AuthModal } from "../../../widgets/authModal";
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
 
@@ -34,7 +33,6 @@ const Home: React.FC = () => {
             <Advantage/>
             <Faq/>
             <Footer/>
-            {popupAuth === 'open' ? <AuthModal/> : ''}
         </main>
     );
 }

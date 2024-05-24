@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { Inputs } from "../model/typesLogin";
 
 const Login: React.FC = (): React.JSX.Element => {
-    const [email, setEmail] = React.useState<string>("");
-    const [password, setPassword] = React.useState<string>("");
     const { user, status } = useAppSelector((state) => state.auth);
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
@@ -21,6 +19,7 @@ const Login: React.FC = (): React.JSX.Element => {
     } = useForm<Inputs>();
 
     const response = async (data: any) => {
+        console.log(data);
         dispatch(authUser(data));
     };
 
@@ -28,16 +27,10 @@ const Login: React.FC = (): React.JSX.Element => {
         response(data);
     };
 
-    console.log(user);
-    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
            <LoginFeat
                 register={register} 
-                email={email} 
-                setEmail={setEmail}
-                password={password}
-                setPassword={setPassword}
            />
         </form>
     );

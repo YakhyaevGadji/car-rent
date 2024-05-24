@@ -1,17 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
-import { useAppDispatch } from "../../../app/appStore";
-import { setPopupAuth } from "../../../entities/viewer/model/userSlice";
 import "./header.scss";
-import { Link } from "react-router-dom";
+
 
 export const Header: React.FC = () => {
-    const dispath = useAppDispatch();
-
-    const onCliclSignIn = () => {
-        dispath(setPopupAuth('open'));
-    }
+   
 
     return (
         <header className="header">
