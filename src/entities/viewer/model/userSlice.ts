@@ -5,6 +5,7 @@ import { EnumStatus } from "../../carblock/model/types";
 
 export const authUser = createAsyncThunk("auth/authUser", async (props: any) => {
     const { data } = await instance.post(`/auth`, props);
+    
     return data;
 });
 

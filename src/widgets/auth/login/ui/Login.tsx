@@ -1,20 +1,15 @@
 import React from "react";
 import { LoginFeat } from "../../../../features/authFeat";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { instance } from "../../../../shared/utils/axios";
-import { useAppDispatch } from "../../../../app/appStore";
+import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
 import { authUser } from "../../../../entities/viewer";
 import { useNavigate } from "react-router-dom";
-import "./login.scss";
+import { Inputs } from "../model/typesLogin";
 
-type Inputs = {
-    example: string
-    exampleRequired: string
-}
-
-const Login: React.FC = () => {
+const Login: React.FC = (): React.JSX.Element => {
     const [email, setEmail] = React.useState<string>("");
     const [password, setPassword] = React.useState<string>("");
+    const { user, status } = useAppSelector((state) => state.auth);
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
 
@@ -25,13 +20,15 @@ const Login: React.FC = () => {
         formState: { errors },
     } = useForm<Inputs>();
 
-    const response = (data: any) => {
-        console.log(data);
+    const response = async (data: any) => {
+        dispatch(authUser(data));
     };
 
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         response(data);
     };
+
+    console.log(user);
     
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
