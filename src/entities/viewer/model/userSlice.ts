@@ -11,7 +11,8 @@ export const authUser = createAsyncThunk("auth/authUser", async (props: any) => 
 
 const initialState = {
     user: {},
-    status: EnumStatus.SUCCESS
+    status: EnumStatus.LOADING,
+    isLogged: false
 };
 
 const authSlice = createSlice({
@@ -25,16 +26,19 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(authUser.pending, (state) => {
-                state.status = EnumStatus.LOADING;
                 state.user = {};
+                state.status = EnumStatus.LOADING;
+                state.isLogged = false;
             })
             .addCase(authUser.fulfilled, (state, action) => {
                 state.user = action.payload;
+                state.isLogged = true;
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(authUser.rejected, (state) => {
-                state.status = EnumStatus.ERROR;
                 state.user = {};
+                state.status = EnumStatus.ERROR;
+                state.isLogged = false;
             });
     },
 });

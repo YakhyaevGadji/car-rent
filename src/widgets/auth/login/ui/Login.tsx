@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Inputs } from "../model/typesLogin";
 
 const Login: React.FC = (): React.JSX.Element => {
-    const { user, status } = useAppSelector((state) => state.auth);
+    const { user, status, isLogged } = useAppSelector((state) => state.auth);
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
 
@@ -18,13 +18,10 @@ const Login: React.FC = (): React.JSX.Element => {
         formState: { errors },
     } = useForm<Inputs>();
 
-    const response = async (data: any) => {
-        console.log(data);
-        dispatch(authUser(data));
-    };
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+        await dispatch(authUser(data));
 
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-        response(data);
+        console.log(isLogged);
     };
 
     return (
