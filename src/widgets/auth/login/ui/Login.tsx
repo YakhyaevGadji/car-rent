@@ -8,7 +8,7 @@ import { Inputs } from "../model/typesLogin";
 
 const Login: React.FC = (): React.JSX.Element => {
     const { user, status, isLogged } = useAppSelector((state) => state.auth);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const {
@@ -18,17 +18,21 @@ const Login: React.FC = (): React.JSX.Element => {
         formState: { errors },
     } = useForm<Inputs>();
 
+    React.useEffect(() => {
+        if(isLogged) {
+            navigate('/');
+        }
+    }, [isLogged]);
+
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         await dispatch(authUser(data));
-
-        console.log(isLogged);
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-           <LoginFeat
+            <LoginFeat
                 register={register} 
-           />
+            />
         </form>
     );
 }

@@ -3,13 +3,30 @@ import {createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
 
-export const authUser = createAsyncThunk("auth/authUser", async (props: any) => {
+export type TypeProps = {
+    email: string,
+    password: string
+};
+
+type TypeUser = {
+    id: number,
+    name: string,
+    email: string
+};
+
+interface IInitialState {
+    user: {} | TypeUser,
+    status: string,
+    isLogged: boolean
+};
+
+export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProps) => {
     const { data } = await instance.post(`/auth`, props);
     
     return data;
 });
 
-const initialState = {
+const initialState: IInitialState = {
     user: {},
     status: EnumStatus.LOADING,
     isLogged: false
@@ -19,7 +36,7 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        setItems(state, action) {
+        setItems(state, action: PayloadAction<TypeUser>) {
             state.user = action.payload;
         } 
     },
@@ -30,7 +47,7 @@ const authSlice = createSlice({
                 state.status = EnumStatus.LOADING;
                 state.isLogged = false;
             })
-            .addCase(authUser.fulfilled, (state, action) => {
+            .addCase(authUser.fulfilled, (state, action: PayloadAction<TypeUser>) => {
                 state.user = action.payload;
                 state.isLogged = true;
                 state.status = EnumStatus.SUCCESS;
