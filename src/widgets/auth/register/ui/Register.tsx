@@ -1,26 +1,25 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFeat } from "../../../../features/authFeat";
-import { Inputs } from "../../login/model/typesLogin";
 import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
 import { registUser } from "../../../../entities/viewer/model/registSlice";
 import { AppErrors } from "../model/errors";
 import { useNavigate } from "react-router-dom";
+import { InputsRegister } from "../model/typesRegister";
 import "./register.scss";
 
-const Register: React.FC = () => {
-    const { user } = useAppSelector((state) => state.regist);
+const Register: React.FC = (): React.JSX.Element => {
+    const { } = useAppSelector((state) => state.regist);
     const navigate = useNavigate();
     const dispath = useAppDispatch();
 
     const { 
         register, 
         handleSubmit, 
-        watch, 
         formState: { errors } 
-    } = useForm<Inputs>();
+    } = useForm<InputsRegister>();
 
-    const response = async (data: any) => {
+    const response = async (data: InputsRegister) => {
         const newData = {
             name: data.name,
             email: data.email,
@@ -41,11 +40,9 @@ const Register: React.FC = () => {
     };
 
     return (
-        <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <RegisterFeat register={register}/>
-            </form>
-        </>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <RegisterFeat register={register} errors={errors}/>
+        </form>
     );
 }
  

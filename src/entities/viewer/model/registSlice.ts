@@ -3,15 +3,28 @@ import {createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
 
+type TypeUserRegist = {
+    name: string,
+    email: string,
+    password: string,
+}
+
+interface IInitialStateRegist {
+    user: {} | TypeUserRegist,
+    status: string,
+    isLogged: boolean
+}
+
 export const registUser = createAsyncThunk("regist/registUser", async (props: any) => {
     const { data } = await instance.post(`/register`, props);
     
     return data;
 });
 
-const initialState = {
+const initialState: IInitialStateRegist = {
     user: {},
-    status: EnumStatus.SUCCESS,
+    status: EnumStatus.LOADING,
+    isLogged: false
 };
 
 const authSlice = createSlice({
@@ -28,7 +41,7 @@ const authSlice = createSlice({
                 state.status = EnumStatus.LOADING;
                 state.user = {};
             })
-            .addCase(registUser.fulfilled, (state, action) => {
+            .addCase(registUser.fulfilled, (state, action: PayloadAction<TypeUserRegist>) => {
                 state.user = action.payload;
                 state.status = EnumStatus.SUCCESS;
             })

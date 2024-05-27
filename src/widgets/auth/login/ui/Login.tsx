@@ -1,22 +1,25 @@
 import React from "react";
 import { LoginFeat } from "../../../../features/authFeat";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
 import { authUser } from "../../../../entities/viewer";
 import { useNavigate } from "react-router-dom";
-import { Inputs } from "../model/typesLogin";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import { LoginShema } from "../../../../shared/utils/yup";
+import { InputsLogin } from "../model/typesLogin";
+ 
 const Login: React.FC = (): React.JSX.Element => {
-    const { user, status, isLogged } = useAppSelector((state) => state.auth);
+    const { isLogged } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
-    } = useForm<Inputs>();
+    } = useForm<InputsLogin>({
+        resolver: yupResolver(LoginShema)
+    });
 
     React.useEffect(() => {
         if(isLogged) {
@@ -24,7 +27,7 @@ const Login: React.FC = (): React.JSX.Element => {
         }
     }, [isLogged]);
 
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
         await dispatch(authUser(data));
     };
 
@@ -32,6 +35,7 @@ const Login: React.FC = (): React.JSX.Element => {
         <form onSubmit={handleSubmit(onSubmit)}>
             <LoginFeat
                 register={register} 
+                errors={errors}
             />
         </form>
     );
