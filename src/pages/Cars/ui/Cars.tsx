@@ -1,15 +1,17 @@
 import React from "react";
-import { FilterBrand, FilterPrice, FilterSort } from "../../../widgets/filters";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
+import { FilterBrand, FilterPrice, FilterSort } from "../../../widgets/filters";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
 import { Search } from "../../../widgets/searchCars";
-import "./cars.scss";
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
+import { SingleModal } from "../../../widgets/singleModal";
+import "./cars.scss";
 
 const Cars: React.FC = () => {
     const { sort, searchCars, price } = useAppSelector((state) => state.filters);
+    const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
@@ -37,6 +39,7 @@ const Cars: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                    {showWindow === 'closed' && <SingleModal/>}
                 </main>
             <Footer/>
         </>
