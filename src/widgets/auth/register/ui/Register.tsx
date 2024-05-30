@@ -1,15 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFeat } from "../../../../features/authFeat";
-import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
+import { useAppDispatch } from "../../../../app/appStore";
 import { registUser } from "../../../../entities/viewer/model/registSlice";
 import { AppErrors } from "../model/errors";
 import { useNavigate } from "react-router-dom";
 import { InputsRegister } from "../model/typesRegister";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { RegistShema } from "../../../../shared/utils/yup";
 import "./register.scss";
 
 const Register: React.FC = (): React.JSX.Element => {
-    const { } = useAppSelector((state) => state.regist);
     const navigate = useNavigate();
     const dispath = useAppDispatch();
 
@@ -17,7 +18,9 @@ const Register: React.FC = (): React.JSX.Element => {
         register, 
         handleSubmit, 
         formState: { errors } 
-    } = useForm<InputsRegister>();
+    } = useForm<InputsRegister>({
+        resolver: yupResolver(RegistShema)
+    });
 
     const response = async (data: InputsRegister) => {
         const newData = {
@@ -35,7 +38,7 @@ const Register: React.FC = (): React.JSX.Element => {
         }        
     };
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: InputsRegister) => {
         response(data);
     };
 

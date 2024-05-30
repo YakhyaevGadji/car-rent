@@ -15,7 +15,7 @@ interface IInitialStateRegist {
     isLogged: boolean
 }
 
-export const registUser = createAsyncThunk("regist/registUser", async (props: any) => {
+export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist) => {
     const { data } = await instance.post(`/register`, props);
     
     return data;

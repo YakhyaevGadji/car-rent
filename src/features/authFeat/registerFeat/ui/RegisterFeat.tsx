@@ -15,7 +15,7 @@ const RegisterFeat: React.FC<IPropsRegister> = ({register, errors}) => {
                 helperText={errors.name ? `${errors.name.message}` : ''}
                 fullWidth={true} 
                 margin='normal' 
-                label="Имя" 
+                label="Name" 
                 variant="outlined" 
                 placeholder="Введите ваше имя"
             />
