@@ -8,8 +8,8 @@ export type TypeItems = {
     mainImg: string,
     numberPlaces: number,
     price: number,
+    fullTitle: string,
     status: string,
-    title: string,
     transmission: string,
     year: number,
 }
