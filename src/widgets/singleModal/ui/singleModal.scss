@@ -17,4 +17,29 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
+    &__buttons {
+        padding: 15px;
+        border-bottom: 1px solid #cfcfcf;
+    }
+
+    &__closed {
+        position: absolute;
+        right: 0px;
+        top: 0;
+        border: 0;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    &__title {
+        margin-bottom: 50px;
+        font-size: 45px;
+    }
+
+    &__subtitle {
+        font-size: 25px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #cfcfcf;
+    }
 }

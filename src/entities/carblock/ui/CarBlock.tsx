@@ -1,7 +1,7 @@
 import React from "react";
 import "./carBlock.scss";
 import { TypeItems } from "../model/types";
-import { useAppDispatch } from "../../../app/appStore";
+import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { getAxiosCar, setShowWindow } from "../model/getCar";
 
 type TypeCarProps = {
@@ -9,6 +9,7 @@ type TypeCarProps = {
 }
 
 const CarBlock: React.FC<TypeCarProps> = ({car}) => {
+    const { item } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 
     const onClickcar = () => {

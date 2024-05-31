@@ -8,7 +8,7 @@ type TypeProps = {
 }
 
 interface IinitialState {
-    item: object,
+    item: TypeItems,
     status: EnumStatus.LOADING | EnumStatus.SUCCESS | EnumStatus.ERROR,
     showWindow: string
 }
@@ -20,7 +20,7 @@ export const getAxiosCar = createAsyncThunk<TypeItems, TypeProps>("car/fetchFilt
 });
 
 const initialState: IinitialState = {
-    item: {},
+    item: {} as TypeItems,
     status: EnumStatus.LOADING,
     showWindow: 'closed'
 };
@@ -40,7 +40,6 @@ const getCarSlice = createSlice({
         builder
             .addCase(getAxiosCar.pending, (state) => {
                 state.status = EnumStatus.LOADING;
-                state.item = {};
             })
             .addCase(getAxiosCar.fulfilled, (state, action) => {
                 state.item = action.payload;
@@ -48,7 +47,6 @@ const getCarSlice = createSlice({
             })
             .addCase(getAxiosCar.rejected, (state) => {
                 state.status = EnumStatus.ERROR;
-                state.item = {};
             })
     },
 });
