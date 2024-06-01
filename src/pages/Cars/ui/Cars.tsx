@@ -7,12 +7,10 @@ import { Search } from "../../../widgets/searchCars";
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
 import { SingleModal } from "../../../widgets/singleModal";
-import { EnumStatus } from "../../../entities/carblock/model/types";
 import "./cars.scss";
 
 const Cars: React.FC = () => {
     const { sort, searchCars, price } = useAppSelector((state) => state.filters);
-    const { item, status } = useAppSelector((state) => state.getCar);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 

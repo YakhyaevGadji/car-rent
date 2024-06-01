@@ -11,6 +11,7 @@ export type TypeItems = {
     fullTitle: string,
     status: string,
     transmission: string,
+    fuel: string,
     year: number,
 }
 
