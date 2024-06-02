@@ -1,5 +1,6 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import Select from 'react-select';
 import { Box, Tab } from '@mui/material';
 import { TabPanel, TabList, TabContext } from '@mui/lab';
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
@@ -12,9 +13,20 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
+type TypeSelect = {
+    value: string,
+    label: string
+}
+
+const options = [
+    { value: 'ofice', label: 'Взять из офиса' },
+    { value: 'delivery', label: 'Доставка по городу + 100$' }
+];
+
 const SingleModal: React.FC = (): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
     const [value, setValue] = React.useState<string>('1');
+    const [selectedOption, setSelectedOption] = React.useState<TypeSelect | null>(options[0]);
     const dispatch = useAppDispatch();
 
     const handleChange = (event: any, newValue: string) => {
@@ -87,8 +99,17 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         })}
                                     </Swiper>
                                 </TabPanel>
-                                <TabPanel value="2">
-                                    <h3 className="modal__subtitle">Получение</h3>
+                                <TabPanel className="modal__form" value="2">
+                                    <p className="modal__form-title">Получение</p>
+                                    <Select
+                                        className="modal__form-deli"
+                                        defaultValue={selectedOption}
+                                        onChange={setSelectedOption}
+                                        options={options}
+                                        placeholder={options[0].label}
+                                    />
+                                    <p className="modal__form-title">Дата аренды</p>
+                                    
                                 </TabPanel>
                                 <div className="modal__result">
                                     <img className="modal__result_img" src={item.mainImg} alt="" />
