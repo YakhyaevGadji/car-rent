@@ -74,7 +74,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         }}
                                         pagination={{
                                             clickable: true,
-                                            type: "fraction", // Навигация с числовыми индикаторами
+                                            type: "fraction",
                                         }}
                                         navigation={true}
                                     >
@@ -87,6 +87,9 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         })}
                                     </Swiper>
                                 </TabPanel>
+                                <TabPanel value="2">
+                                    <h3 className="modal__subtitle">Получение</h3>
+                                </TabPanel>
                                 <div className="modal__result">
                                     <img className="modal__result_img" src={item.mainImg} alt="" />
                                     <p className="modal__result_title">Стоимость</p>
@@ -94,6 +97,10 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         <li className="modal__result_item">
                                             <p className="modal__result_text">Аренда на 1 день:</p>
                                             <p className="modal__result_total">{item.price}$</p>
+                                        </li>
+                                        <li className="modal__result_item">
+                                            <p className="modal__result_text">Доставка:</p>
+                                            <p className="modal__result_total">0$</p>
                                         </li>
                                         <li className="modal__result_global">
                                             <p className="modal__result_text">Итого:</p>
