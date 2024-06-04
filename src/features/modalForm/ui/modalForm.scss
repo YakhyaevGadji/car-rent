@@ -1,0 +1,50 @@
+.form {
+    &__date {
+        display: flex;
+        align-items: center;
+        border: 1px solid #c4c4c4;
+        border-radius: 5px;
+        padding: 7px;
+    }
+
+    &__modal-textarea {
+        border: 1px solid #cdcfdb;
+        padding: 9px 15px 9px 7px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        font-size: 18px;
+        outline: none;
+        resize: none;
+        height: 120px;
+    }
+
+    &__modal-title {
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    &__modal-subtitle {
+        margin-bottom: 5px;
+    }
+    
+    &__modal-lastitle {
+        margin: 10px 0;
+    }
+
+    &__modal-item {
+        margin-bottom: 15px;
+    }
+
+    &__modal-name {
+        margin-bottom: 10px;
+    }
+
+    &__modal-whatsapp {
+        transform: scale(2);
+    }
+
+    &__modal-info {
+        margin-left: 10px;
+    }
+}
