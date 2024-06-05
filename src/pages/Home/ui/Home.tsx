@@ -7,9 +7,11 @@ import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
+import { SingleModal } from "../../../widgets/singleModal";
 
 const Home: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.cars);
+    const { showWindow } = useAppSelector((state) => state.getCar);
     const { popupAuth } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
@@ -33,6 +35,7 @@ const Home: React.FC = () => {
             <Advantage/>
             <Faq/>
             <Footer/>
+            {showWindow === 'open' && <SingleModal/>}
         </main>
     );
 }

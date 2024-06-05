@@ -2,22 +2,22 @@
     position: fixed;
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
+    
     z-index: 10;
     background-color: rgba(0, 0, 0, .3);
+    overflow: auto;
  
     &__info {
-        max-width: 100%;
-        width: 850px;
-        padding: 20px;
-        padding-top: 0px;
-        border-radius: 5px;
+        position: relative;
+        width: 88%;
+        max-width: 960px;
+        margin: 3% auto;
+        border-radius: 4px;
         background-color: var(--whiteColor);
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        padding: 0 40px;
+        padding-bottom: 0px;
     }
 
     &__buttons {

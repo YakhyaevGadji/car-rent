@@ -10,12 +10,12 @@ const CarsSort: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const onCliclSort = () => {
-        setOpen(!open)
+        setOpen(!open);
     }
 
     const clickItemList = (item: TypeSort) => {
         dispatch(setSort(item));
-        setOpen(false)
+        setOpen(false);
     }
 
     return (

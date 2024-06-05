@@ -1,6 +1,6 @@
 import React from "react";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
-import { FilterBrand, FilterPrice, FilterSort } from "../../../widgets/filters";
+import { FilterBrand, FilterPrice, FilterSort, FiltersReset } from "../../../widgets/filters";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
 import { Search } from "../../../widgets/searchCars";
@@ -19,7 +19,7 @@ const Cars: React.FC = () => {
     };
 
     React.useEffect(() => {
-        getCars()
+        getCars();
     }, [sort, searchCars, price]);
 
     return (
@@ -31,6 +31,7 @@ const Cars: React.FC = () => {
                             <aside className="cars__filters">
                                 <FilterPrice />
                                 <FilterBrand />
+                                <FiltersReset />
                             </aside>
                             <div className="cars">
                                 <FilterSort />
