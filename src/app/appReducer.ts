@@ -5,6 +5,7 @@ import getFilterCars from "../entities/carblock/model/getFilterCars";
 import getCar from "../entities/carblock/model/getCar";
 import { userSlice } from "../entities/viewer";
 import registSlice from "../entities/viewer/model/registSlice";
+import modalCarSlice from "../entities/modalCar/model/modalCarSlice";
 
 export const rootReducer = combineReducers({
     cars: carsSlice,
@@ -12,6 +13,7 @@ export const rootReducer = combineReducers({
     getFilterCars: getFilterCars,
     getCar: getCar,
     auth: userSlice,
-    regist: registSlice
+    regist: registSlice,
+    modalCar: modalCarSlice
 });
 

@@ -8,27 +8,30 @@ import { addDays, differenceInDays, format, subDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { RangeKeyDict } from "react-date-range";
 import { Range } from "react-date-range";
-import { IPropsModalFrom, TypeSelect } from "../model/typesModalForm";
+import { IPropsModalFrom } from "../model/typesModalForm";
+import { useAppDispatch, useAppSelector } from "../../../app/appStore";
+import { setReceiving } from "../../../entities/modalCar/model/modalCarSlice";
 import "./modalForm.scss";
 
 const options = [
-    { value: 'ofice', label: 'Взять из офиса' },
-    { value: 'delivery', label: 'Доставка по городу + 100$' }
+    { value: 'ofice', label: 'Взять из офиса', priceDev: 0 },
+    { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
-const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => {
-    const [selectedOption, setSelectedOption] = React.useState<TypeSelect | null>(options[0]);
+const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.Element => {
+    const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
     const [valueDateRangePicker, setValueDateRangePicker] = React.useState<Range[] | undefined>([
         {
-            startDate: subDays(new Date(), 7),
+            startDate: subDays(new Date(), 0),
             endDate: addDays(new Date(), 0),
             key: "selection",
         },
     ]);
+    const dispatch = useAppDispatch();
 
-    const formattedValueDatePicker = valueDatePicker ? format(valueDatePicker, "dd.MM.yyyy", { locale: ru }) : "";
+    // const formattedValueDatePicker = valueDatePicker ? format(valueDatePicker, "dd.MM.yyyy", { locale: ru }) : "";
 
     const formattedValueDateRangePickerStartDate = valueDateRangePicker?.[0].startDate
         ? format(valueDateRangePicker[0].startDate, "dd.MM.yyyy", { locale: ru })
@@ -54,6 +57,11 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
         setAnchorEl(null);
     };
 
+    const date = `${formattedValueDateRangePickerStartDate} - ${formattedValueDateRangePickerEndDate} - ${daysCount}`;
+
+    setValue("receipt", receiving);
+    setValue("rentalReriod", date);
+  
     const open = Boolean(anchorEl);
     const idPop = open ? 'simple-popover' : undefined;
 
@@ -61,10 +69,9 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
         <>
             <p className="form__modal-title">Получение</p>
             <Select
-                {...register('receipt')}
                 className="modal__box-deli"
-                defaultValue={selectedOption}
-                onChange={setSelectedOption}
+                defaultValue={receiving}
+                onChange={(value) => dispatch(setReceiving(value))}
                 options={options}
                 placeholder={options[0].label}
             />
@@ -81,6 +88,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                 }}
             >
                 <Calendar
+                    {...register('rentalReriod')}
                     editableDateInputs={true}
                     locale={ru}
                     minDate={addDays(new Date(), 0)}
@@ -98,7 +106,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                         {formattedValueDateRangePickerStartDate}
                         —
                         {formattedValueDateRangePickerEndDate}
-                        <span className="singlepage__date-days">{daysCount} дней</span>
+                        <span className="singlepage__date-days"> {daysCount} дней</span>
                     </div>
                 </div>
             </div>
@@ -107,6 +115,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                 <li className="form__modal-item">
                     <p className="form__modal-subtitle">Имя и фамилия</p>
                     <TextField
+                        {...register('fullName')}
                         className="form__modal-name"
                         type="text"
                         fullWidth={true}
@@ -117,6 +126,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                 <li className="form__modal-item">
                     <p className="form__modal-subtitle">Дата рождения</p>
                     <TextField
+                        {...register('dateBrith')}
                         className="form__modal-name"
                         type="text"
                         fullWidth={true}
@@ -127,6 +137,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                 <li className="form__modal-item">
                     <p className="form__modal-subtitle">Почта</p>
                     <TextField
+                        {...register('email')}
                         className="form__modal-name"
                         type="email"
                         fullWidth={true}
@@ -137,10 +148,11 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                 <li className="form__modal-item">
                     <p className="form__modal-subtitle">Номер телефона</p>
                     <TextField
+                        {...register('numberPhone')}
                         className="form__modal-name"
                         type="phone"
                         fullWidth={true}
-                        label="Email"
+                        label="+90..."
                         variant="outlined"
                     />
                 </li>
@@ -148,7 +160,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
             <p className="form__modal-title form__modal-lastitle">Куда вам написать?</p>
             <FormControl>
                 <RadioGroup
-                    onChange={(e) => console.log(e.target.value)}
+                    onChange={(e) => setValue('messenger', e.target.value)}
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="whatsapp"
                     name="radio-buttons-group"
@@ -158,7 +170,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register}): React.JSX.Element => 
                         <FormControlLabel value="telegram" control={<Radio />} label="Telegram" />
                     </div>
                 </RadioGroup>
-                <textarea className="form__modal-textarea" placeholder="Комментарий"></textarea>
+                <textarea {...register('comment')} className="form__modal-textarea" placeholder="Комментарий"></textarea>
             </FormControl>
         </>
     );

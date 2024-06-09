@@ -9,29 +9,27 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, Pagination, Navigation } from "swiper/modules";
 import { ModalForm } from "../../../features/modalForm";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
 import "./singleModal.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-type InputsModal = {
-    dateBrith: string,
-    receipt: string
-};
-
 const SingleModal: React.FC = (): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
-    const [value, setValue] = React.useState<string>('1');
+    const { receiving } = useAppSelector((state) => state.modalCar);
+    const [valueButton, setValueButton] = React.useState<string>('1');
     const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
+        setValue,
         watch,
         formState: { errors },
-    } = useForm<InputsModal>();
+    } = useForm<TypesModalForm>();
 
-    const onSubmit: SubmitHandler<InputsModal> = (data) => {
+    const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
         console.log(data);
     };
 
@@ -40,7 +38,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     };
 
     const handleChange = (event: any, newValue: string) => {
-        setValue(newValue);
+        setValueButton(newValue);
     };
 
     const toggleModal = (event: any) => {
@@ -57,7 +55,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                         <button onClick={() => dispatch(setShowWindow('closed'))} className="modal__closed">
                             <CloseIcon fontSize="large" />
                         </button>
-                        <TabContext value={value}>
+                        <TabContext value={valueButton}>
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <TabList onChange={handleChange} aria-label="lab API tabs example">
                                     <Tab className="modal__tab" label="Автомобиль" value="1" />
@@ -111,7 +109,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 </TabPanel>
                                 <TabPanel className="modal__box" value="2">
                                     <form onSubmit={handleSubmit(onSubmit)}>
-                                        <ModalForm register={register}/>
+                                        <ModalForm register={register} setValue={setValue}/>
                                     </form>
                                 </TabPanel>
                                 <div className="modal__result">
@@ -124,15 +122,15 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         </li>
                                         <li className="modal__result_item">
                                             <p className="modal__result_text">Доставка:</p>
-                                            <p className="modal__result_total">0$</p>
+                                            <p className="modal__result_total">{receiving.priceDev}$</p>
                                         </li>
                                         <li className="modal__result_global">
                                             <p className="modal__result_text">Итого:</p>
-                                            <p className="modal__result_total">{item.price}$</p>
+                                            <p className="modal__result_total">{item.price + receiving.priceDev}$</p>
                                         </li>
                                     </ul>
-                                    {value === '1' && <Button onClick={() => setValue('2')} variant="contained" fullWidth>Продолжить</Button>}
-                                    {value === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>Отпарвить</Button>}
+                                    {valueButton === '1' && <Button onClick={() => setValueButton('2')} variant="contained" fullWidth>Продолжить</Button>}
+                                    {valueButton === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>Отпарвить</Button>}
                                 </div>
                             </div>
                         </TabContext>
