@@ -61,6 +61,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
 
     setValue("receipt", receiving);
     setValue("rentalReriod", date);
+    setValue("messenger", "whatsapp");
   
     const open = Boolean(anchorEl);
     const idPop = open ? 'simple-popover' : undefined;
@@ -160,7 +161,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
             <p className="form__modal-title form__modal-lastitle">Куда вам написать?</p>
             <FormControl>
                 <RadioGroup
-                    onChange={(e) => setValue('messenger', e.target.value)}
+                    onChange={(e) => setValue("messenger", e.target.value)}
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="whatsapp"
                     name="radio-buttons-group"

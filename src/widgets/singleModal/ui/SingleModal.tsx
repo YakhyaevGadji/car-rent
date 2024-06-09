@@ -31,6 +31,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
 
     const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
         console.log(data);
+        dispatch(setShowWindow("closed"));
     };
 
     const onClickForm = () => {
