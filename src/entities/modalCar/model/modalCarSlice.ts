@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EnumStatus } from "../../carblock/model/types";
 
 // export const moda = createAsyncThunk("cars/fetchCars", async () => {
@@ -9,6 +9,7 @@ import { EnumStatus } from "../../carblock/model/types";
 
 const initialState = {
     receiving: { value: 'ofice', label: 'Взять из офиса', priceDev: 0 },
+    date: 1,
     status: EnumStatus.LOADING,
 };
 
@@ -18,6 +19,9 @@ const modalCarSlice = createSlice({
     reducers: {
         setReceiving(state, action) {
             state.receiving = action.payload;
+        },
+        setDateModal(state, action: PayloadAction<number>) {
+            state.date = action.payload
         }
     },
     // extraReducers: (builder) => {
@@ -37,6 +41,6 @@ const modalCarSlice = createSlice({
     // },
 });
 
-export const { setReceiving } = modalCarSlice.actions;
+export const { setReceiving, setDateModal } = modalCarSlice.actions;
 
 export default modalCarSlice.reducer;

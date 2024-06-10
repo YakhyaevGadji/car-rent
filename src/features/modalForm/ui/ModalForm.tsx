@@ -4,13 +4,13 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { FormControl, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import { Popover, TextField } from "@mui/material";
 import { Calendar } from "../../../widgets/singleModal";
-import { addDays, differenceInDays, format, subDays } from "date-fns";
+import { addDays, differenceInDays, format, setDate, subDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { RangeKeyDict } from "react-date-range";
 import { Range } from "react-date-range";
 import { IPropsModalFrom } from "../model/typesModalForm";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
-import { setReceiving } from "../../../entities/modalCar/model/modalCarSlice";
+import { setDateModal, setReceiving } from "../../../entities/modalCar/model/modalCarSlice";
 import "./modalForm.scss";
 
 const options = [
@@ -18,7 +18,7 @@ const options = [
     { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
-const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.Element => {
+const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
@@ -30,6 +30,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
         },
     ]);
     const dispatch = useAppDispatch();
+
 
     // const formattedValueDatePicker = valueDatePicker ? format(valueDatePicker, "dd.MM.yyyy", { locale: ru }) : "";
 
@@ -49,6 +50,8 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
         setValueDateRangePicker([selection]);
     }, []);
 
+    dispatch(setDateModal(daysCount));
+
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -62,7 +65,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
     setValue("receipt", receiving);
     setValue("rentalReriod", date);
     setValue("messenger", "whatsapp");
-  
+
     const open = Boolean(anchorEl);
     const idPop = open ? 'simple-popover' : undefined;
 
@@ -76,6 +79,16 @@ const ModalForm: React.FC<IPropsModalFrom> = ({register, setValue}): React.JSX.E
                 options={options}
                 placeholder={options[0].label}
             />
+
+            {receiving.value === 'delivery' && (
+                <input 
+                    {...register('address')}
+                    className="form__modal-addres"  
+                    type="text" 
+                    placeholder="Введите Адрес" 
+                />
+            )}
+
             <p className="form__modal-title">Дата аренды</p>
 
             <Popover

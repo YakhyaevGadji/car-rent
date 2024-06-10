@@ -17,7 +17,7 @@ import "swiper/css/navigation";
 
 const SingleModal: React.FC = (): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
-    const { receiving } = useAppSelector((state) => state.modalCar);
+    const { receiving, date } = useAppSelector((state) => state.modalCar);
     const [valueButton, setValueButton] = React.useState<string>('1');
     const dispatch = useAppDispatch();
 
@@ -47,6 +47,8 @@ const SingleModal: React.FC = (): React.JSX.Element => {
             dispatch(setShowWindow('closed'));
         }
     };
+
+    const formatDate = date === 1 ? 'день' : date <= 4 ? 'дня' : 'дней';
 
     return (
         <div onClick={toggleModal} className="modal">
@@ -118,7 +120,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                     <p className="modal__result_title">Стоимость</p>
                                     <ul className="modal__reuslt_list">
                                         <li className="modal__result_item">
-                                            <p className="modal__result_text">Аренда на 1 день:</p>
+                                            <p className="modal__result_text">Аренда на {date} {formatDate}:</p>
                                             <p className="modal__result_total">{item.price}$</p>
                                         </li>
                                         <li className="modal__result_item">
@@ -127,7 +129,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         </li>
                                         <li className="modal__result_global">
                                             <p className="modal__result_text">Итого:</p>
-                                            <p className="modal__result_total">{item.price + receiving.priceDev}$</p>
+                                            <p className="modal__result_total">{(item.price * date) + receiving.priceDev}$</p>
                                         </li>
                                     </ul>
                                     {valueButton === '1' && <Button onClick={() => setValueButton('2')} variant="contained" fullWidth>Продолжить</Button>}
