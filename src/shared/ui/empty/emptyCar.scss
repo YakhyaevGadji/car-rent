@@ -1,0 +1,15 @@
+.empty {
+    
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+
+    &__icon  {
+        margin-bottom: 15px;
+    }
+
+    &__text {
+        font-size: 30px;
+        font-weight: 600;
+    }
+}
