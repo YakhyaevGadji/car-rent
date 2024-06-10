@@ -12,46 +12,52 @@ type TypeUserRegist = {
 interface IInitialStateRegist {
     user: {} | TypeUserRegist,
     status: string,
-    isLogged: boolean
+    isLogged: boolean,
+    isLoading: boolean
 }
 
-export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist) => {
-    const { data } = await instance.post(`/register`, props);
-    
-    return data;
+export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist, {rejectWithValue}) => {
+    try {
+        const { data } = await instance.post(`/register`, props);
+        console.log(data);
+        return data;
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message);
+        }
+    }
 });
 
 const initialState: IInitialStateRegist = {
     user: {},
     status: EnumStatus.LOADING,
-    isLogged: false
+    isLogged: false,
+    isLoading: false
 };
 
 const authSlice = createSlice({
     name: "regist",
     initialState,
-    reducers: {
-        setItems(state, action) {
-            state.user = action.payload;
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(registUser.pending, (state) => {
-                state.status = EnumStatus.LOADING;
-                state.user = {};
+                state.isLogged = false;
+                state.isLoading = true;
             })
             .addCase(registUser.fulfilled, (state, action: PayloadAction<TypeUserRegist>) => {
                 state.user = action.payload;
+                state.isLogged = true;
+                state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(registUser.rejected, (state) => {
-                state.status = EnumStatus.ERROR;
-                state.user = {};
-            });
+                state.isLogged = false;
+                state.isLoading = false;
+            })
     },
 });
-
-export const { setItems } = authSlice.actions;
 
 export default authSlice.reducer;

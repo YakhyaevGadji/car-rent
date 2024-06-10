@@ -9,7 +9,7 @@ import { LoginShema } from "../../../../shared/utils/yup";
 import { InputsLogin } from "../model/typesLogin";
  
 const Login: React.FC = (): React.JSX.Element => {
-    const { isLogged } = useAppSelector((state) => state.auth);
+    const { isLogged, isLoading } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -28,7 +28,13 @@ const Login: React.FC = (): React.JSX.Element => {
     }, [isLogged]);
 
     const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
-        await dispatch(authUser(data));
+        try {
+            await dispatch(authUser(data));
+
+            navigate('/');
+        } catch (error) {
+            return error;
+        }
     };
 
     return (
@@ -36,6 +42,7 @@ const Login: React.FC = (): React.JSX.Element => {
             <LoginFeat
                 register={register} 
                 errors={errors}
+                isLoading={isLoading}
             />
         </form>
     );

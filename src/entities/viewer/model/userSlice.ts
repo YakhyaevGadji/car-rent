@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import {createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
 
@@ -17,49 +17,52 @@ type TypeUser = {
 interface IInitialState {
     user: {} | TypeUser,
     status: string,
-    isLogged: boolean
+    isLogged: boolean,
+    isLoading: boolean
 };
 
-export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProps) => {
-    const { data } = await instance.post(`/auth`, props);
-    
-    return data;
+export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProps, { rejectWithValue }) => {
+    try {
+        const { data } = await instance.post(`/auth`, props);
+        return data;
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message);
+        }
+    }
 });
 
 const initialState: IInitialState = {
     user: {},
     status: EnumStatus.LOADING,
-    isLogged: false
+    isLogged: false,
+    isLoading: false
 };
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {
-        setItems(state, action: PayloadAction<TypeUser>) {
-            state.user = action.payload;
-        } 
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(authUser.pending, (state) => {
-                state.user = {};
-                state.status = EnumStatus.LOADING;
                 state.isLogged = false;
+                state.isLoading = true;
             })
             .addCase(authUser.fulfilled, (state, action: PayloadAction<TypeUser>) => {
                 state.user = action.payload;
                 state.isLogged = true;
+                state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(authUser.rejected, (state) => {
-                state.user = {};
-                state.status = EnumStatus.ERROR;
                 state.isLogged = false;
-            });
+                state.isLoading = false;
+            })
+
     },
 });
-
-export const { setItems } = authSlice.actions;
 
 export default authSlice.reducer;

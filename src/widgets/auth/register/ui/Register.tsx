@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFeat } from "../../../../features/authFeat";
-import { useAppDispatch } from "../../../../app/appStore";
+import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
 import { registUser } from "../../../../entities/viewer/model/registSlice";
 import { AppErrors } from "../model/errors";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +11,7 @@ import { RegistShema } from "../../../../shared/utils/yup";
 import "./register.scss";
 
 const Register: React.FC = (): React.JSX.Element => {
+    const { isLoading } = useAppSelector((state) => state.regist);
     const navigate = useNavigate();
     const dispath = useAppDispatch();
 
@@ -30,8 +31,8 @@ const Register: React.FC = (): React.JSX.Element => {
         }
 
         if(data.password === data.repeatPassword) {
-            dispath(registUser(newData));
-
+            await dispath(registUser(newData));
+            
             navigate('/');
         }else {
             throw new Error(AppErrors.PasswordNotMatch);
@@ -44,7 +45,7 @@ const Register: React.FC = (): React.JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <RegisterFeat register={register} errors={errors}/>
+            <RegisterFeat register={register} errors={errors} isLoading={isLoading}/>
         </form>
     );
 }

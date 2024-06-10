@@ -1,10 +1,12 @@
 import React from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { IPropsLogin } from "../../../../widgets/auth/login/model/typesLogin";
+import { LoadingButton } from "@mui/lab";
 import "./loginFeat.scss";
 
-const LoginFeat: React.FC<IPropsLogin> = ({register, errors}) => {
+const LoginFeat: React.FC<IPropsLogin> = ({register, errors, isLoading}) => {
+    console.log(isLoading);
     return (
         <>
             <Typography className="form__title" variant="h2" fontFamily='Poppins' textAlign='center'>Авторизация</Typography>
@@ -32,7 +34,7 @@ const LoginFeat: React.FC<IPropsLogin> = ({register, errors}) => {
                 variant="outlined" 
                 placeholder="Введите ваш пароль"
             />
-            <Button className="form__submit" type="submit" sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}} variant="contained">Войти</Button>
+            <LoadingButton className="form__submit" loading={isLoading} fullWidth type="submit" sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}} variant="contained" >Войти</LoadingButton>
             <Typography className="form__regist" variant="body1" sx={{fontFamily: 'Poppins', }}>У вас нет аккаунта? <Link to="/register">Регистрация</Link></Typography>
         </>
     );

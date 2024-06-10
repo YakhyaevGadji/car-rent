@@ -6,6 +6,7 @@ export type InputsLogin = {
 }
 
 export interface IPropsLogin<TFieldValues extends FieldValues = FieldValues> {
-    register: UseFormRegister<InputsLogin>
-    errors: FieldErrors<TFieldValues>
+    register: UseFormRegister<InputsLogin>;
+    isLoading: boolean;
+    errors: FieldErrors<TFieldValues>;
 }

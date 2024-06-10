@@ -1,10 +1,11 @@
 import React from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { IPropsRegister } from "../../../../widgets/auth/register/model/typesRegister";
 import "./registerFeat.scss";
+import { LoadingButton } from "@mui/lab";
 
-const RegisterFeat: React.FC<IPropsRegister> = ({register, errors}) => {
+const RegisterFeat: React.FC<IPropsRegister> = ({register, errors, isLoading}) => {
     return (
         <>
             <Typography variant="h2" fontFamily='Poppins' textAlign='center'>Регистрация</Typography>
@@ -51,7 +52,7 @@ const RegisterFeat: React.FC<IPropsRegister> = ({register, errors}) => {
                 variant="outlined" 
                 placeholder="Повторите ваш пароль" 
             />
-            <Button type='submit' sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}} variant="contained">Регистрация</Button>
+            <LoadingButton loading={isLoading} type='submit' sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}} variant="contained">Регистрация</LoadingButton>
             <Typography variant="body1" sx={{fontFamily: 'Poppins', }}>У вас ecть аккаунта? <span className="incitingText"><Link to="/login">Авторизация</Link></span></Typography>
         </>
     );
