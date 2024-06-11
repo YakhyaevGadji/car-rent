@@ -1,10 +1,13 @@
 import React from "react";
+import ProfileHeader from "./profleHeader/ProfileHeader";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../../app/appStore";
 import "./header.scss";
 
-
 export const Header: React.FC = () => {
-   
+    const { isLogged, user } = useAppSelector((state) => state.auth);
+
+    console.log(user)
 
     return (
         <header className="header">
@@ -22,7 +25,7 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">About</NavLink>
                         </li>
                     </ul>
-                    <NavLink className="header__sign" to="/login">Sign / In</NavLink>
+                    {isLogged ? <ProfileHeader/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </nav>
             </div>
         </header>

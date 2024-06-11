@@ -23,12 +23,36 @@ interface IInitialState {
 
 export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProps, { rejectWithValue }) => {
     try {
-        const { data } = await instance.post(`/auth`, props);
-        return data;
+        const user = await instance.post(`/auth`, props);
+
+        sessionStorage.setItem('token', user.data.token);
+        sessionStorage.setItem('name', user.data.data.name);
+
+        return user.data;
     } catch (error: any) {
         if (error.response && error.response.data.message) {
             return rejectWithValue(error.response.data.message)
         } else {
+            return rejectWithValue(error.message);
+        }
+    }
+});
+
+export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWithValue }) => {
+    try {
+        const token = sessionStorage.getItem('token');
+
+        const user = await instance.get('/auth_me', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return user.data;
+    } catch (error: any) {
+        if(error.message && error.data.message) {
+            return rejectWithValue(error.response.data.message);
+        }else {
             return rejectWithValue(error.message);
         }
     }
@@ -58,6 +82,21 @@ const authSlice = createSlice({
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(authUser.rejected, (state) => {
+                state.isLogged = false;
+                state.isLoading = false;
+            })
+
+            .addCase(userAuthMe.pending, (state) => {
+                state.isLogged = false;
+                state.isLoading = true;
+            })
+            .addCase(userAuthMe.fulfilled, (state, action: PayloadAction<TypeUser>) => {
+                state.user = action.payload;
+                state.isLogged = true;
+                state.isLoading = false;
+                state.status = EnumStatus.SUCCESS;
+            })
+            .addCase(userAuthMe.rejected, (state) => {
                 state.isLogged = false;
                 state.isLoading = false;
             })

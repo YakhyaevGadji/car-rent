@@ -6,7 +6,6 @@ import { LoadingButton } from "@mui/lab";
 import "./loginFeat.scss";
 
 const LoginFeat: React.FC<IPropsLogin> = ({register, errors, isLoading}) => {
-    console.log(isLoading);
     return (
         <>
             <Typography className="form__title" variant="h2" fontFamily='Poppins' textAlign='center'>Авторизация</Typography>
