@@ -14,8 +14,14 @@ type TypeUser = {
     email: string
 };
 
+export type TypeUserAction = {
+    data: TypeUser,
+    token: string
+    // user: {data: TypeUser, token: string},
+};
+
 interface IInitialState {
-    user: {} | TypeUser,
+    user: TypeUserAction,
     status: string,
     isLogged: boolean,
     isLoading: boolean
@@ -59,7 +65,7 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
 });
 
 const initialState: IInitialState = {
-    user: {},
+    user: {data: {} as TypeUser, token: ''},
     status: EnumStatus.LOADING,
     isLogged: false,
     isLoading: false
@@ -75,8 +81,9 @@ const authSlice = createSlice({
                 state.isLogged = false;
                 state.isLoading = true;
             })
-            .addCase(authUser.fulfilled, (state, action: PayloadAction<TypeUser>) => {
+            .addCase(authUser.fulfilled, (state, action: PayloadAction<TypeUserAction>) => {
                 state.user = action.payload;
+                
                 state.isLogged = true;
                 state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;
@@ -91,7 +98,8 @@ const authSlice = createSlice({
                 state.isLoading = true;
             })
             .addCase(userAuthMe.fulfilled, (state, action: PayloadAction<TypeUser>) => {
-                state.user = action.payload;
+                state.user.data = action.payload;
+                console.log(action.payload);
                 state.isLogged = true;
                 state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;

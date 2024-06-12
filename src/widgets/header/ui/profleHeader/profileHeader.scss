@@ -1,0 +1,11 @@
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    width: 95px;
+
+    &__name {
+        color: var(--whiteColor);
+    }
+}

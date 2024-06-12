@@ -7,8 +7,6 @@ import "./header.scss";
 export const Header: React.FC = () => {
     const { isLogged, user } = useAppSelector((state) => state.auth);
 
-    console.log(user)
-
     return (
         <header className="header">
             <div className="container">
@@ -25,7 +23,7 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">About</NavLink>
                         </li>
                     </ul>
-                    {isLogged ? <ProfileHeader/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
+                    {isLogged ? <ProfileHeader user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </nav>
             </div>
         </header>
