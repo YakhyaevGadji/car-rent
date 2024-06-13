@@ -6,6 +6,7 @@ import { useAppDispatch } from "./appStore";
 import { Auth } from "../pages/Auth";
 import { useAuth } from "../shared/utils/hooks/useAuth";
 import { userAuthMe } from "../entities/viewer/model/userSlice";
+import { Profile } from "../pages/Profile";
 import "./styles/normalize.css";
 import "./styles/index.scss";
 
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                 <Route path="/Cars" element={<Cars/>}/>
                 <Route path="/login" element={<Auth/>}/>
                 <Route path="/register" element={<Auth/>}/>
+                <Route path="/profile/*" element={<Profile/>}/>
             </Routes>
         </BrowserRouter>
     );

@@ -99,7 +99,6 @@ const authSlice = createSlice({
             })
             .addCase(userAuthMe.fulfilled, (state, action: PayloadAction<TypeUser>) => {
                 state.user.data = action.payload;
-                console.log(action.payload);
                 state.isLogged = true;
                 state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;

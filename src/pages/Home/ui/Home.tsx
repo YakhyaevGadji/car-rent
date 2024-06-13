@@ -27,16 +27,19 @@ const Home: React.FC = () => {
     const carsMechanical = items.filter((item) => item.transmission === 'Механическая');
 
     return (
-        <main>
+        <>
             <Header/>
-            <Heading/>
-            <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
-            <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
-            <Advantage/>
-            <Faq/>
+            <main>
+                <Heading/>
+                <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
+                <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
+                <Advantage/>
+                <Faq/>
+                {showWindow === 'open' && <SingleModal/>}
+            </main>
             <Footer/>
-            {showWindow === 'open' && <SingleModal/>}
-        </main>
+        </>
+        
     );
 }
  

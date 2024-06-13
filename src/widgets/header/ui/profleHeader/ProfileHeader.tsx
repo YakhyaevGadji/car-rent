@@ -10,15 +10,10 @@ import { styled } from '@mui/system';
 import { CssTransition } from '@mui/base/Transitions';
 import { PopupContext } from '@mui/base/Unstable_Popup';
 import "./profileHeader.scss";
+import { Link } from "react-router-dom";
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
     const {user} = props;
-
-    const createHandleMenuClick = (menuItem: string) => {
-        return () => {
-            console.log(`Clicked on ${menuItem}`);
-        };
-    };
 
     return (
         <Dropdown>
@@ -27,11 +22,21 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                 <Avatar sx={{ width: 32, height: 32 }}>{user.data.name[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
-                <MenuItem onClick={createHandleMenuClick('Profile')}>Profile</MenuItem>
-                <MenuItem onClick={createHandleMenuClick('Language settings')}>
-                    Language settings
-                </MenuItem>
-                <MenuItem onClick={createHandleMenuClick('Log out')}>Log out</MenuItem>
+                <Link to="/profile">
+                    <MenuItem>
+                        Мои заказы
+                    </MenuItem>
+                </Link>
+                <Link to="/profile">
+                    <MenuItem>
+                        Настройки
+                    </MenuItem>
+                </Link>
+                <Link to="/profile">
+                    <MenuItem>
+                        Выход
+                    </MenuItem>
+                </Link>
             </Menu>
         </Dropdown>
     );
