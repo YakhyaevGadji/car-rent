@@ -21,7 +21,7 @@ const options = [
 const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
-    const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
+    // const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
     const [valueDateRangePicker, setValueDateRangePicker] = React.useState<Range[] | undefined>([
         {
             startDate: subDays(new Date(), 0),

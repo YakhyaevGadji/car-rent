@@ -14,13 +14,13 @@ export const Header: React.FC = () => {
                     <NavLink className="header__logo" to="/">RI</NavLink>
                     <ul className="header__list">
                         <li className="header__list-item">
-                            <NavLink className="header__list-link" to="/">Home</NavLink>
+                            <NavLink className="header__list-link" to="/">Домой</NavLink>
                         </li>
                         <li className="header__list-item">
-                            <NavLink className="header__list-link" to="/Cars">Cars</NavLink>
+                            <NavLink className="header__list-link" to="/Cars">Машины</NavLink>
                         </li>
                         <li className="header__list-item">
-                            <NavLink className="header__list-link" to="/About">About</NavLink>
+                            <NavLink className="header__list-link" to="/About">О нас</NavLink>
                         </li>
                     </ul>
                     {isLogged ? <ProfileHeader user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
