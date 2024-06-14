@@ -1,11 +1,12 @@
 import React from "react";
 import ProfileHeader from "./profleHeader/ProfileHeader";
 import { NavLink } from "react-router-dom";
-import { useAppSelector } from "../../../app/appStore";
+// import { useAppSelector } from "../../../app/appStore";
 import "./header.scss";
 
 export const Header: React.FC = () => {
-    const { isLogged, user } = useAppSelector((state) => state.auth);
+    // const {  } = useAppSelector((state) => state.auth);
+    const sessionName = sessionStorage.getItem('name');
 
     return (
         <header className="header">
@@ -23,7 +24,7 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">О нас</NavLink>
                         </li>
                     </ul>
-                    {isLogged ? <ProfileHeader user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
+                    {sessionName ? <ProfileHeader sessionName={sessionName}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </nav>
             </div>
         </header>

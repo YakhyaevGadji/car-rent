@@ -13,13 +13,13 @@ import "./profileHeader.scss";
 import { Link } from "react-router-dom";
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
-    const {user} = props;
+    const { sessionName} = props;
 
     return (
         <Dropdown>
             <MenuButton className="profile-header">
-                <p className="profile-header__name">{user.data.name}</p>
-                <Avatar sx={{ width: 32, height: 32 }}>{user.data.name[0]}</Avatar>
+                <p className="profile-header__name">{sessionName}</p>
+                <Avatar sx={{ width: 32, height: 32 }}>{sessionName?.[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
                 <Link to="/profile">
