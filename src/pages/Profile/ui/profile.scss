@@ -1,3 +1,13 @@
 .profile {
-    display: flex;
+    padding: 40px 0;
+ 
+    &__inner {
+        display: flex;
+    }
+
+    &__list {
+        padding: 10px;
+        border: 1px solid #000;
+        border-radius: 5px;
+    }
 }
