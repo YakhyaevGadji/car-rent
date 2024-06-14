@@ -22,7 +22,7 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                 <Avatar sx={{ width: 32, height: 32 }}>{sessionName?.[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
-                <Link to="/profile">
+                <Link to="/profile/orders">
                     <MenuItem>
                         Мои заказы
                     </MenuItem>

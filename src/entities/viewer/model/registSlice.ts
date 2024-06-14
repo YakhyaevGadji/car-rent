@@ -18,9 +18,12 @@ interface IInitialStateRegist {
 
 export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist, {rejectWithValue}) => {
     try {
-        const { data } = await instance.post(`/register`, props);
-        console.log(data);
-        return data;
+        const user = await instance.post(`/register`, props);
+        
+        sessionStorage.setItem('token', user.data.token);
+        sessionStorage.setItem('name', user.data.data.name);
+
+        return user.data;
     } catch (error: any) {
         if (error.response && error.response.data.message) {
             return rejectWithValue(error.response.data.message)
