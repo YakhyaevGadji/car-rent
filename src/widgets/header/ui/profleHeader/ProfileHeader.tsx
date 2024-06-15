@@ -9,8 +9,8 @@ import { MenuItem as BaseMenuItem, menuItemClasses } from '@mui/base/MenuItem';
 import { styled } from '@mui/system';
 import { CssTransition } from '@mui/base/Transitions';
 import { PopupContext } from '@mui/base/Unstable_Popup';
-import "./profileHeader.scss";
 import { Link } from "react-router-dom";
+import "./profileHeader.scss";
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
     const { sessionName} = props;
@@ -22,14 +22,19 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                 <Avatar sx={{ width: 32, height: 32 }}>{sessionName?.[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
-                <Link to="/profile/orders">
+                <Link to="/profile/user">
                     <MenuItem>
-                        Мои заказы
+                        Мой профиль
                     </MenuItem>
                 </Link>
-                <Link to="/profile">
+                <Link to="/profile/settings">
                     <MenuItem>
                         Настройки
+                    </MenuItem>
+                </Link>
+                <Link to="/profile/favorites">
+                    <MenuItem>
+                        Избранное
                     </MenuItem>
                 </Link>
                 <Link to="/profile">
