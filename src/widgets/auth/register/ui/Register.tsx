@@ -27,13 +27,12 @@ const Register: React.FC = (): React.JSX.Element => {
         const newData = {
             name: data.name,
             email: data.email,
-            password: data.password
+            password: data.password,
+            favorites: []
         }
 
         if(data.password === data.repeatPassword) {
             await dispath(registUser(newData));
-
-            console.log(true);
             
             navigate('/');
         }else {

@@ -10,7 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { ProfileHome } from "../../../widgets/profileTabs";
+import { ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
 import "./profile.scss";
 
 const Profile: React.FC = (): React.JSX.Element => {
@@ -68,6 +68,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                         <Routes>
                             <Route path="/user" element={<ProfileHome/>} />
                             <Route path="/orders" element="Мои заказы" />
+                            <Route path="/info" element={<ProfileInfo user={user}/>} />
                         </Routes>   
                     </div>
                 </div>

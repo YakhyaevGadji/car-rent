@@ -11,7 +11,8 @@ export type TypeProps = {
 type TypeUser = {
     id: number,
     name: string,
-    email: string
+    email: string,
+    favorites: number[]
 };
 
 export type TypeUserAction = {
@@ -19,6 +20,13 @@ export type TypeUserAction = {
     token: string
     // user: {data: TypeUser, token: string},
 };
+
+export interface ITypeUserData {
+    user: {
+        data: TypeUser,
+        token: string
+    }
+}
 
 interface IInitialState {
     user: TypeUserAction,
@@ -59,6 +67,23 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
         if(error.message && error.data.message) {
             return rejectWithValue(error.response.data.message);
         }else {
+            return rejectWithValue(error.message);
+        }
+    }
+});
+
+export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypeProps, { rejectWithValue }) => {
+    try {
+        const user = await instance.post(`/auth`, props);
+
+        sessionStorage.setItem('token', user.data.token);
+        sessionStorage.setItem('name', user.data.data.name);
+
+        return user.data;
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
             return rejectWithValue(error.message);
         }
     }

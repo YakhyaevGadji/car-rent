@@ -1,6 +1,7 @@
 import React from "react";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { TypeItems } from "../model/types";
-import { useAppDispatch } from "../../../app/appStore";
+import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { getAxiosCar, setShowWindow } from "../model/getCar";
 import "./carBlock.scss";
 
@@ -9,10 +10,18 @@ type TypeCarProps = {
 }
 
 const CarBlock: React.FC<TypeCarProps> = ({car}) => {
+    const { isLogged, user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
-    const onClickcar = () => {
+    const onClickcar = (event: any) => {
         const id = car.id;
+
+
+        if(event.target.classList.contains('car__icon')) {
+            console.log(event.target);
+            return
+        }
+        
 
         dispatch(setShowWindow('open'));
         dispatch(getAxiosCar({id}));
@@ -21,6 +30,7 @@ const CarBlock: React.FC<TypeCarProps> = ({car}) => {
     return (
         <>
             <li onClick={onClickcar} className="car">
+                {isLogged ? <FavoriteBorderIcon sx={{ width: 33, height: 33 }} className="car__icon"/> : ''}
                 <img className="car__img" src={car.mainImg} alt="" />
                 <p className="car__title">{car.fullTitle}</p>
                 <p className="car__details">{car.transmission}, {car.engine}л</p>
