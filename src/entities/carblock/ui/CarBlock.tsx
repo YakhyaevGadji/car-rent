@@ -4,6 +4,7 @@ import { TypeItems } from "../model/types";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { getAxiosCar, setShowWindow } from "../model/getCar";
 import "./carBlock.scss";
+import { favoriteUser } from "../../viewer/model/userSlice";
 
 type TypeCarProps = {
     car: TypeItems,
@@ -13,15 +14,19 @@ const CarBlock: React.FC<TypeCarProps> = ({car}) => {
     const { isLogged, user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
+    let favorites;
+
+    if(isLogged) {
+        favorites = user.data.favorites.find((item) => item === car.id);
+    }
+
     const onClickcar = (event: any) => {
         const id = car.id;
 
-
         if(event.target.classList.contains('car__icon')) {
-            console.log(event.target);
-            return
+            dispatch(favoriteUser({id}));
+            return false;
         }
-        
 
         dispatch(setShowWindow('open'));
         dispatch(getAxiosCar({id}));
@@ -30,7 +35,10 @@ const CarBlock: React.FC<TypeCarProps> = ({car}) => {
     return (
         <>
             <li onClick={onClickcar} className="car">
-                {isLogged ? <FavoriteBorderIcon sx={{ width: 33, height: 33 }} className="car__icon"/> : ''}
+                {isLogged ? <FavoriteBorderIcon 
+                    sx={{ width: 33, height: 33 }} 
+                    className={`car__icon ${favorites ? 'car__icon--active' : ''}`}
+                    /> : ''}
                 <img className="car__img" src={car.mainImg} alt="" />
                 <p className="car__title">{car.fullTitle}</p>
                 <p className="car__details">{car.transmission}, {car.engine}л</p>

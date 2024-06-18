@@ -8,6 +8,10 @@ export type TypeProps = {
     password: string
 };
 
+type TypePropsFavoriteUser = {
+    id: number
+}
+
 type TypeUser = {
     id: number,
     name: string,
@@ -72,12 +76,13 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
     }
 });
 
-export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypeProps, { rejectWithValue }) => {
+export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypePropsFavoriteUser, { rejectWithValue }) => {
     try {
-        const user = await instance.post(`/auth`, props);
+        const user = await instance.patch(`/users`, {
+            
+        });
 
-        sessionStorage.setItem('token', user.data.token);
-        sessionStorage.setItem('name', user.data.data.name);
+        console.log(user);
 
         return user.data;
     } catch (error: any) {
@@ -108,7 +113,6 @@ const authSlice = createSlice({
             })
             .addCase(authUser.fulfilled, (state, action: PayloadAction<TypeUserAction>) => {
                 state.user = action.payload;
-                
                 state.isLogged = true;
                 state.isLoading = false;
                 state.status = EnumStatus.SUCCESS;
@@ -129,6 +133,21 @@ const authSlice = createSlice({
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(userAuthMe.rejected, (state) => {
+                state.isLogged = false;
+                state.isLoading = false;
+            })
+
+            .addCase(favoriteUser.pending, (state) => {
+                state.isLogged = false;
+                state.isLoading = true;
+            })
+            .addCase(favoriteUser.fulfilled, (state, action: PayloadAction<TypeUser>) => {
+                state.user.data = action.payload;
+                state.isLogged = true;
+                state.isLoading = false;
+                state.status = EnumStatus.SUCCESS;
+            })
+            .addCase(favoriteUser.rejected, (state) => {
                 state.isLogged = false;
                 state.isLoading = false;
             })
