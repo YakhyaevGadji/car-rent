@@ -4,9 +4,37 @@
         margin-bottom: 25px;   
     }
 
-    &__about {
+    &__name {
+        font-weight: 600;
+        
+    }
+
+    &__text {
+        margin-bottom: 20px;
+    }
+
+    &__personal {
+        display: flex;
         padding: 10px;
         border: 1px solid #000;
         border-radius: 5px;
+    }
+
+    &__icon {
+        margin-right: 10px;
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        background-color: inherit;
+        border: 1px solid #000;
+        border-radius: 3px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    &__avatar {
+        margin-right: 15px;
     }
 }

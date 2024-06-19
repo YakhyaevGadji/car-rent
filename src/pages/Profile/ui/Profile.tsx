@@ -66,7 +66,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                             </ul>
                         </div>
                         <Routes>
-                            <Route path="/user" element={<ProfileHome/>} />
+                            <Route path="/user" element={<ProfileHome user={user}/>} />
                             <Route path="/orders" element="Мои заказы" />
                             <Route path="/info" element={<ProfileInfo user={user}/>} />
                         </Routes>   

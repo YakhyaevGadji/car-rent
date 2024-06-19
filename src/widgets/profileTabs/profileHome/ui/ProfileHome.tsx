@@ -2,9 +2,13 @@ import React from "react";
 import TakeoutDiningIcon from '@mui/icons-material/TakeoutDining';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
+import { ITypeUserData } from "../../../../entities/viewer/model/userSlice";
+import { NavLink } from "react-router-dom";
 import "./profileHome.scss";
 
-const ProfileHome: React.FC = (): React.JSX.Element => {
+const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
+    const { user } = props;
+
     return (
         <section className="profile-home">
             <h1 className="profile-home__title">Мой профиль</h1>
@@ -25,6 +29,12 @@ const ProfileHome: React.FC = (): React.JSX.Element => {
                         <FavoriteIcon sx={{ width: 50, height: 50 }}/>
                     </Link>
                 </div>
+            </div>
+            <div className="profile-home__user">
+                <p className="profile-home__user-name">{user.data.name}</p>
+                <p className="profile-home__user-phone">Телефо: </p>
+                <p className="profile-home__user-email">Email: {user.data.email}</p>
+                <NavLink to="/profile/info" className="profile-home__user-button">Изменять данные</NavLink>
             </div>
         </section>
     );

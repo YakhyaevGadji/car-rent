@@ -9,7 +9,8 @@ export type TypeProps = {
 };
 
 type TypePropsFavoriteUser = {
-    id: number
+    id: number,
+    user: TypeUserAction
 }
 
 type TypeUser = {
@@ -17,12 +18,12 @@ type TypeUser = {
     name: string,
     email: string,
     favorites: number[]
+    imgId?: number 
 };
 
 export type TypeUserAction = {
     data: TypeUser,
     token: string
-    // user: {data: TypeUser, token: string},
 };
 
 export interface ITypeUserData {
@@ -78,13 +79,23 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
 
 export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypePropsFavoriteUser, { rejectWithValue }) => {
     try {
-        const user = await instance.patch(`/users`, {
-            
-        });
+        const { id, user } = props;
+        
+        const modifyArray = async (arr: number[], num: number) => {
+            const index = arr.indexOf(num);
+            if (index > -1) {
+                arr.splice(index, 1);
+            } else {
+                arr.push(num); 
+            }
+            return arr;
+        };
+        
 
-        console.log(user);
+        const favoriteRequest = await instance.patch(`/users/${user.data.id}`, {favorites: []});
 
-        return user.data;
+        console.log(favoriteRequest);
+
     } catch (error: any) {
         if (error.response && error.response.data.message) {
             return rejectWithValue(error.response.data.message)
@@ -133,21 +144,6 @@ const authSlice = createSlice({
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(userAuthMe.rejected, (state) => {
-                state.isLogged = false;
-                state.isLoading = false;
-            })
-
-            .addCase(favoriteUser.pending, (state) => {
-                state.isLogged = false;
-                state.isLoading = true;
-            })
-            .addCase(favoriteUser.fulfilled, (state, action: PayloadAction<TypeUser>) => {
-                state.user.data = action.payload;
-                state.isLogged = true;
-                state.isLoading = false;
-                state.status = EnumStatus.SUCCESS;
-            })
-            .addCase(favoriteUser.rejected, (state) => {
                 state.isLogged = false;
                 state.isLoading = false;
             })
