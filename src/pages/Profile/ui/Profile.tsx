@@ -14,7 +14,7 @@ import { ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
 import "./profile.scss";
 
 const Profile: React.FC = (): React.JSX.Element => {
-    const { user } = useAppSelector((state) => state.auth);
+    const { user, isLogged } = useAppSelector((state) => state.auth);
 
     return (
         <>
@@ -24,7 +24,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                     <div className="profile__inner">
                         <div className="profile__box">
                             <div className="profile__data">
-                                <Avatar alt={user.data.name} src="/static/images/avatar/1.jpg" sx={{ width: 56, height: 56 }} />
+                                <Avatar alt={user.data.name} src={user.data.imgUrl} sx={{ width: 56, height: 56 }} />
                                 <p>{user.data.name}</p>
                             </div>
 
@@ -65,11 +65,13 @@ const Profile: React.FC = (): React.JSX.Element => {
                                 </li>
                             </ul>
                         </div>
-                        <Routes>
-                            <Route path="/user" element={<ProfileHome user={user}/>} />
-                            <Route path="/orders" element="Мои заказы" />
-                            <Route path="/info" element={<ProfileInfo user={user}/>} />
-                        </Routes>   
+                        <div className="profile__route">
+                            <Routes>
+                                <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged}/>} />
+                                <Route path="/orders" element="Мои заказы" />
+                                <Route path="/info" element={<ProfileInfo user={user} isLogged={isLogged}/>} />
+                            </Routes>   
+                        </div>
                     </div>
                 </div>
             </main>

@@ -7,7 +7,7 @@ import { NavLink } from "react-router-dom";
 import "./profileHome.scss";
 
 const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
-    const { user } = props;
+    const { user, isLogged} = props;
 
     return (
         <section className="profile-home">
@@ -24,7 +24,7 @@ const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
                     <Link to="/profile/favorites" className="profile-home__card">
                         <div className="profile-home__text">
                             <p className="profile-home__text-title">Избранное</p>
-                            <span className="profile-home__text-count">0</span>
+                            <span className="profile-home__text-count">{isLogged && user.data.favorites.length}</span>
                         </div>
                         <FavoriteIcon sx={{ width: 50, height: 50 }}/>
                     </Link>

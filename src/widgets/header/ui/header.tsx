@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">О нас</NavLink>
                         </li>
                     </ul>
-                    {sessionName ? <ProfileHeader sessionName={sessionName} user={user} isLogged={isLogged}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
+                    {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </nav>
             </div>
         </header>

@@ -3,7 +3,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { TypeItems } from "../model/types";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { getAxiosCar, setShowWindow } from "../model/getCar";
-import { favoriteUser } from "../../viewer/model/userSlice";
+import { favoriteUser, fetchPatchProfile } from "../../viewer/model/userSlice";
 import "./carBlock.scss";
 
 type TypeCarProps = {

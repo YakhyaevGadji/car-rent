@@ -13,10 +13,8 @@ import { Link } from "react-router-dom";
 import "./profileHeader.scss";
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
-    const { sessionName, user, isLogged } = props;
-
-    console.log(user);
-
+    const { sessionName, user } = props;
+    
     const onClickExit = () => {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('name');
@@ -27,7 +25,7 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
         <Dropdown>
             <MenuButton className="profile-header">
                 <p className="profile-header__name">{sessionName}</p>
-                <Avatar sx={{ width: 32, height: 32 }}>{isLogged && sessionName?.[0]}</Avatar>
+                <Avatar src={user.data.imgUrl} sx={{ width: 32, height: 32 }}>{user.data.imgUrl || sessionName?.[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
                 <Link to="/profile/user">

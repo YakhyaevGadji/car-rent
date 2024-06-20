@@ -32,6 +32,7 @@ export interface ITypeUserData {
         data: TypeUser,
         token: string
     }
+    isLogged: boolean
 }
 
 interface IInitialState {
@@ -101,21 +102,23 @@ export const fetchPatchProfile = createAsyncThunk('auth/profile',
 export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypePropsFavoriteUser, { rejectWithValue }) => {
     try {
         const { id, user } = props;
-        
-        const modifyArray = async (arr: number[], num: number) => {
-            const index = arr.indexOf(num);
+    
+        let newArray: number[] = [...user.data.favorites];
+
+        const modifyArray = () => {
+            const index = user.data.favorites.indexOf(id);
             if (index > -1) {
-                arr.splice(index, 1);
+                newArray.splice(index, 1);
             } else {
-                arr.push(num); 
+                newArray.push(id); 
             }
-            return arr;
         };
-        
 
-        const favoriteRequest = await instance.patch(`/users/${user.data.id}`, {favorites: []});
+        modifyArray();
 
-        console.log(favoriteRequest);
+        const favoriteRequest = await instance.patch(`/users/${user.data.id}`, {favorites: newArray});
+
+        return favoriteRequest.data;
 
     } catch (error: any) {
         if (error.response && error.response.data.message) {
