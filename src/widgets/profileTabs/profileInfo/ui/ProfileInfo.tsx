@@ -1,21 +1,67 @@
 import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { ITypeUserData } from "../../../../entities/viewer/model/userSlice";
+import { authUser, fetchPatchProfile, ITypeUserData, TypeUser, TypeUserAction } from "../../../../entities/viewer/model/userSlice";
 import { Avatar } from "@mui/material";
+import { instance } from "../../../../shared/utils/axios";
+import { useAppDispatch } from "../../../../app/appStore";
 import "./profileInfo.scss";
 
 const ProfileInfo: React.FC<ITypeUserData> = (props): React.JSX.Element => {
     const { user } = props;
+    const isLoadingAvatar = user.data.imgUrl ? true : false
     const inputFileRef = React.useRef<HTMLInputElement>(null);
+    const dispatch = useAppDispatch();
 
-    const buttonFile = (e: any) => {
+    const buttonFile = async (e: any) => {
         const file = e.target.files[0];
 
         const formData = new FormData();
         formData.append('file', file);
 
-        console.log(formData);
+        try {
+            if(isLoadingAvatar) {
+                await instance.delete(`/uploads/${user.data.imgId}`)
+            }else {
+                const { data } = await instance.post('/uploads', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        authorization: 'authorization-text'
+                    }
+                });
+
+                const changedData = {
+                    ...user.data,
+                    imgUrl: data.url,
+                    imgId: data.id
+                };
+
+                if(user.data.id === undefined) {
+                    return;
+                }
+
+                await reloadProfile(user.data.id, changedData);
+            }
+        } catch (error) {
+            
+        }
     };
+
+    const reloadProfile = async (id: number, changedData: TypeUser) => {
+        try {
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('name');
+
+            const userData = await dispatch(fetchPatchProfile({id, changedData}));
+
+            await dispatch(authUser({
+                email: userData.payload.email,
+                password: userData.payload.password
+            }));
+        } catch (error) {
+            
+        }
+    };
+
 
     return (
         <section className="prfile-info">

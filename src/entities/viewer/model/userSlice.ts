@@ -13,12 +13,13 @@ type TypePropsFavoriteUser = {
     user: TypeUserAction
 }
 
-type TypeUser = {
-    id: number,
-    name: string,
-    email: string,
-    favorites: number[]
-    imgId?: number 
+export type TypeUser = {
+    id: number;
+    name: string;
+    email: string;
+    favorites: number[];
+    imgId: number;
+    imgUrl: string;
 };
 
 export type TypeUserAction = {
@@ -75,6 +76,26 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
             return rejectWithValue(error.message);
         }
     }
+});
+
+export const fetchPatchProfile = createAsyncThunk('auth/profile',
+    async (
+        { id, changedData }: { id: number, changedData: TypeUser},
+        { rejectWithValue }
+    ) => {
+        try {
+
+            const user = await instance.patch(`/users/${id}`, changedData)
+
+            return user.data
+        }
+        catch (error: any) {
+            if (error.message && error.changedData.message) {
+                return rejectWithValue(error.response.changedData.message)
+            } else {
+                return rejectWithValue(error.message)
+            }
+        }
 });
 
 export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypePropsFavoriteUser, { rejectWithValue }) => {
@@ -146,6 +167,21 @@ const authSlice = createSlice({
             .addCase(userAuthMe.rejected, (state) => {
                 state.isLogged = false;
                 state.isLoading = false;
+            })
+
+            .addCase(fetchPatchProfile.fulfilled, (state, action) => {
+                state.user.data = action.payload
+    
+                state.isLogged = true
+                state.isLoading = false
+            })
+            .addCase(fetchPatchProfile.pending, (state) => {
+                state.isLogged = false
+                state.isLoading = true
+            })
+            .addCase(fetchPatchProfile.rejected, (state) => {
+                state.isLogged = false
+                state.isLoading = false
             })
 
     },

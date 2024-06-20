@@ -28,6 +28,8 @@ const Register: React.FC = (): React.JSX.Element => {
             name: data.name,
             email: data.email,
             password: data.password,
+            imgUrl: '',
+            imgId: 0,
             favorites: []
         }
 

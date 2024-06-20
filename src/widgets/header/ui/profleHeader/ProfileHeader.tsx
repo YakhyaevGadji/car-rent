@@ -13,13 +13,21 @@ import { Link } from "react-router-dom";
 import "./profileHeader.scss";
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
-    const { sessionName} = props;
+    const { sessionName, user, isLogged } = props;
+
+    console.log(user);
+
+    const onClickExit = () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('name');
+        location.reload();
+    };
 
     return (
         <Dropdown>
             <MenuButton className="profile-header">
                 <p className="profile-header__name">{sessionName}</p>
-                <Avatar sx={{ width: 32, height: 32 }}>{sessionName?.[0]}</Avatar>
+                <Avatar sx={{ width: 32, height: 32 }}>{isLogged && sessionName?.[0]}</Avatar>
             </MenuButton>
             <Menu slots={{ listbox: AnimatedListbox }}>
                 <Link to="/profile/user">
@@ -37,11 +45,11 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                         Избранное
                     </MenuItem>
                 </Link>
-                <Link to="/profile">
+                <button onClick={onClickExit} className="profile-header__exit">
                     <MenuItem>
                         Выход
                     </MenuItem>
-                </Link>
+                </button>
             </Menu>
         </Dropdown>
     );
@@ -146,6 +154,8 @@ const MenuItem = styled(BaseMenuItem)(
     border-radius: 8px;
     cursor: default;
     user-select: none;
+    color: #000;
+
   
     &:last-of-type {
       border-bottom: none;
@@ -154,7 +164,7 @@ const MenuItem = styled(BaseMenuItem)(
     &:focus {
       outline: 3px solid ${theme.palette.mode === 'dark' ? blue[600] : blue[200]};
       background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[100]};
-      color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
+      color: #000;
     }
   
     &.${menuItemClasses.disabled} {

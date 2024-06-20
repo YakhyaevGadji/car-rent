@@ -8,4 +8,12 @@
     &__name {
         color: var(--whiteColor);
     }
+
+    &__exit {
+        border: 0;
+        background-color: inherit;
+        padding: 0;
+        width: 100%;
+        text-align: left;
+    }
 }
