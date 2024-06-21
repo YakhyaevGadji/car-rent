@@ -1,5 +1,4 @@
 .prfile-info {
-
     &__title {
         margin-bottom: 25px;   
     }
@@ -14,10 +13,27 @@
     }
 
     &__personal {
+        max-width: 536px;
         display: flex;
         padding: 10px;
         border: 1px solid #000;
         border-radius: 5px;
+    }
+
+    &__delete {
+        display: flex;
+        align-items: center;
+        background-color: inherit;
+        border: 1px solid #000;
+
+        &-icon {
+            margin-left: 5px;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
     }
 
     &__icon {

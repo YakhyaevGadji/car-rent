@@ -1,5 +1,6 @@
 import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { authUser, fetchPatchProfile, ITypeUserData, TypeUser } from "../../../../entities/viewer/model/userSlice";
 import { Avatar } from "@mui/material";
 import { instance } from "../../../../shared/utils/axios";
@@ -61,6 +62,18 @@ const ProfileInfo: React.FC<ITypeUserData> = (props): React.JSX.Element => {
         }
     };
 
+    const removeAvatar = async () => {
+        await instance.delete(`/uploads/${user.data.imgId}`);
+
+        const changedData = {
+            ...user.data,
+            imgUrl: "",
+            imgId: 0
+        };
+
+        await reloadProfile(user.data.id, changedData)
+    };
+
 
     return (
         <section className="prfile-info">
@@ -71,10 +84,16 @@ const ProfileInfo: React.FC<ITypeUserData> = (props): React.JSX.Element => {
                     <p className="prfile-info__name">Аватарка</p>
                     <p className="prfile-info__text">Для добавления фотографии перетащите её сюда</p>
                     <input ref={inputFileRef} onChange={buttonFile} hidden type="file"/>
-                    <button className="prfile-info__button" onClick={() => inputFileRef.current?.click()}>
-                        <UploadFileIcon className="prfile-info__icon"/>
-                        Выбрать аватар
-                    </button>
+                    <div className="prfile-info__buttons">
+                        <button className="prfile-info__button" onClick={() => inputFileRef.current?.click()}>
+                            <UploadFileIcon className="prfile-info__icon"/>
+                            Выбрать аватар
+                        </button>
+                        {isLoadingAvatar && <button onClick={removeAvatar} className="prfile-info__delete">
+                            Удалить
+                            <DeleteIcon className="prfile-info__delete-icon"/>
+                        </button>}
+                    </div>
                 </div>
             </div>
         </section>
