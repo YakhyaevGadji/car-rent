@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { RegisterFeat } from "../../../../features/authFeat";
 import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
-import { registUser } from "../../../../entities/viewer/model/registSlice";
+import { registUser } from "../../../../entities/viewer/model/userSlice";
 import { AppErrors } from "../model/errors";
 import { useNavigate } from "react-router-dom";
 import { InputsRegister } from "../model/typesRegister";
@@ -11,7 +11,7 @@ import { RegistShema } from "../../../../shared/utils/yup";
 import "./register.scss";
 
 const Register: React.FC = (): React.JSX.Element => {
-    const { isLoading } = useAppSelector((state) => state.regist);
+    const { isLoading } = useAppSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispath = useAppDispatch();
 

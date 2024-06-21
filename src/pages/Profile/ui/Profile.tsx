@@ -24,7 +24,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                     <div className="profile__inner">
                         <div className="profile__box">
                             <div className="profile__data">
-                                <Avatar alt={user.data.name} src={user.data.imgUrl} sx={{ width: 56, height: 56 }} />
+                                <Avatar alt={user.data.name} src={user.data.imgUrl || user.data.name} sx={{ width: 56, height: 56 }} />
                                 <p>{user.data.name}</p>
                             </div>
 

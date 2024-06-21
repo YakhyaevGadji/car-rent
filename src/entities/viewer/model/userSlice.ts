@@ -3,6 +3,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
 
+type TypeUserRegist = {
+    name: string,
+    email: string,
+    password: string,
+}
+
 export type TypeProps = {
     email: string,
     password: string
@@ -46,6 +52,23 @@ export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProp
     try {
         const user = await instance.post(`/auth`, props);
 
+        sessionStorage.setItem('token', user.data.token);
+        sessionStorage.setItem('name', user.data.data.name);
+
+        return user.data;
+    } catch (error: any) {
+        if (error.response && error.response.data.message) {
+            return rejectWithValue(error.response.data.message)
+        } else {
+            return rejectWithValue(error.message);
+        }
+    }
+});
+
+export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist, {rejectWithValue}) => {
+    try {
+        const user = await instance.post(`/register`, props);
+        
         sessionStorage.setItem('token', user.data.token);
         sessionStorage.setItem('name', user.data.data.name);
 
@@ -185,6 +208,36 @@ const authSlice = createSlice({
             .addCase(fetchPatchProfile.rejected, (state) => {
                 state.isLogged = false
                 state.isLoading = false
+            })
+
+            .addCase(registUser.pending, (state) => {
+                state.isLogged = false;
+                state.isLoading = true;
+            })
+            .addCase(registUser.fulfilled, (state, action) => {
+                state.user = action.payload;
+                state.isLogged = true;
+                state.isLoading = false;
+                state.status = EnumStatus.SUCCESS;
+            })
+            .addCase(registUser.rejected, (state) => {
+                state.isLogged = false;
+                state.isLoading = false;
+            })
+
+            .addCase(favoriteUser.pending, (state) => {
+                state.isLogged = false;
+                state.isLoading = true;
+            })
+            .addCase(favoriteUser.fulfilled, (state, action) => {
+                state.user.data = action.payload;
+                state.isLogged = true;
+                state.isLoading = false;
+                state.status = EnumStatus.SUCCESS;
+            })
+            .addCase(favoriteUser.rejected, (state) => {
+                state.isLogged = false;
+                state.isLoading = false;
             })
 
     },
