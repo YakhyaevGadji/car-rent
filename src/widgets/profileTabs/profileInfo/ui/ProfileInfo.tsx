@@ -1,6 +1,6 @@
 import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { authUser, fetchPatchProfile, ITypeUserData, TypeUser, TypeUserAction } from "../../../../entities/viewer/model/userSlice";
+import { authUser, fetchPatchProfile, ITypeUserData, TypeUser } from "../../../../entities/viewer/model/userSlice";
 import { Avatar } from "@mui/material";
 import { instance } from "../../../../shared/utils/axios";
 import { useAppDispatch } from "../../../../app/appStore";
@@ -21,26 +21,25 @@ const ProfileInfo: React.FC<ITypeUserData> = (props): React.JSX.Element => {
         try {
             if(isLoadingAvatar) {
                 await instance.delete(`/uploads/${user.data.imgId}`)
-            }else {
-                const { data } = await instance.post('/uploads', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        authorization: 'authorization-text'
-                    }
-                });
-
-                const changedData = {
-                    ...user.data,
-                    imgUrl: data.url,
-                    imgId: data.id
-                };
-
-                if(user.data.id === undefined) {
-                    return;
-                }
-
-                await reloadProfile(user.data.id, changedData);
             }
+            const { data } = await instance.post('/uploads', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    authorization: 'authorization-text'
+                }
+            });
+
+            const changedData = {
+                ...user.data,
+                imgUrl: data.url,
+                imgId: data.id
+            };
+
+            if(user.data.id === undefined) {
+                return;
+            }
+
+            await reloadProfile(user.data.id, changedData);
         } catch (error) {
             
         }
