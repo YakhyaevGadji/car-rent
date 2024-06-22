@@ -10,11 +10,12 @@ import { Route, Routes } from "react-router-dom";
 import { useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
+import { ProfileFavs, ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
 import "./profile.scss";
 
 const Profile: React.FC = (): React.JSX.Element => {
     const { user, isLogged } = useAppSelector((state) => state.auth);
+
 
     return (
         <>
@@ -69,6 +70,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                             <Routes>
                                 <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged}/>} />
                                 <Route path="/orders" element="Мои заказы" />
+                                <Route path="/favorites" element={<ProfileFavs user={user}/>} />
                                 <Route path="/info" element={<ProfileInfo user={user} isLogged={isLogged}/>} />
                             </Routes>   
                         </div>
