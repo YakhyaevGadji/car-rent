@@ -79,7 +79,7 @@ const ProfileInfo: React.FC<ITypeUserData> = (props): React.JSX.Element => {
         <section className="prfile-info">
             <h1 className="prfile-info__title">Личная информация</h1>
             <div className="prfile-info__personal">
-                <Avatar className="prfile-info__avatar" alt={user.data.name} src={user.data.imgUrl} sx={{ width: 100, height: 100 }} />
+                <Avatar className="prfile-info__avatar" alt={user.data.name} src={user.data.imgUrl || user.data.name} sx={{ width: 100, height: 100 }} />
                 <div className="prfile-info__data">
                     <p className="prfile-info__name">Аватарка</p>
                     <p className="prfile-info__text">Для добавления фотографии перетащите её сюда</p>

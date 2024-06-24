@@ -10,9 +10,11 @@ import { SingleModal } from "../../../widgets/singleModal";
 import { Pagination } from "@mui/material";
 import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
 import "./cars.scss";
+import { EnumStatus } from "../../../entities/carblock/model/types";
 
 const Cars: React.FC = () => {
     const { sort, searchCars, price, page } = useAppSelector((state) => state.filters);
+    const { status } = useAppSelector((state) => state.getFilterCars);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 

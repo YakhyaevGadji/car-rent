@@ -21,8 +21,13 @@ export enum EnumStatus {
     ERROR = 'error'
 }
 
-export interface IInitialState {
+export interface ITypeFilterRequest {
     items: TypeItems[],
+    meta: Record<string, number>
+}
+
+export interface IInitialState {
+    items: ITypeFilterRequest,
     status: EnumStatus.LOADING | EnumStatus.SUCCESS | EnumStatus.ERROR
 }
 
