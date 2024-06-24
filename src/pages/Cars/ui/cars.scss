@@ -8,6 +8,14 @@
         justify-content: space-between;
     }
 
+    &__pagination {
+        margin-top: 50px;
+    }
+
+    .MuiPagination-ul.css-wjh20t-MuiPagination-ul {
+        justify-content: center;
+    }
+
     &__filters {
         max-width: 280px;
         width: 100%;

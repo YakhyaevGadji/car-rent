@@ -1,0 +1,47 @@
+.profile-favs {
+    &__list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+
+    &__title {
+        font-weight: 600;
+        text-transform: uppercase;
+        
+    }
+
+    &__details {
+        margin-bottom: 20px;
+    }
+
+    &__icon {
+        color: red;
+    }
+
+    &__button {
+        position: absolute;
+        background-color: inherit;
+        border: 0;
+        right: 5px;
+        top: 5px;
+        z-index: 1;
+    }
+
+    &__item {
+        position: relative;
+
+        &:hover {
+            .profile-favs__title {
+                color: var(--blueColor);
+                transition: .2s;
+            }
+            .car__img {
+                transform: scale(1.05);
+                transition: .2s;
+            }
+        }
+    }
+}

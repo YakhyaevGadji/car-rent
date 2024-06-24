@@ -12,7 +12,8 @@ const initialState = {
     },
     searchCars: "",
     price: [10, 100],
-    brand: "Все"
+    brand: "Все",
+    page: 1
 };
 
 const filterSlice = createSlice({
@@ -30,10 +31,13 @@ const filterSlice = createSlice({
         },
         setbrand(state, action: PayloadAction<string>) {
             state.brand = action.payload
+        },
+        setPage(state, action: PayloadAction<number>) {
+            state.page = action.payload
         }
     },
 });
 
-export const { setSort, setSearchCars, setPrice, setbrand } = filterSlice.actions;
+export const { setSort, setSearchCars, setPrice, setbrand, setPage } = filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -12,7 +12,6 @@ type TypeCarProps = {
 
 const CarBlock: React.FC<TypeCarProps> = ({car}) => {
     const { isLogged, user } = useAppSelector((state) => state.auth);
-    const [toggleIcon, setToggleIcon] = React.useState<boolean>(false);
     const dispatch = useAppDispatch();
 
     let favorites;
@@ -36,7 +35,7 @@ const CarBlock: React.FC<TypeCarProps> = ({car}) => {
     return (
         <>
             <li onClick={onClickcar} className="car">
-                {isLogged ? <div onClick={() => setToggleIcon(!toggleIcon)}><FavoriteBorderIcon  
+                {isLogged ? <div ><FavoriteBorderIcon  
                     sx={{ width: 33, height: 33 }} 
                     className={`car__icon ${favorites ? 'car__icon--active' : ''}`}
                     /></div> : ''}

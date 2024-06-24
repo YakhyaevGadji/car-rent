@@ -7,15 +7,24 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
 import { Route, Routes } from "react-router-dom";
-import { useAppSelector } from "../../../app/appStore";
+import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { ProfileFavs, ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
+import { EnumStatus } from "../../../entities/carblock/model/types";
+import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import "./profile.scss";
 
 const Profile: React.FC = (): React.JSX.Element => {
-    const { user, isLogged } = useAppSelector((state) => state.auth);
+    const { user, isLogged } = useAppSelector((state) => state.auth);    
+    const { items, status } = useAppSelector((state) => state.cars);
+    const dispatch = useAppDispatch();
 
+    React.useEffect(() => {
+        dispatch(fetchCars());
+    }, []);
+
+    const test = isLogged && status === EnumStatus.SUCCESS ? true : false;
 
     return (
         <>
@@ -70,7 +79,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                             <Routes>
                                 <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged}/>} />
                                 <Route path="/orders" element="Мои заказы" />
-                                <Route path="/favorites" element={<ProfileFavs user={user}/>} />
+                                <Route path="/favorites" element={test && <ProfileFavs user={user} items={items}/>} />
                                 <Route path="/info" element={<ProfileInfo user={user} isLogged={isLogged}/>} />
                             </Routes>   
                         </div>

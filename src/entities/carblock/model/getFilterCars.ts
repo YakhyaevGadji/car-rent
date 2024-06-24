@@ -4,11 +4,11 @@ import { EnumStatus, IInitialState, IRequestProps, TypeItems } from "./types";
 import { instance } from "../../../shared/utils/axios";
 
 export const fetchFilterCars = createAsyncThunk<TypeItems[], IRequestProps>("cars/fetchFilterCars", async (params) => {
-    const { sort, searchCars, price } = params;
+    const { sort, searchCars, price, page } = params;
 
-    const { data } = await instance.get<TypeItems[]>(`/cars?sortBy=${sort.property}&fullTitle=*${searchCars}&price[from]=${price[0]}&price[to]=${price[1]}`);
+    const { data } = await instance.get(`/cars?page=${page}&limit=12&sortBy=${sort.property}&fullTitle=*${searchCars}&price[from]=${price[0]}&price[to]=${price[1]}`);
 
-    return data;
+    return data.items;
 });
 
 const initialState: IInitialState = {

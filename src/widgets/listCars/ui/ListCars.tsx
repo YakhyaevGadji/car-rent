@@ -8,7 +8,7 @@ import "./listCars.scss";
 
 const ListCars: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
-
+    
     const skeleton = [...new Array(15)].map((_, index) => <Skeleton key={index}/>);
     const renderCars = items.map((car, index) => <CarBlock key={index} car={car}/>);
     const emptyCar = items.length === 0 ? true : false;
