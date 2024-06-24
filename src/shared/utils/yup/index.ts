@@ -11,3 +11,8 @@ export const RegistShema = yup.object().shape({
     password: yup.string().min(8, 'Минимальная длина 8 символов').required('Это поле обязательное'),
     repeatPassword: yup.string().min(8, 'Минимальная длина 8 символов').required('Это поле обязательное')
 });
+
+export const FormShema = yup.object().shape({
+    fullName: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное'),
+    address: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное')
+});

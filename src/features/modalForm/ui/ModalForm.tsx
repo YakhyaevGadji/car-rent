@@ -18,7 +18,7 @@ const options = [
     { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
-const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue }): React.JSX.Element => {
+const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     // const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
@@ -81,11 +81,15 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue }): React.JSX
             />
 
             {receiving.value === 'delivery' && (
-                <input 
+                <TextField
+                    // error={receiving.value === 'delivery' && !!errors.address}
+                    // helperText={errors.address?.message ? `${errors.address.message}` : ''}
                     {...register('address')}
                     className="form__modal-addres"  
-                    type="text" 
-                    placeholder="Введите Адрес" 
+                    type="text"
+                    fullWidth={true}
+                    label="Введите Адрес"
+                    variant="outlined"
                 />
             )}
 
@@ -129,6 +133,8 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue }): React.JSX
                 <li className="form__modal-item">
                     <p className="form__modal-subtitle">Имя и фамилия</p>
                     <TextField
+                        error={!!errors.fullName}
+                        helperText={errors.fullName?.message ? `${errors.fullName.message}` : ''}
                         {...register('fullName')}
                         className="form__modal-name"
                         type="text"

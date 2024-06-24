@@ -10,6 +10,8 @@ import { Keyboard, Pagination, Navigation } from "swiper/modules";
 import { ModalForm } from "../../../features/modalForm";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { FormShema } from "../../../shared/utils/yup";
 import "./singleModal.scss";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -27,7 +29,9 @@ const SingleModal: React.FC = (): React.JSX.Element => {
         setValue,
         watch,
         formState: { errors },
-    } = useForm<TypesModalForm>();
+    } = useForm<TypesModalForm>({
+        resolver: yupResolver(FormShema)
+    });
 
     const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
         console.log(data);
@@ -112,7 +116,11 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 </TabPanel>
                                 <TabPanel className="modal__box" value="2">
                                     <form onSubmit={handleSubmit(onSubmit)}>
-                                        <ModalForm register={register} setValue={setValue}/>
+                                        <ModalForm 
+                                            register={register} 
+                                            setValue={setValue} 
+                                            errors={errors}
+                                        />
                                     </form>
                                 </TabPanel>
                                 <div className="modal__result">

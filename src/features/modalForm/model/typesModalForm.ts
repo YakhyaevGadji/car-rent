@@ -22,5 +22,5 @@ export type TypeSelect = {
 export interface IPropsModalFrom<TFieldValues extends FieldValues = FieldValues> {
     register: UseFormRegister<TypesModalForm>
     setValue: UseFormSetValue<TypesModalForm>
-    // errors: FieldErrors<TFieldValues>
+    errors: FieldErrors<TFieldValues>
 }
