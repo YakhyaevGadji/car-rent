@@ -1,5 +1,6 @@
 import React from "react";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
+import topScroll from "../../../shared/utils/topScroll/topScroll";
 import { FilterBrand, FilterPrice, FilterSort, FiltersReset } from "../../../widgets/filters";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
@@ -9,12 +10,12 @@ import { Footer } from "../../../widgets/footer";
 import { SingleModal } from "../../../widgets/singleModal";
 import { Pagination } from "@mui/material";
 import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
-import "./cars.scss";
 import { EnumStatus } from "../../../entities/carblock/model/types";
+import "./cars.scss";
 
 const Cars: React.FC = () => {
+    const { items, status } = useAppSelector((state) => state.getFilterCars);
     const { sort, searchCars, price, page } = useAppSelector((state) => state.filters);
-    const { status } = useAppSelector((state) => state.getFilterCars);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 
@@ -22,9 +23,9 @@ const Cars: React.FC = () => {
         dispatch(fetchFilterCars({ sort, searchCars, price, page }));
     };
 
-    const onChangePagination = (event: any, value: number) => {       
+    const onChangePagination = (_: any, value: number) => {  
+        topScroll()   
         dispatch(setPage(value));
-        window.scrollBy(0, 0);
     };
 
     React.useEffect(() => {
@@ -46,7 +47,12 @@ const Cars: React.FC = () => {
                                 <FilterSort />
                                 <Search />
                                 <ListCars/>
-                                <Pagination className="cars__pagination" onChange={onChangePagination} count={10} size="large" />
+                                <Pagination 
+                                    className="cars__pagination" 
+                                    onChange={onChangePagination} 
+                                    count={status === EnumStatus.SUCCESS ? items.meta.total_pages : 3} 
+                                    size="large" 
+                                />
                             </div>
                         </div> 
                     </div>
