@@ -14,5 +14,5 @@ export const RegistShema = yup.object().shape({
 
 export const FormShema = yup.object().shape({
     fullName: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное'),
-    address: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное')
+    // address: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное')
 });

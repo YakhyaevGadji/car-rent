@@ -12,6 +12,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormShema } from "../../../shared/utils/yup";
+import { fetchPatchProfile } from "../../../entities/viewer/model/userSlice";
 import "./singleModal.scss";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -19,6 +20,7 @@ import "swiper/css/navigation";
 
 const SingleModal: React.FC = (): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
+    const { user } = useAppSelector((state) => state.auth);
     const { receiving, date } = useAppSelector((state) => state.modalCar);
     const [valueButton, setValueButton] = React.useState<string>('1');
     const dispatch = useAppDispatch();
@@ -34,7 +36,14 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     });
 
     const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
-        console.log(data);
+        const id = user.data.id;
+
+        const changedData = {
+            ...user.data,
+            applications: [...user.data.applications, data]
+        }
+
+        dispatch(fetchPatchProfile({id, changedData}));
         dispatch(setShowWindow("closed"));
     };
 

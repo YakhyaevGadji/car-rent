@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { instance } from "../../../shared/utils/axios";
 import { EnumStatus } from "../../carblock/model/types";
+import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
 
 type TypeUserRegist = {
     name: string,
@@ -19,11 +20,27 @@ type TypePropsFavoriteUser = {
     user: TypeUserAction
 }
 
+type TypeApplication = {
+    comment: string;
+    dateBrith: string;
+    email: string;
+    fullName: string;
+    messenger: string;
+    numberPhone: string;
+    rentalReriod: string;
+    receipt: {
+        value: string, 
+        label: string, 
+        priceDev: number
+    } | null
+}
+
 export type TypeUser = {
     id: number;
     name: string;
     email: string;
     favorites: number[];
+    applications: TypesModalForm[],
     imgId: number;
     imgUrl: string;
 };
@@ -38,7 +55,6 @@ export interface ITypeUserData {
         data: TypeUser,
         token: string
     }
-    isLogged: boolean
 }
 
 interface IInitialState {
@@ -65,10 +81,10 @@ export const authUser = createAsyncThunk("auth/authUser", async (props: TypeProp
     }
 });
 
-export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist, {rejectWithValue}) => {
+export const registUser = createAsyncThunk("regist/registUser", async (props: TypeUserRegist, { rejectWithValue }) => {
     try {
         const user = await instance.post(`/register`, props);
-        
+
         sessionStorage.setItem('token', user.data.token);
         sessionStorage.setItem('name', user.data.data.name);
 
@@ -94,9 +110,9 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
 
         return user.data;
     } catch (error: any) {
-        if(error.message && error.data.message) {
+        if (error.message && error.data.message) {
             return rejectWithValue(error.response.data.message);
-        }else {
+        } else {
             return rejectWithValue(error.message);
         }
     }
@@ -104,7 +120,7 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
 
 export const fetchPatchProfile = createAsyncThunk('auth/profile',
     async (
-        { id, changedData }: { id: number, changedData: TypeUser},
+        { id, changedData }: { id: number, changedData: TypeUser },
         { rejectWithValue }
     ) => {
         try {
@@ -120,12 +136,12 @@ export const fetchPatchProfile = createAsyncThunk('auth/profile',
                 return rejectWithValue(error.message)
             }
         }
-});
+    });
 
 export const favoriteUser = createAsyncThunk("auth/favorite", async (props: TypePropsFavoriteUser, { rejectWithValue }) => {
     try {
         const { id, user } = props;
-    
+
         let newArray: number[] = [...user.data.favorites];
 
         const modifyArray = () => {
@@ -133,13 +149,13 @@ export const favoriteUser = createAsyncThunk("auth/favorite", async (props: Type
             if (index > -1) {
                 newArray.splice(index, 1);
             } else {
-                newArray.push(id); 
+                newArray.push(id);
             }
         };
 
         modifyArray();
 
-        const favoriteRequest = await instance.patch(`/users/${user.data.id}`, {favorites: newArray});
+        const favoriteRequest = await instance.patch(`/users/${user.data.id}`, { favorites: newArray });
 
         return favoriteRequest.data;
 
@@ -153,7 +169,7 @@ export const favoriteUser = createAsyncThunk("auth/favorite", async (props: Type
 });
 
 const initialState: IInitialState = {
-    user: {data: {} as TypeUser, token: ''},
+    user: { data: {} as TypeUser, token: '' },
     status: EnumStatus.LOADING,
     isLogged: false,
     isLoading: false
@@ -197,7 +213,7 @@ const authSlice = createSlice({
 
             .addCase(fetchPatchProfile.fulfilled, (state, action) => {
                 state.user.data = action.payload
-    
+
                 state.isLogged = true
                 state.isLoading = false
             })

@@ -82,8 +82,8 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): R
 
             {receiving.value === 'delivery' && (
                 <TextField
-                    // error={receiving.value === 'delivery' && !!errors.address}
-                    // helperText={errors.address?.message ? `${errors.address.message}` : ''}
+                    error={receiving.value === 'delivery' && !!errors.address}
+                    helperText={errors.address?.message ? `${errors.address.message}` : ''}
                     {...register('address')}
                     className="form__modal-addres"  
                     type="text"
@@ -91,7 +91,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): R
                     label="Введите Адрес"
                     variant="outlined"
                 />
-            )}
+            )} 
 
             <p className="form__modal-title">Дата аренды</p>
 

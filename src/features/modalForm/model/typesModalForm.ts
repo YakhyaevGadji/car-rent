@@ -10,7 +10,7 @@ export type TypesModalForm = {
     numberPhone: string,
     messenger: string,
     comment: string
-    address: string
+    address: string | null
 };
 
 export type TypeSelect = {
