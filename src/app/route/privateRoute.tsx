@@ -4,7 +4,7 @@ import { useAuth } from "../../shared/utils/hooks/useAuth";
 const PrivateRoute = () => {
     const auth = useAuth()
     return (
-        auth ? <Navigate to="/"/> : <Navigate to="/login" />
+        auth ? <Outlet/> : <Navigate to="/login" />
     );
 };
 

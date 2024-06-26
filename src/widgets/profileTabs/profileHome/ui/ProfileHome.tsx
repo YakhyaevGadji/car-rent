@@ -17,7 +17,7 @@ const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
                     <Link to="/profile/orders" className="profile-home__card">
                         <div className="profile-home__text">
                             <p className="profile-home__text-title">Заказы</p>
-                            <span className="profile-home__text-count">0</span>
+                            <span className="profile-home__text-count">{user.data.applications.length}</span>
                         </div>
                         <TakeoutDiningIcon sx={{ width: 50, height: 50 }}/>
                     </Link>
