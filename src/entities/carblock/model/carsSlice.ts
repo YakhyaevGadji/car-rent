@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import {createAsyncThunk } from "@reduxjs/toolkit";
-import { EnumStatus, IInitialState } from "./types";
+import { EnumStatus, ITypeInitialState, TypeItems } from "./types";
 import { instance } from "../../../shared/utils/axios";
 
 export const fetchCars = createAsyncThunk("cars/fetchCars", async () => {
     const { data } = await instance.get(`/cars`);
+
     return data;
   }
 );
 
-const initialState: IInitialState = {
-    items: [],
+const initialState: ITypeInitialState = {
+    items: [] as TypeItems[],
     status: EnumStatus.LOADING,
 };
 

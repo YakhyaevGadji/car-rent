@@ -18,7 +18,7 @@ const options = [
     { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
-const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): React.JSX.Element => {
+const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     // const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
@@ -29,7 +29,21 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): R
             key: "selection",
         },
     ]);
+    const newData = new Date();
     const dispatch = useAppDispatch();
+
+    const formatDate = (date: any) => {
+        const months = [
+            "января", "февраля", "марта", "апреля", "мая", "июня",
+            "июля", "августа", "сентября", "октября", "ноября", "декабря"
+        ];
+    
+        const day = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+    
+        return `${day} ${month} ${year}`;
+    }
 
 
     // const formattedValueDatePicker = valueDatePicker ? format(valueDatePicker, "dd.MM.yyyy", { locale: ru }) : "";
@@ -62,9 +76,16 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, errors }): R
 
     const date = `${formattedValueDateRangePickerStartDate} - ${formattedValueDateRangePickerEndDate} - ${daysCount}`;
 
+    const dateCreate = formatDate(newData)
+
     setValue("receipt", receiving);
     setValue("rentalReriod", date);
     setValue("messenger", "whatsapp");
+    setValue("status", "processing");
+    setValue("dataCreation", dateCreate);
+    setValue("titleCar", item.fullTitle);
+    setValue("imgCar", item.mainImg);
+    setValue("price", item.price * daysCount);
 
     const open = Boolean(anchorEl);
     const idPop = open ? 'simple-popover' : undefined;

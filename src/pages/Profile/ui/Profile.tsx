@@ -10,7 +10,7 @@ import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { ProfileFavs, ProfileHome, ProfileInfo } from "../../../widgets/profileTabs";
+import { ProfileFavs, ProfileHome, ProfileInfo, ProfileOrders } from "../../../widgets/profileTabs";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import "./profile.scss";
@@ -24,7 +24,7 @@ const Profile: React.FC = (): React.JSX.Element => {
         dispatch(fetchCars());
     }, []);
 
-    const test = isLogged && status === EnumStatus.SUCCESS ? true : false;
+    const checkStatus = isLogged && status === EnumStatus.SUCCESS ? true : false;
 
     return (
         <>
@@ -78,8 +78,8 @@ const Profile: React.FC = (): React.JSX.Element => {
                         <div className="profile__route">
                             <Routes>
                                 <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged}/>} />
-                                <Route path="/orders" element="Мои заказы" />
-                                <Route path="/favorites" element={test && <ProfileFavs user={user} items={items}/>} />
+                                <Route path="/orders" element={<ProfileOrders user={user} isLogged={isLogged}/>} />
+                                <Route path="/favorites" element={checkStatus && <ProfileFavs user={user} items={items}/>} />
                                 <Route path="/info" element={<ProfileInfo user={user} isLogged={isLogged}/>} />
                             </Routes>   
                         </div>

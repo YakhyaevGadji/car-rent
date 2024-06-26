@@ -40,7 +40,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
 
         const changedData = {
             ...user.data,
-            applications: [...user.data.applications, data]
+            applications: [...user.data.applications, data],
         }
 
         dispatch(fetchPatchProfile({id, changedData}));
@@ -128,6 +128,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                         <ModalForm 
                                             register={register} 
                                             setValue={setValue} 
+                                            item={item}
                                             errors={errors}
                                         />
                                     </form>

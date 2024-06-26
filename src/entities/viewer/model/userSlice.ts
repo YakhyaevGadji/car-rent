@@ -20,21 +20,6 @@ type TypePropsFavoriteUser = {
     user: TypeUserAction
 }
 
-type TypeApplication = {
-    comment: string;
-    dateBrith: string;
-    email: string;
-    fullName: string;
-    messenger: string;
-    numberPhone: string;
-    rentalReriod: string;
-    receipt: {
-        value: string, 
-        label: string, 
-        priceDev: number
-    } | null
-}
-
 export type TypeUser = {
     id: number;
     name: string;
@@ -55,7 +40,18 @@ export interface ITypeUserData {
         data: TypeUser,
         token: string
     }
-}
+    isLogged: boolean
+};
+
+type TypeFetchPatchProfile = {
+    id: number;
+    name: string;
+    email: string;
+    favorites: number[];
+    applications: TypesModalForm[],
+    imgId: number;
+    imgUrl: string;
+};
 
 interface IInitialState {
     user: TypeUserAction,
@@ -120,7 +116,7 @@ export const userAuthMe = createAsyncThunk('auth/authMe', async (_, { rejectWith
 
 export const fetchPatchProfile = createAsyncThunk('auth/profile',
     async (
-        { id, changedData }: { id: number, changedData: TypeUser },
+        { id, changedData }: { id: number, changedData: TypeFetchPatchProfile },
         { rejectWithValue }
     ) => {
         try {

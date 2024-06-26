@@ -26,6 +26,11 @@ export interface ITypeFilterRequest {
     meta: Record<string, number>
 }
 
+export interface ITypeInitialState {
+    items: TypeItems[],
+    status: EnumStatus.LOADING | EnumStatus.SUCCESS | EnumStatus.ERROR
+} 
+
 export interface IInitialState {
     items: ITypeFilterRequest,
     status: EnumStatus.LOADING | EnumStatus.SUCCESS | EnumStatus.ERROR

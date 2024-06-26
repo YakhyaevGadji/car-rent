@@ -1,0 +1,42 @@
+.profile-orders {
+    &__item {
+        border: 1px solid #979797;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+
+        p {
+            margin-bottom: 10px;
+            font-size: 17px;
+            font-weight: 500;
+        }
+    }
+
+    &__title {
+        margin-bottom: 25px;
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    &__img {
+        
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    &__car {
+        border-top: 1px solid #979797;
+        display: flex;
+    }
+
+    &__status {
+        color: rgb(211, 112, 0);   
+        font-weight: 500;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            color: #000;
+        }
+    }
+}

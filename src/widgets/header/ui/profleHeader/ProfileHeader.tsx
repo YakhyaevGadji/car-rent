@@ -33,7 +33,7 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                         Мой профиль
                     </MenuItem>
                 </Link>
-                <Link to="/profile/settings">
+                <Link to="/profile/info">
                     <MenuItem>
                         Настройки
                     </MenuItem>
