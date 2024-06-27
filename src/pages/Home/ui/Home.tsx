@@ -12,7 +12,6 @@ import { SingleModal } from "../../../widgets/singleModal";
 const Home: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.cars);
     const { showWindow } = useAppSelector((state) => state.getCar);
-    const { popupAuth } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
     const getCars = () => {

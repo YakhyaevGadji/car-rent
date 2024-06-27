@@ -16,3 +16,8 @@ export const FormShema = yup.object().shape({
     fullName: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное'),
     // address: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное')
 });
+
+export const ChangeDataProfileShema = yup.object().shape({
+    name: yup.string().min(4, 'Минимальная длина 4 символа').required('Это поле обязатеьное'),
+    email: yup.string().email('Введите корректрный email').required('Это поле обязательное')
+});

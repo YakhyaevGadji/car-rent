@@ -2,11 +2,11 @@ import React from "react";
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar } from "@mui/material";
-import { authUser, fetchPatchProfile, ITypeUserData, TypeUser } from '../../../entities/viewer/model/userSlice';
+import { authUser, fetchPatchProfile, ITypePropsProfileAvatar, TypeUser } from '../../../entities/viewer/model/userSlice';
 import { useAppDispatch } from '../../../app/appStore';
 import { instance } from '../../../shared/utils/axios';
 
-const ProfileAvatarFeat: React.FC<ITypeUserData> = ({user}): React.JSX.Element => {
+const ProfileAvatarFeat: React.FC<ITypePropsProfileAvatar> = ({user}): React.JSX.Element => {
     const isLoadingAvatar = user.data.imgUrl ? true : false
     const inputFileRef = React.useRef<HTMLInputElement>(null);
     const dispatch = useAppDispatch();

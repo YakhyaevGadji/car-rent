@@ -35,6 +35,13 @@ export type TypeUserAction = {
     token: string
 };
 
+export interface ITypePropsProfileAvatar {
+    user: {
+        data: TypeUser,
+        token: string
+    }
+}
+
 export interface ITypeUserData {
     user: {
         data: TypeUser,
