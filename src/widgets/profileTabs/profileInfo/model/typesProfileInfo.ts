@@ -6,7 +6,7 @@ export type TypeUseFormPofile = {
 }
 
 export interface ITypePropsProfileInfo {
-    user: {
+    userOld: {
         data: TypeUser,
         token: string
     }

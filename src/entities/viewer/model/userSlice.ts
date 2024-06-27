@@ -12,7 +12,7 @@ type TypeUserRegist = {
 
 export type TypeProps = {
     email: string,
-    password: string
+    password: string,
 };
 
 type TypePropsFavoriteUser = {
@@ -28,6 +28,7 @@ export type TypeUser = {
     applications: TypesModalForm[],
     imgId: number;
     imgUrl: string;
+    password?: any
 };
 
 export type TypeUserAction = {

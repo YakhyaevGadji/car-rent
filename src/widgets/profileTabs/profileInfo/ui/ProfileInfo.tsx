@@ -5,34 +5,57 @@ import { Button, TextField } from "@mui/material";
 import { ITypePropsProfileInfo, TypeUseFormPofile } from "../model/typesProfileInfo";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ChangeDataProfileShema } from "../../../../shared/utils/yup";
+import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
+import { authUser, fetchPatchProfile, userAuthMe } from "../../../../entities/viewer/model/userSlice";
 import "./profileInfo.scss";
 
 const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element => {
-    const { user, isLogged } = props;
+    const { userOld, isLogged } = props;
+    const [changeBoolean, setChangeBoolean] = React.useState(true);
+    const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
-        watch,
         formState: { errors },
     } = useForm<TypeUseFormPofile>({
         resolver: yupResolver(ChangeDataProfileShema)
     });
 
-    const onSubmit: SubmitHandler<TypeUseFormPofile> = (data) => console.log(data);
+    const onSubmit: SubmitHandler<TypeUseFormPofile> = async (data) => {
+        const id = userOld.data.id;
+
+        sessionStorage.removeItem('name');
+        sessionStorage.removeItem('remove');
+
+        const changedData = {
+            ...userOld.data,
+            email: data.email,
+            name: data.name
+        }
+
+        const userData = await dispatch(fetchPatchProfile({id, changedData}));
+
+
+        await dispatch(authUser({
+            password: userData.payload.password,
+            email: userData.payload.email
+        }));
+    };
 
     return (
         <section className="prfile-info">
             <p className="prfile-info__title">Личная информация</p>
-            <ProfileAvatarFeat user={user}/>
+            <ProfileAvatarFeat user={userOld}/>
             <p className="prfile-info__title">Обо мне</p>
             {isLogged && (
                 <form onSubmit={handleSubmit(onSubmit)} className="prfile-info__form">
                     <TextField 
                         {...register("name")} 
+                        onChange={() => setChangeBoolean(false)}
                         error={!!errors.name}
                         helperText={errors.name?.message ? `${errors.name.message}` : ''}
-                        defaultValue={user.data.name} 
+                        defaultValue={userOld.data.name} 
                         sx={{ mb: 2 }} 
                         fullWidth 
                         size="small" 
@@ -40,17 +63,16 @@ const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element 
                     />
                     <TextField 
                         {...register("email")} 
-                        defaultValue={user.data.email} 
+                        onChange={() => setChangeBoolean(false)}
+                        defaultValue={userOld.data.email} 
+                        error={!!errors.email}
+                        helperText={errors.email?.message ? `${errors.email.message}` : ''}
                         sx={{ mb: 2 }}
                         fullWidth 
                         size="small" 
                         label="Email"
                     />
-                    <Button 
-                    disabled={user.data.email === watch('email')
-                    || 
-                    user.data.name === watch('name') ? true : false} 
-                    type="submit" variant="outlined">Сохранить изменения</Button>
+                    <Button disabled={changeBoolean} type="submit" variant="outlined">Сохранить изменения</Button>
                 </form>
             )}
         </section>

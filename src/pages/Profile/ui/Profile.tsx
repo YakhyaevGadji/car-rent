@@ -80,7 +80,7 @@ const Profile: React.FC = (): React.JSX.Element => {
                                 <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged}/>} />
                                 <Route path="/orders" element={<ProfileOrders user={user} isLogged={isLogged}/>} />
                                 <Route path="/favorites" element={checkStatus && <ProfileFavs user={user} items={items}/>} />
-                                <Route path="/info" element={<ProfileInfo user={user} isLogged={isLogged}/>} />
+                                <Route path="/info" element={<ProfileInfo userOld={user} isLogged={isLogged}/>} />
                             </Routes>   
                         </div>
                     </div>
