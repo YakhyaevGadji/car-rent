@@ -28,7 +28,8 @@ export type TypeUser = {
     applications: TypesModalForm[],
     imgId: number;
     imgUrl: string;
-    password?: any
+    additionalId: number;
+    password?: any;
 };
 
 export type TypeUserAction = {
@@ -147,18 +148,15 @@ export const favoriteUser = createAsyncThunk("auth/favorite", async (props: Type
         const { id, user } = props;
 
         let newArray: number[] = [...user.data.favorites];
+        
+        const index = user.data.favorites.indexOf(id);
 
-        const modifyArray = () => {
-            const index = user.data.favorites.indexOf(id);
-            if (index > -1) {
-                newArray.splice(index, 1);
-            } else {
-                newArray.push(id);
-            }
-        };
-
-        modifyArray();
-
+        if (index > -1) {
+            newArray.splice(index, 1);
+        } else {
+            newArray.push(id);
+        }
+        
         const favoriteRequest = await instance.patch(`/users/${user.data.id}`, { favorites: newArray });
 
         return favoriteRequest.data;

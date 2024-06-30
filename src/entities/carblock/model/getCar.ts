@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { EnumStatus, TypeItems } from "./types";
+import { EnumStatus, TypeItems, TypeReviewsCar } from "./types";
 import { instance } from "../../../shared/utils/axios";
 
 type TypeProps = {
-    id: number
+    id: number;
+    changeData: TypeReviewsCar[]
 }
 
 interface IinitialState {
@@ -15,6 +16,12 @@ interface IinitialState {
 
 export const getAxiosCar = createAsyncThunk<TypeItems, TypeProps>("car/fetchFilterCar", async ({id}) => {
     const { data } = await instance.get<TypeItems>(`/cars/${id}`);
+
+    return data as TypeItems;
+});
+
+export const patchCar = createAsyncThunk<TypeItems, TypeProps>("car/patchCar", async ({id, changeData}) => {
+    const { data } = await instance.patch<TypeItems>(`/cars/${id}`, {reviews: changeData});
 
     return data as TypeItems;
 });
@@ -46,6 +53,17 @@ const getCarSlice = createSlice({
                 state.status = EnumStatus.SUCCESS;
             })
             .addCase(getAxiosCar.rejected, (state) => {
+                state.status = EnumStatus.ERROR;
+            })
+
+            .addCase(patchCar.pending, (state) => {
+                state.status = EnumStatus.LOADING;
+            })
+            .addCase(patchCar.fulfilled, (state, action) => {
+                state.item = action.payload;
+                state.status = EnumStatus.SUCCESS;
+            })
+            .addCase(patchCar.rejected, (state) => {
                 state.status = EnumStatus.ERROR;
             })
     },

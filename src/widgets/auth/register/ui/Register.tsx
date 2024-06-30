@@ -31,7 +31,8 @@ const Register: React.FC = (): React.JSX.Element => {
             imgUrl: '',
             imgId: 0,
             favorites: [],
-            applications: []
+            applications: [],
+            additionalId: new Date().getTime()
         }
 
         if(data.password === data.repeatPassword) {

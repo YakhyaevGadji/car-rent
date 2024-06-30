@@ -1,6 +1,6 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, Tab } from '@mui/material';
+import { Avatar, Box, Button, Rating, Tab, TextField } from '@mui/material';
 import { TabPanel, TabList, TabContext } from '@mui/lab';
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { EnumStatus } from "../../../entities/carblock/model/types";
@@ -13,6 +13,7 @@ import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormShema } from "../../../shared/utils/yup";
 import { fetchPatchProfile } from "../../../entities/viewer/model/userSlice";
+import { ReviewsCar } from "../../../features/reviewsCar";
 import "./singleModal.scss";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -20,9 +21,10 @@ import "swiper/css/navigation";
 
 const SingleModal: React.FC = (): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
-    const { user } = useAppSelector((state) => state.auth);
+    const { user, isLogged } = useAppSelector((state) => state.auth);
     const { receiving, date } = useAppSelector((state) => state.modalCar);
     const [valueButton, setValueButton] = React.useState<string>('1');
+    const [ratingValue, setRatingValue] = React.useState<number | null>(2);
     const dispatch = useAppDispatch();
 
     const {
@@ -43,7 +45,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
             applications: [...user.data.applications, data],
         }
 
-        dispatch(fetchPatchProfile({id, changedData}));
+        dispatch(fetchPatchProfile({ id, changedData }));
         dispatch(setShowWindow("closed"));
     };
 
@@ -61,7 +63,16 @@ const SingleModal: React.FC = (): React.JSX.Element => {
         }
     };
 
+    let booleanInfoCar;
+
+    if (valueButton === '1' || valueButton === '2') {
+        booleanInfoCar = true;
+    } else {
+        booleanInfoCar = false;
+    }
+    
     const formatDate = date === 1 ? 'день' : date <= 4 ? 'дня' : 'дней';
+
 
     return (
         <div onClick={toggleModal} className="modal">
@@ -76,6 +87,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 <TabList onChange={handleChange} aria-label="lab API tabs example">
                                     <Tab className="modal__tab" label="Автомобиль" value="1" />
                                     <Tab label="Бронирование" value="2" />
+                                    <Tab label="Отзывы" value="3" />
                                 </TabList>
                             </Box>
                             <div className="modal__content">
@@ -125,34 +137,76 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 </TabPanel>
                                 <TabPanel className="modal__box" value="2">
                                     <form onSubmit={handleSubmit(onSubmit)}>
-                                        <ModalForm 
-                                            register={register} 
-                                            setValue={setValue} 
+                                        <ModalForm
+                                            register={register}
+                                            setValue={setValue}
                                             item={item}
                                             errors={errors}
                                         />
                                     </form>
                                 </TabPanel>
-                                <div className="modal__result">
-                                    <img className="modal__result_img" src={item.mainImg} alt="" />
-                                    <p className="modal__result_title">Стоимость</p>
-                                    <ul className="modal__reuslt_list">
-                                        <li className="modal__result_item">
-                                            <p className="modal__result_text">Аренда на {date} {formatDate}:</p>
-                                            <p className="modal__result_total">{item.price}$</p>
-                                        </li>
-                                        <li className="modal__result_item">
-                                            <p className="modal__result_text">Доставка:</p>
-                                            <p className="modal__result_total">{receiving.priceDev}$</p>
-                                        </li>
-                                        <li className="modal__result_global">
-                                            <p className="modal__result_text">Итого:</p>
-                                            <p className="modal__result_total">{(item.price * date) + receiving.priceDev}$</p>
-                                        </li>
-                                    </ul>
-                                    {valueButton === '1' && <Button onClick={() => setValueButton('2')} variant="contained" fullWidth>Продолжить</Button>}
-                                    {valueButton === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>Отпарвить</Button>}
-                                </div>
+                                <TabPanel className="modal__box" value="3">
+                                    <div>
+                                        <ul className="modal__reviews">
+                                            <li className="modal__reviews-item">
+                                                <div className="modal__reviews-user">
+                                                    <Avatar className="modal__reviews-avatar" sx={{ width: 56, height: 56 }}>H</Avatar>
+                                                    <div className="modal__reviews-info">
+                                                        <p>Гаджи</p>
+                                                        <Rating
+                                                            name="simple-controlled"
+                                                            size="small"
+                                                            value={ratingValue}
+                                                            readOnly
+                                                            onChange={(_, newValue) => setRatingValue(newValue)}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum, provident, blanditiis saepe in voluptatum fugiat quo illo veritatis repudiandae aliquid nisi! Quas, dicta temporibus aliquam dolor minima enim. Ab molestiae veritatis voluptatum accusantium quos ratione dignissimos dolor qui tempore!</p>
+                                            </li>
+                                            <li className="modal__reviews-item">
+                                                <div className="modal__reviews-user">
+                                                    <Avatar className="modal__reviews-avatar" sx={{ width: 56, height: 56 }}>H</Avatar>
+                                                    <div className="modal__reviews-info">
+                                                        <p>Гаджи</p>
+                                                        <Rating
+                                                            name="simple-controlled"
+                                                            size="small"
+                                                            value={ratingValue}
+                                                            readOnly
+                                                            onChange={(_, newValue) => setRatingValue(newValue)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum, provident, blanditiis saepe in voluptatum fugiat quo illo veritatis repudiandae aliquid nisi! Quas, dicta temporibus aliquam dolor minima enim. Ab molestiae veritatis voluptatum accusantium quos ratione dignissimos dolor qui tempore!</p>
+                                            </li>
+                                        </ul>
+                                        {isLogged && <ReviewsCar item={item} user={user}/>}
+                                    </div>
+                                </TabPanel>
+                                {booleanInfoCar && (
+                                    <div className="modal__result">
+                                        <img className="modal__result_img" src={item.mainImg} alt="" />
+                                        <p className="modal__result_title">Стоимость</p>
+                                        <ul className="modal__reuslt_list">
+                                            <li className="modal__result_item">
+                                                <p className="modal__result_text">Аренда на {date} {formatDate}:</p>
+                                                <p className="modal__result_total">{item.price}$</p>
+                                            </li>
+                                            <li className="modal__result_item">
+                                                <p className="modal__result_text">Доставка:</p>
+                                                <p className="modal__result_total">{receiving.priceDev}$</p>
+                                            </li>
+                                            <li className="modal__result_global">
+                                                <p className="modal__result_text">Итого:</p>
+                                                <p className="modal__result_total">{(item.price * date) + receiving.priceDev}$</p>
+                                            </li>
+                                        </ul>
+                                        {valueButton === '1' && <Button onClick={() => setValueButton('2')} variant="contained" fullWidth>Продолжить</Button>}
+                                        {valueButton === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>Отпарвить</Button>}
+                                    </div>
+                                )}
                             </div>
                         </TabContext>
                     </div>

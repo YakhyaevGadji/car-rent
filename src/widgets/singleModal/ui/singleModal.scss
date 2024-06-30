@@ -18,6 +18,7 @@
         background-color: var(--whiteColor);
         padding: 0 40px;
         padding-bottom: 0px;
+        min-height: 724px;
     }
 
     &__buttons {
@@ -45,6 +46,30 @@
         padding-bottom: 30px;
         border-bottom: 1px solid #cfcfcf;
         font-weight: 600;
+    }
+
+    &__reviews {
+        overflow: auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgb(126, 126, 126) rgb(223, 223, 223);
+        height: 700px;
+
+        &-item {
+            border: 1px solid #dfdfdf;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        &-user {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        &-avatar {
+            margin-right: 10px;
+        }
     }
 
     &__slider {

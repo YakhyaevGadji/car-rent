@@ -1,4 +1,12 @@
 
+export type TypeReviewsCar = {
+    comment: string;
+    rating: number | null;
+    additionalId: number;
+    avatar: string;
+    name: string
+}
+
 export type TypeItems = {
     id: number,
     brand: string,
@@ -13,6 +21,7 @@ export type TypeItems = {
     transmission: string,
     fuel: string,
     year: number,
+    reviews: TypeReviewsCar[]
 }
 
 export enum EnumStatus {
