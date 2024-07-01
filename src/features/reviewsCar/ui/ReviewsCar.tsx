@@ -31,16 +31,12 @@ const ReviewsCar: React.FC<ITypePropsReviewsCar> = (props): React.JSX.Element =>
             name: user.data.name
         };
 
-        const index = item.reviews.indexOf(user.data.additionalId);
+        const checkId = !item.reviews.some((item) => item.additionalId === user.data.additionalId)
 
-        
-
-        if(index > -1) {
-            return false;
-        }else {
-            changeData.push(newData);
+        if(checkId) {
+           changeData.push(newData);
         }
-
+        
         dispatch(patchCar({id, changeData}))
     
     };

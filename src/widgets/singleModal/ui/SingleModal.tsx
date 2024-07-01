@@ -70,7 +70,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     } else {
         booleanInfoCar = false;
     }
-    
+
     const formatDate = date === 1 ? 'день' : date <= 4 ? 'дня' : 'дней';
 
 
@@ -148,41 +148,28 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 <TabPanel className="modal__box" value="3">
                                     <div>
                                         <ul className="modal__reviews">
-                                            <li className="modal__reviews-item">
-                                                <div className="modal__reviews-user">
-                                                    <Avatar className="modal__reviews-avatar" sx={{ width: 56, height: 56 }}>H</Avatar>
-                                                    <div className="modal__reviews-info">
-                                                        <p>Гаджи</p>
-                                                        <Rating
-                                                            name="simple-controlled"
-                                                            size="small"
-                                                            value={ratingValue}
-                                                            readOnly
-                                                            onChange={(_, newValue) => setRatingValue(newValue)}
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum, provident, blanditiis saepe in voluptatum fugiat quo illo veritatis repudiandae aliquid nisi! Quas, dicta temporibus aliquam dolor minima enim. Ab molestiae veritatis voluptatum accusantium quos ratione dignissimos dolor qui tempore!</p>
-                                            </li>
-                                            <li className="modal__reviews-item">
-                                                <div className="modal__reviews-user">
-                                                    <Avatar className="modal__reviews-avatar" sx={{ width: 56, height: 56 }}>H</Avatar>
-                                                    <div className="modal__reviews-info">
-                                                        <p>Гаджи</p>
-                                                        <Rating
-                                                            name="simple-controlled"
-                                                            size="small"
-                                                            value={ratingValue}
-                                                            readOnly
-                                                            onChange={(_, newValue) => setRatingValue(newValue)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur illum, provident, blanditiis saepe in voluptatum fugiat quo illo veritatis repudiandae aliquid nisi! Quas, dicta temporibus aliquam dolor minima enim. Ab molestiae veritatis voluptatum accusantium quos ratione dignissimos dolor qui tempore!</p>
-                                            </li>
+                                            {item.reviews.map((review) => {
+                                                return (
+                                                    <li key={review.additionalId} className="modal__reviews-item">
+                                                        <div className="modal__reviews-user">
+                                                            <Avatar className="modal__reviews-avatar" src={review.avatar} sx={{ width: 56, height: 56 }}>H</Avatar>
+                                                            <div className="modal__reviews-info">
+                                                                <p>{review.name}</p>
+                                                                <Rating
+                                                                    name="simple-controlled"
+                                                                    size="small"
+                                                                    value={review.rating}
+                                                                    readOnly
+                                                                    onChange={(_, newValue) => setRatingValue(newValue)}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <p>{review.comment}</p>
+                                                    </li>
+                                                )
+                                            })}
                                         </ul>
-                                        {isLogged && <ReviewsCar item={item} user={user}/>}
+                                        {isLogged && <ReviewsCar item={item} user={user} />}
                                     </div>
                                 </TabPanel>
                                 {booleanInfoCar && (
