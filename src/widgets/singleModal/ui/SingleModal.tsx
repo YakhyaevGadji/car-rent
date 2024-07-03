@@ -1,6 +1,6 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
-import { Avatar, Box, Button, Rating, Tab, TextField } from '@mui/material';
+import { Avatar, Box, Button, Rating, Tab } from '@mui/material';
 import { TabPanel, TabList, TabContext } from '@mui/lab';
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { EnumStatus } from "../../../entities/carblock/model/types";
@@ -24,7 +24,6 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     const { user, isLogged } = useAppSelector((state) => state.auth);
     const { receiving, date } = useAppSelector((state) => state.modalCar);
     const [valueButton, setValueButton] = React.useState<string>('1');
-    const [ratingValue, setRatingValue] = React.useState<number | null>(2);
     const dispatch = useAppDispatch();
 
     const {
@@ -53,7 +52,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
         handleSubmit(onSubmit)();
     };
 
-    const handleChange = (event: any, newValue: string) => {
+    const handleChange = (_: any, newValue: string) => {
         setValueButton(newValue);
     };
 
@@ -160,7 +159,6 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                                                     size="small"
                                                                     value={review.rating}
                                                                     readOnly
-                                                                    onChange={(_, newValue) => setRatingValue(newValue)}
                                                                 />
                                                             </div>
                                                         </div>

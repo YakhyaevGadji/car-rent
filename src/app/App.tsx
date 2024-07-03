@@ -8,6 +8,7 @@ import { Auth } from "../pages/Auth";
 import { useAuth } from "../shared/utils/hooks/useAuth";
 import { userAuthMe } from "../entities/viewer/model/userSlice";
 import { Profile } from "../pages/Profile";
+import { About } from "../pages/About";
 import "./styles/normalize.css";
 import "./styles/index.scss";
 
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                 <Route element={<PrivateRoute/>}>
                     <Route path="/profile/*" element={<Profile/>}/>
                 </Route>
+                <Route path="/About"  element={<About/>}/>
             </Routes>
         </BrowserRouter>
     );

@@ -3,9 +3,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { EnumStatus, TypeItems, TypeReviewsCar } from "./types";
 import { instance } from "../../../shared/utils/axios";
 
-type TypeProps = {
+type TypePropsChangeData = {
     id: number;
     changeData: TypeReviewsCar[]
+}
+
+type TypeProps = {
+    id: number;
 }
 
 interface IinitialState {
@@ -20,7 +24,7 @@ export const getAxiosCar = createAsyncThunk<TypeItems, TypeProps>("car/fetchFilt
     return data as TypeItems;
 });
 
-export const patchCar = createAsyncThunk<TypeItems, TypeProps>("car/patchCar", async ({id, changeData}) => {
+export const patchCar = createAsyncThunk<TypeItems, TypePropsChangeData>("car/patchCar", async ({id, changeData}) => {
     const { data } = await instance.patch<TypeItems>(`/cars/${id}`, {reviews: changeData});
 
     return data as TypeItems;

@@ -32,8 +32,11 @@
         margin-bottom: 10px;
     }
 
-    &__details {
+    &__rating {
         margin-bottom: 50px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 
     &__price {

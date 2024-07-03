@@ -15,7 +15,8 @@ export type TypesModalForm = {
     status: 'processing' | 'canceled' | 'completed',
     dataCreation: string,
     titleCar: string,
-    imgCar: string
+    imgCar: string,
+    carId: number
 };
 
 export type TypeSelect = {

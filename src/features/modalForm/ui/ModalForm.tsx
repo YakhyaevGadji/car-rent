@@ -86,6 +86,7 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors
     setValue("titleCar", item.fullTitle);
     setValue("imgCar", item.mainImg);
     setValue("price", item.price * daysCount);
+    setValue("carId", item.id)
 
     const open = Boolean(anchorEl);
     const idPop = open ? 'simple-popover' : undefined;

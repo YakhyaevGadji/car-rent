@@ -1,7 +1,7 @@
 
 export type TypeReviewsCar = {
     comment: string;
-    rating: number | null;
+    rating: number;
     additionalId: number;
     avatar: string;
     name: string
