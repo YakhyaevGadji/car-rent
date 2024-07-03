@@ -15,7 +15,7 @@ import "./styles/index.scss";
 const App: React.FC = () => {
     const dispatch = useAppDispatch();
     const auth = useAuth();
-
+    
     React.useEffect(() => {
         if(auth) {
             dispatch(userAuthMe());
