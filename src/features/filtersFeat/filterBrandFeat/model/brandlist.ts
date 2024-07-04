@@ -1,5 +1,5 @@
 export const brandList = [
-    "Все",
+    "All",
     "Renault",
     "Fiat",
     "Hyundai",

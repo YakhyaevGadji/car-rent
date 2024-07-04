@@ -13,7 +13,7 @@ const ProfileFavsFeat: React.FC<IPropsPorfileFavsFeat> = ({car, onClickcar}): Re
             <button className="profile-favs__button"><FavoriteBorderIcon className="profile-favs__icon" sx={{ width: 33, height: 33 }}/></button>
             <img className="car__img" src={car.mainImg} alt="" />
             <p className="profile-favs__title">{car.fullTitle}</p>
-            <p className="profile-favs__details">{car.transmission}, {car.engine}л</p>
+            <p className="profile-favs__details">{car.transmission.value}, {car.engine}л</p>
             <p className="profile-favs__price">{car.price}$</p>
         </li>
     );

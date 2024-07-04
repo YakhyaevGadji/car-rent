@@ -26,6 +26,8 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     const [valueButton, setValueButton] = React.useState<string>('1');
     const dispatch = useAppDispatch();
 
+    const orderId = isLogged && user.data.applications.some(id => id.carId === item.id);
+
     const {
         register,
         handleSubmit,
@@ -39,17 +41,27 @@ const SingleModal: React.FC = (): React.JSX.Element => {
     const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
         const id = user.data.id;
 
-        const changedData = {
-            ...user.data,
-            applications: [...user.data.applications, data],
+        if(isLogged) {
+            const changedData = {
+                ...user.data,
+                applications: [...user.data.applications, data],
+            }
+    
+            dispatch(fetchPatchProfile({ id, changedData }));
+            dispatch(setShowWindow("closed"));
+        }else {
+            dispatch(setShowWindow("closed"));
         }
-
-        dispatch(fetchPatchProfile({ id, changedData }));
-        dispatch(setShowWindow("closed"));
+        
     };
 
     const onClickForm = () => {
-        handleSubmit(onSubmit)();
+        if(orderId) {
+            console.log('Зареган');
+            
+        }else {
+            handleSubmit(onSubmit)();
+        }
     };
 
     const handleChange = (_: any, newValue: string) => {
@@ -96,7 +108,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                     <ul className="modal__character">
                                         <li className="modal__character-item">
                                             <p className="modal__character-title">Коробка передачи:</p>
-                                            <h5 className="modal__character-data">{item.transmission}</h5>
+                                            <h5 className="modal__character-data">{item.transmission.value}</h5>
                                         </li>
                                         <li className="modal__character-item">
                                             <p className="modal__character-title">Двигатель:</p>
@@ -137,6 +149,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                 <TabPanel className="modal__box" value="2">
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <ModalForm
+                                            orderId={status && orderId}
                                             register={register}
                                             setValue={setValue}
                                             item={item}
@@ -189,7 +202,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                                             </li>
                                         </ul>
                                         {valueButton === '1' && <Button onClick={() => setValueButton('2')} variant="contained" fullWidth>Продолжить</Button>}
-                                        {valueButton === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>Отпарвить</Button>}
+                                        {valueButton === '2' && <Button onClick={onClickForm} variant="contained" type='submit' fullWidth>{!orderId ? 'Отпарвить' : 'Продлить'}</Button>}
                                     </div>
                                 )}
                             </div>

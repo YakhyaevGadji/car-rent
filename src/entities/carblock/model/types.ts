@@ -7,6 +7,11 @@ export type TypeReviewsCar = {
     name: string
 }
 
+type TypeTransmissionCar = {
+    label: string,
+    value: string
+};
+
 export type TypeItems = {
     id: number,
     brand: string,
@@ -18,7 +23,7 @@ export type TypeItems = {
     price: number,
     fullTitle: string,
     status: string,
-    transmission: string,
+    transmission: TypeTransmissionCar,
     fuel: string,
     year: number,
     reviews: TypeReviewsCar[]
@@ -52,5 +57,6 @@ export interface IRequestProps {
     }
     searchCars: string,
     price: number[],
-    page: number
+    page: number,
+    brand: string
 }

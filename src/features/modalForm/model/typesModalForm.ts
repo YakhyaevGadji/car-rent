@@ -30,4 +30,5 @@ export interface IPropsModalFrom<TFieldValues extends FieldValues = FieldValues>
     setValue: UseFormSetValue<TypesModalForm>
     item: TypeItems
     errors: FieldErrors<TFieldValues>
+    orderId: boolean
 }

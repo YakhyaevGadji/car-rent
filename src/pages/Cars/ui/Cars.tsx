@@ -15,12 +15,12 @@ import "./cars.scss";
 
 const Cars: React.FC = () => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
-    const { sort, searchCars, price, page } = useAppSelector((state) => state.filters);
+    const { sort, searchCars, price, page, brand } = useAppSelector((state) => state.filters);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars({ sort, searchCars, price, page }));
+        dispatch(fetchFilterCars({ sort, searchCars, price, page, brand }));
     };
 
     const onChangePagination = (_: any, value: number) => {  
@@ -30,7 +30,7 @@ const Cars: React.FC = () => {
 
     React.useEffect(() => {
         getCars();
-    }, [sort, searchCars, price, page]);
+    }, [sort, searchCars, price, page, brand]);
 
     return (
         <>

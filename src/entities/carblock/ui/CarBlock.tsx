@@ -59,7 +59,7 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
                 /></div> : ''}
                 <img className="car__img" src={car.mainImg} alt="" />
                 <p className="car__title">{car.fullTitle}</p>
-                <p className="car__details">{car.transmission}, {car.engine}л</p>
+                <p className="car__details">{car.transmission.value}, {car.engine}л</p>
                 <div className="car__rating">
                     <Rating
                         name="simple-controlled"

@@ -3,10 +3,13 @@ import { ITypePropsProfileOrders } from "../model/typeProfileOrders";
 import { TypesModalForm } from "../../../../features/modalForm/model/typesModalForm";
 import { useAppDispatch } from "../../../../app/appStore";
 import { fetchPatchProfile } from "../../../../entities/viewer/model/userSlice";
+import { getAxiosCar, setShowWindow } from "../../../../entities/carblock/model/getCar";
 import "./profileOrders.scss";
+import { useNavigate } from "react-router-dom";
 
 const ProfileOrders: React.FC<ITypePropsProfileOrders> = (props): React.JSX.Element => {
     const { user, isLogged } = props;
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const removeOrder = async (item: TypesModalForm) => {
@@ -26,6 +29,12 @@ const ProfileOrders: React.FC<ITypePropsProfileOrders> = (props): React.JSX.Elem
         }
 
         dispatch(fetchPatchProfile({id, changedData}));
+    };
+
+    const navigateReview = (id: number) => {
+        navigate('/cars');
+        dispatch(setShowWindow('open'));
+        dispatch(getAxiosCar({ id }));
     };
 
     const statusObject = {
@@ -58,6 +67,7 @@ const ProfileOrders: React.FC<ITypePropsProfileOrders> = (props): React.JSX.Elem
                                 <img className="profile-orders__img" src={item.imgCar} alt="" />
                                 <div className="profile-orders__info">
                                     <p>{item.titleCar}</p>
+                                    <button onClick={() => navigateReview(item.carId)}>Открыть машину</button>
                                 </div>
                             </div>
                         </li>

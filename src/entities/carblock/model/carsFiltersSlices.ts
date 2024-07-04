@@ -12,7 +12,7 @@ const initialState = {
     },
     searchCars: "",
     price: [10, 100],
-    brand: "Все",
+    brand: "All",
     page: 1
 };
 

@@ -18,7 +18,7 @@ const options = [
     { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
-const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors }): React.JSX.Element => {
+const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors, orderId }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
     // const [valueDatePicker, setValueDatePicker] = React.useState<Date | undefined>(new Date());
@@ -37,11 +37,11 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors
             "января", "февраля", "марта", "апреля", "мая", "июня",
             "июля", "августа", "сентября", "октября", "ноября", "декабря"
         ];
-    
+
         const day = date.getDate();
         const month = months[date.getMonth()];
         const year = date.getFullYear();
-    
+
         return `${day} ${month} ${year}`;
     }
 
@@ -93,27 +93,31 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors
 
     return (
         <>
-            <p className="form__modal-title">Получение</p>
-            <Select
-                className="modal__box-deli"
-                defaultValue={receiving}
-                onChange={(value) => dispatch(setReceiving(value))}
-                options={options}
-                placeholder={options[0].label}
-            />
+            {!orderId && (
+                <>
+                    <p className="form__modal-title">Получение</p>
+                    <Select
+                        className="modal__box-deli"
+                        defaultValue={receiving}
+                        onChange={(value) => dispatch(setReceiving(value))}
+                        options={options}
+                        placeholder={options[0].label}
+                    />
 
-            {receiving.value === 'delivery' && (
-                <TextField
-                    error={receiving.value === 'delivery' && !!errors.address}
-                    helperText={errors.address?.message ? `${errors.address.message}` : ''}
-                    {...register('address')}
-                    className="form__modal-addres"  
-                    type="text"
-                    fullWidth={true}
-                    label="Введите Адрес"
-                    variant="outlined"
-                />
-            )} 
+                    {receiving.value === 'delivery' && (
+                        <TextField
+                            error={receiving.value === 'delivery' && !!errors.address}
+                            helperText={errors.address?.message ? `${errors.address.message}` : ''}
+                            {...register('address')}
+                            className="form__modal-addres"
+                            type="text"
+                            fullWidth={true}
+                            label="Введите Адрес"
+                            variant="outlined"
+                        />
+                    )}
+                </>
+            )}
 
             <p className="form__modal-title">Дата аренды</p>
 
@@ -150,70 +154,75 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors
                     </div>
                 </div>
             </div>
-            <p className="form__modal-title form__modal-lastitle">Данные основного водителя</p>
-            <ul className="form__modal-list">
-                <li className="form__modal-item">
-                    <p className="form__modal-subtitle">Имя и фамилия</p>
-                    <TextField
-                        error={!!errors.fullName}
-                        helperText={errors.fullName?.message ? `${errors.fullName.message}` : ''}
-                        {...register('fullName')}
-                        className="form__modal-name"
-                        type="text"
-                        fullWidth={true}
-                        label="Имя и фамилия"
-                        variant="outlined"
-                    />
-                </li>
-                <li className="form__modal-item">
-                    <p className="form__modal-subtitle">Дата рождения</p>
-                    <TextField
-                        {...register('dateBrith')}
-                        className="form__modal-name"
-                        type="text"
-                        fullWidth={true}
-                        label="Дата рождения"
-                        variant="outlined"
-                    />
-                </li>
-                <li className="form__modal-item">
-                    <p className="form__modal-subtitle">Почта</p>
-                    <TextField
-                        {...register('email')}
-                        className="form__modal-name"
-                        type="email"
-                        fullWidth={true}
-                        label="Email"
-                        variant="outlined"
-                    />
-                </li>
-                <li className="form__modal-item">
-                    <p className="form__modal-subtitle">Номер телефона</p>
-                    <TextField
-                        {...register('numberPhone')}
-                        className="form__modal-name"
-                        type="phone"
-                        fullWidth={true}
-                        label="+90..."
-                        variant="outlined"
-                    />
-                </li>
-            </ul>
-            <p className="form__modal-title form__modal-lastitle">Куда вам написать?</p>
-            <FormControl>
-                <RadioGroup
-                    onChange={(e) => setValue("messenger", e.target.value)}
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="whatsapp"
-                    name="radio-buttons-group"
-                >
-                    <div>
-                        <FormControlLabel value="whatsapp" control={<Radio />} label="Whatsapp" />
-                        <FormControlLabel value="telegram" control={<Radio />} label="Telegram" />
-                    </div>
-                </RadioGroup>
-                <textarea {...register('comment')} className="form__modal-textarea" placeholder="Комментарий"></textarea>
-            </FormControl>
+            {!orderId && (
+                <>
+                    <p className="form__modal-title form__modal-lastitle">Данные основного водителя</p>
+                    <ul className="form__modal-list">
+                        <li className="form__modal-item">
+                            <p className="form__modal-subtitle">Имя и фамилия</p>
+                            <TextField
+                                error={!!errors.fullName}
+                                helperText={errors.fullName?.message ? `${errors.fullName.message}` : ''}
+                                {...register('fullName')}
+                                className="form__modal-name"
+                                type="text"
+                                fullWidth={true}
+                                label="Имя и фамилия"
+                                variant="outlined"
+                            />
+                        </li>
+                        <li className="form__modal-item">
+                            <p className="form__modal-subtitle">Дата рождения</p>
+                            <TextField
+                                {...register('dateBrith')}
+                                className="form__modal-name"
+                                type="text"
+                                fullWidth={true}
+                                label="Дата рождения"
+                                variant="outlined"
+                            />
+                        </li>
+                        <li className="form__modal-item">
+                            <p className="form__modal-subtitle">Почта</p>
+                            <TextField
+                                {...register('email')}
+                                className="form__modal-name"
+                                type="email"
+                                fullWidth={true}
+                                label="Email"
+                                variant="outlined"
+                            />
+                        </li>
+                        <li className="form__modal-item">
+                            <p className="form__modal-subtitle">Номер телефона</p>
+                            <TextField
+                                {...register('numberPhone')}
+                                className="form__modal-name"
+                                type="phone"
+                                fullWidth={true}
+                                label="+90..."
+                                variant="outlined"
+                            />
+                        </li>
+                    </ul>
+                    <p className="form__modal-title form__modal-lastitle">Куда вам написать?</p>
+                    <FormControl>
+                        <RadioGroup
+                            onChange={(e) => setValue("messenger", e.target.value)}
+                            aria-labelledby="demo-radio-buttons-group-label"
+                            defaultValue="whatsapp"
+                            name="radio-buttons-group"
+                        >
+                            <div>
+                                <FormControlLabel value="whatsapp" control={<Radio />} label="Whatsapp" />
+                                <FormControlLabel value="telegram" control={<Radio />} label="Telegram" />
+                            </div>
+                        </RadioGroup>
+                        <textarea {...register('comment')} className="form__modal-textarea" placeholder="Комментарий"></textarea>
+                    </FormControl>
+                </>
+            )}
+
         </>
     );
 }

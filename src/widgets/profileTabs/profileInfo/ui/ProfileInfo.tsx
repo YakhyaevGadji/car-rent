@@ -5,8 +5,8 @@ import { Button, TextField } from "@mui/material";
 import { ITypePropsProfileInfo, TypeUseFormPofile } from "../model/typesProfileInfo";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ChangeDataProfileShema } from "../../../../shared/utils/yup";
-import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
-import { authUser, fetchPatchProfile, userAuthMe } from "../../../../entities/viewer/model/userSlice";
+import { useAppDispatch } from "../../../../app/appStore";
+import { authUser, fetchPatchProfile } from "../../../../entities/viewer/model/userSlice";
 import "./profileInfo.scss";
 
 const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element => {

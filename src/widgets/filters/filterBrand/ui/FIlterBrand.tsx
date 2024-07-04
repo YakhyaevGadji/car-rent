@@ -1,8 +1,8 @@
 import React from "react";
-import "./filterBrand.scss";
 import { FilterBrandFeat } from "../../../../features/filtersFeat";
 import { useAppDispatch, useAppSelector } from "../../../../app/appStore";
 import { setbrand } from "../../../../entities/carblock/model/carsFiltersSlices";
+import "./filterBrand.scss";
 
 const FilterBrand: React.FC = () => {
     const { brand } = useAppSelector((state) => state.filters);
