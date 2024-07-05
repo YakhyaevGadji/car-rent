@@ -6,6 +6,7 @@ import { getAxiosCar, setShowWindow } from "../model/getCar";
 import { favoriteUser } from "../../viewer/model/userSlice";
 import { Rating } from "@mui/material";
 import "./carBlock.scss";
+import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
 
 type TypeCarProps = {
     car: TypeItems,
@@ -15,10 +16,12 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
     const { isLogged, user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
 
+    let orderId: TypesModalForm | undefined;
     let favorites;
 
     if (isLogged) {
         favorites = user.data.favorites.find((item) => item === car.id);
+        orderId = user.data.applications.find(id => id.carId === car.id);
     }
 
     const onClickcar = (event: any) => {
@@ -48,7 +51,6 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
     }
 
     const totalRating = calculateAverageRating(car.reviews.map((item) => item.rating));
-    
 
     return (
         <>
@@ -65,11 +67,16 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
                         name="simple-controlled"
                         size="small"
                         value={totalRating}
+                        precision={0.5}
                         readOnly
                     />
                     <p>{totalRating}</p>
+                    
                 </div>
-                <p className="car__price">{car.price}$</p>
+                <div className="car__price-block">
+                    <p className="car__price">{car.price}$</p>
+                    <p>{orderId?.status}</p>
+                </div>
             </li>
         </>
     );

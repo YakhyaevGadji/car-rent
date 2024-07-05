@@ -1,11 +1,20 @@
 import React from "react";
+import MuiPhoneNumber from 'material-ui-phone-number';
 import { TextField, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { IPropsRegister } from "../../../../widgets/auth/register/model/typesRegister";
-import "./registerFeat.scss";
 import { LoadingButton } from "@mui/lab";
+import "./registerFeat.scss";
 
-const RegisterFeat: React.FC<IPropsRegister> = ({register, errors, isLoading}) => {
+const RegisterFeat: React.FC<IPropsRegister> = ({register, errors, isLoading, setValue}) => {
+    const [ numberPhoenValue, setNumberPhoenValue ] = React.useState<string>('');
+
+    const handleOnChange = (value: any) => {
+        setNumberPhoenValue(value);
+    };
+
+    setValue('numberPhone', numberPhoenValue);
+    
     return (
         <>
             <Typography variant="h2" fontFamily='Poppins' textAlign='center'>Регистрация</Typography>
@@ -29,6 +38,21 @@ const RegisterFeat: React.FC<IPropsRegister> = ({register, errors, isLoading}) =
                 label="Email" 
                 variant="outlined" 
                 placeholder="Введите ваш email" 
+            />
+            <p className={`${!!errors.date && `register__date-error`}`}>Введите дату рождения</p>
+            <input 
+                {...register('date')}
+                className={`register__date ${!!errors.date && `register__date-input`}`} 
+                type="date"
+            />
+            <p className="register__date-error">{errors.date ? `${errors.date.message}` : ''}</p>
+            <MuiPhoneNumber 
+                error={!!errors.numberPhone}
+                helperText={errors.numberPhone ? `${errors.numberPhone.message}` : ''}
+                sx={{ mt: 1 }} 
+                fullWidth 
+                defaultCountry={'tr'} 
+                onChange={handleOnChange}
             />
             <TextField 
                 error={!!errors.password}

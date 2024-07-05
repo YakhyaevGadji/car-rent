@@ -1,0 +1,20 @@
+.register {
+    &__date {
+        padding: 10px;
+        border-radius: 3px;
+        border: 1px solid #c2c2c2;
+        margin: 7px 0;
+        margin-bottom: 0;
+        max-width: 330px;
+        width: 100%;
+
+        &-error {
+            color: rgb(199, 1, 1);
+        }
+        
+        &-input {
+            border: 1px solid rgb(199, 1, 1);
+            border-radius: 3px;
+        }
+    }
+}

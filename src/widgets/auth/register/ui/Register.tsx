@@ -18,6 +18,7 @@ const Register: React.FC = (): React.JSX.Element => {
     const { 
         register, 
         handleSubmit, 
+        setValue,
         formState: { errors } 
     } = useForm<InputsRegister>({
         resolver: yupResolver(RegistShema)
@@ -28,6 +29,8 @@ const Register: React.FC = (): React.JSX.Element => {
             name: data.name,
             email: data.email,
             password: data.password,
+            numberPhone: data.numberPhone,
+            date: data.date,
             imgUrl: '',
             imgId: 0,
             favorites: [],
@@ -50,7 +53,7 @@ const Register: React.FC = (): React.JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <RegisterFeat register={register} errors={errors} isLoading={isLoading}/>
+            <RegisterFeat register={register} errors={errors} isLoading={isLoading} setValue={setValue}/>
         </form>
     );
 }

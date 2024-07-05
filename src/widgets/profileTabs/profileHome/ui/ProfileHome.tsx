@@ -32,7 +32,7 @@ const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
             </div>
             <div className="profile-home__user">
                 <p className="profile-home__user-name">{user.data.name}</p>
-                <p className="profile-home__user-phone">Телефо: </p>
+                <p className="profile-home__user-phone">Телефо: {user.data.numberPhone}</p>
                 <p className="profile-home__user-email">Email: {user.data.email}</p>
                 <NavLink to="/profile/info" className="profile-home__user-button">Изменять данные</NavLink>
             </div>

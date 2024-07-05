@@ -25,6 +25,8 @@ export type TypeUser = {
     name: string;
     email: string;
     favorites: number[];
+    date: string,
+    numberPhone: string,
     applications: TypesModalForm[],
     imgId: number;
     imgUrl: string;
