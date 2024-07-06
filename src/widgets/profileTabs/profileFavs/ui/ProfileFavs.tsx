@@ -34,6 +34,7 @@ const ProfileFavs: React.FC<IPropsProfileFavs> = ({user, items}): React.JSX.Elem
 
     return (
         <section className="profile-favs">
+            <p className="profile-favs__text">Избранное</p>
             <ul className="profile-favs__list">
                 {newArray.map((item) => {
                     return <ProfileFavsFeat key={item.id} car={item} onClickcar={onClickcar}/>

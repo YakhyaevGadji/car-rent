@@ -1,12 +1,13 @@
 import React from "react";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
+import Favorite from "@mui/icons-material/Favorite";
 import { TypeItems } from "../model/types";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { getAxiosCar, setShowWindow } from "../model/getCar";
 import { favoriteUser } from "../../viewer/model/userSlice";
-import { Rating } from "@mui/material";
-import "./carBlock.scss";
+import { Checkbox, Rating } from "@mui/material";
 import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
+import "./carBlock.scss";
 
 type TypeCarProps = {
     car: TypeItems,
@@ -27,7 +28,7 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
     const onClickcar = (event: any) => {
         const id = car.id;
 
-        if (event.target.classList.contains('car__icon')) {
+        if (event.target.classList.contains('PrivateSwitchBase-input')) {
             dispatch(favoriteUser({ id, user }));
 
         } else {
@@ -55,10 +56,9 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
     return (
         <>
             <li onClick={onClickcar} className="car">
-                {isLogged ? <div ><FavoriteBorderIcon
-                    sx={{ width: 33, height: 33 }}
-                    className={`car__icon ${favorites ? 'car__icon--active' : ''}`}
-                /></div> : ''}
+                {isLogged ? <div className="car__icon">
+                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} checked={favorites ? true : false} />
+                </div> : ''}
                 <img className="car__img" src={car.mainImg} alt="" />
                 <p className="car__title">{car.fullTitle}</p>
                 <p className="car__details">{car.transmission.value}, {car.engine}л</p>

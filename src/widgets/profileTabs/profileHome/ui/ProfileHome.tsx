@@ -9,6 +9,8 @@ import "./profileHome.scss";
 const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
     const { user, isLogged} = props;
 
+    const date = isLogged ? user.data.date.split("-") : '';
+
     return (
         <section className="profile-home">
             <h1 className="profile-home__title">Мой профиль</h1>
@@ -32,6 +34,7 @@ const ProfileHome: React.FC<ITypeUserData> = (props): React.JSX.Element => {
             </div>
             <div className="profile-home__user">
                 <p className="profile-home__user-name">{user.data.name}</p>
+                <p className="profile-home__user-date">Дата рождения: {`${date[2]}.${date[1]}.${date[0]}`}</p>
                 <p className="profile-home__user-phone">Телефо: {user.data.numberPhone}</p>
                 <p className="profile-home__user-email">Email: {user.data.email}</p>
                 <NavLink to="/profile/info" className="profile-home__user-button">Изменять данные</NavLink>

@@ -18,6 +18,11 @@ const options = [
     { value: 'delivery', label: 'Доставка по городу + 100$', priceDev: 100 }
 ];
 
+export const months = [
+    "января", "февраля", "марта", "апреля", "мая", "июня",
+    "июля", "августа", "сентября", "октября", "ноября", "декабря"
+];
+
 const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors, orderId }): React.JSX.Element => {
     const { receiving } = useAppSelector((state) => state.modalCar);
     const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
@@ -33,11 +38,6 @@ const ModalForm: React.FC<IPropsModalFrom> = ({ register, setValue, item, errors
     const dispatch = useAppDispatch();
 
     const formatDate = (date: any) => {
-        const months = [
-            "января", "февраля", "марта", "апреля", "мая", "июня",
-            "июля", "августа", "сентября", "октября", "ноября", "декабря"
-        ];
-
         const day = date.getDate();
         const month = months[date.getMonth()];
         const year = date.getFullYear();
