@@ -1,3 +1,4 @@
+import { NoticeType } from 'antd/es/message/interface';
 import { DateRangeProps, RangeKeyDict, Range } from 'react-date-range';
 
 export type IPropsCalendar = {
@@ -9,4 +10,8 @@ export type IPropsCalendar = {
     showDateDisplay?: boolean;
     showMonthAndYearPickers?: boolean
     showPreview?: boolean
-} & DateRangeProps
+} & DateRangeProps;
+
+export interface TypePropsModal {
+    messageTop: (status: NoticeType, content: string) => void
+}

@@ -8,8 +8,9 @@ import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import { Header } from "../../../widgets/header";
 import { Footer } from "../../../widgets/footer";
 import { SingleModal } from "../../../widgets/singleModal";
+import { iTypePropsHomePage } from "../model/TypeHomePage";
 
-const Home: React.FC = () => {
+const Home: React.FC<iTypePropsHomePage> = ({contextHolder, messageTop}) => {
     const { items, status } = useAppSelector((state) => state.cars);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
@@ -27,6 +28,7 @@ const Home: React.FC = () => {
 
     return (
         <>
+            {contextHolder}
             <Header/>
             <main>
                 <Heading/>
@@ -34,7 +36,7 @@ const Home: React.FC = () => {
                 <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
                 <Advantage/>
                 <Faq/>
-                {showWindow === 'open' && <SingleModal/>}
+                {showWindow === 'open' && <SingleModal messageTop={messageTop}/>}
             </main>
             <Footer/>
         </>

@@ -14,12 +14,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FormShema } from "../../../shared/utils/yup";
 import { fetchPatchProfile } from "../../../entities/viewer/model/userSlice";
 import { ReviewsCar } from "../../../features/reviewsCar";
+import { TypePropsModal } from "../model/typesSingleModal";
 import "./singleModal.scss";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const SingleModal: React.FC = (): React.JSX.Element => {
+const SingleModal: React.FC<TypePropsModal> = ({messageTop}): React.JSX.Element => {
     const { item, status } = useAppSelector((state) => state.getCar);
     const { user, isLogged } = useAppSelector((state) => state.auth);
     const { receiving, date } = useAppSelector((state) => state.modalCar);
@@ -38,7 +39,7 @@ const SingleModal: React.FC = (): React.JSX.Element => {
         resolver: yupResolver(FormShema)
     });
 
-    const onSubmit: SubmitHandler<TypesModalForm> = (data) => {
+    const onSubmit: SubmitHandler<TypesModalForm> = async (data) => {
         const id = user.data.id;
 
         if(isLogged) {
@@ -47,8 +48,9 @@ const SingleModal: React.FC = (): React.JSX.Element => {
                 applications: [...user.data.applications, data],
             }
     
-            dispatch(fetchPatchProfile({ id, changedData }));
+            await dispatch(fetchPatchProfile({ id, changedData }));
             dispatch(setShowWindow("closed"));
+            messageTop('success', 'Машина оформлена ожидайте звонка');
         }else {
             dispatch(setShowWindow("closed"));
         }

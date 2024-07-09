@@ -1,5 +1,6 @@
 import React from "react";
 import PrivateRoute from "./route/privateRoute";
+import { message } from 'antd';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home";
 import { Cars } from "../pages/Cars";
@@ -9,10 +10,12 @@ import { useAuth } from "../shared/utils/hooks/useAuth";
 import { userAuthMe } from "../entities/viewer/model/userSlice";
 import { Profile } from "../pages/Profile";
 import { About } from "../pages/About";
+import { NoticeType } from "antd/es/message/interface";
 import "./styles/normalize.css";
 import "./styles/index.scss";
 
 const App: React.FC = () => {
+    const [messageApi, contextHolder] = message.useMessage();
     const dispatch = useAppDispatch();
     const auth = useAuth();
     
@@ -22,10 +25,17 @@ const App: React.FC = () => {
         }
     }, []);
 
+    const messageTop = (status: NoticeType, content: string) => {
+        messageApi.open({
+          type: status,
+          content: content,
+        });
+    };
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Home/>}/>
+                <Route path="/" element={<Home contextHolder={contextHolder} messageTop={messageTop}/>}/>
                 <Route path="/Cars" element={<Cars/>}/>
                 <Route path="/login" element={<Auth/>}/>
                 <Route path="/register" element={<Auth/>}/>
