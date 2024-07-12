@@ -43,6 +43,48 @@
         }
     }
 
+    &__burger {
+        display: none;
+        background-color: inherit;
+        position: relative;
+
+
+        &::before,
+        &::after,
+        span {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: rgb(255, 255, 255);
+            display: block;
+            transition: all 0.3s ease 0s;
+        }
+
+        &::before {
+            top: 0;
+        }
+        &::after {
+            bottom: 0;
+        }
+        span {
+            top: 11px;
+        }
+
+        &--active::before {
+            transform: rotate(45deg);
+            top: 12px;
+        }
+        &--active::after {
+            transform: rotate(-45deg);
+            bottom: 11px;
+        }
+        &--active span {
+            transform: scale(0);
+        }
+    }
+
     &__sign {
         background-color: var(--blueColor);
         padding: 5px 8px;
@@ -51,4 +93,31 @@
         width: 95px;
         text-align: center;
     }
+
+    @media(max-width: 1024px) {
+        &__nav {
+            display: none;
+        }
+        
+        &__burger {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            border: none;
+            height: 25px;
+            width: 30px;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .profile-header {
+            display: none;
+        }
+    }
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

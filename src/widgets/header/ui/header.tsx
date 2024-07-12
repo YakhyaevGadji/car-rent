@@ -6,13 +6,14 @@ import "./header.scss";
 
 export const Header: React.FC = () => {
     const { user, isLogged } = useAppSelector((state) => state.auth);
+    const [ toggleBurger, setToggleBurger] = React.useState(false);
     const sessionName = sessionStorage.getItem('name');
 
     return (
         <header className="header">
-            <div className="container">
+            <div className="container inner">
+                <NavLink className="header__logo" to="/">RI</NavLink>
                 <nav className="header__nav">
-                    <NavLink className="header__logo" to="/">RI</NavLink>
                     <ul className="header__list">
                         <li className="header__list-item">
                             <NavLink className="header__list-link" to="/">Домой</NavLink>
@@ -24,8 +25,11 @@ export const Header: React.FC = () => {
                             <NavLink className="header__list-link" to="/About">О нас</NavLink>
                         </li>
                     </ul>
-                    {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </nav>
+                <button onClick={() => setToggleBurger(!toggleBurger)} className={`header__burger ${toggleBurger && `header__burger--active`}`}>
+                    <span></span>
+                </button>
+                {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> : <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
             </div>
         </header>
     );

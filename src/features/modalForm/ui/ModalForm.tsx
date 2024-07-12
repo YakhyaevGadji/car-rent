@@ -4,7 +4,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { FormControl, FormControlLabel, RadioGroup, Radio } from '@mui/material';
 import { Popover, TextField } from "@mui/material";
 import { Calendar } from "../../../widgets/singleModal";
-import { addDays, differenceInDays, format, setDate, subDays } from "date-fns";
+import { addDays, differenceInDays, format, subDays } from "date-fns";
 import { ru } from "date-fns/locale";
 import { RangeKeyDict } from "react-date-range";
 import { Range } from "react-date-range";
