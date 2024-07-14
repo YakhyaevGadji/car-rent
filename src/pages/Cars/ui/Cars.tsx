@@ -1,6 +1,7 @@
 import React from "react";
 import ListCars from "../../../widgets/listCars/ui/ListCars";
 import topScroll from "../../../shared/utils/topScroll/topScroll";
+import { ITypePropsCars } from "../model/typeCarsPage";
 import { FilterBrand, FilterPrice, FilterSort, FiltersReset } from "../../../widgets/filters";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
@@ -13,7 +14,7 @@ import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import "./cars.scss";
 
-const Cars: React.FC = () => {
+const Cars: React.FC<ITypePropsCars> = ({messageTop}) => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
     const { sort, searchCars, price, page, brand } = useAppSelector((state) => state.filters);
     const { showWindow } = useAppSelector((state) => state.getCar);
@@ -56,7 +57,7 @@ const Cars: React.FC = () => {
                             </div>
                         </div> 
                     </div>
-                    {showWindow === 'open' && <SingleModal/>}
+                    {showWindow === 'open' && <SingleModal messageTop={messageTop}/>}
                 </main>
             <Footer/>
         </>

@@ -1,3 +1,3 @@
 import Cars from "./ui/Cars";
 
-export { Cars };
+export default Cars;
