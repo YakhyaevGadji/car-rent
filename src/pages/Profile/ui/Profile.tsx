@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, lazy, Suspense, useEffect } from "react";
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
@@ -8,17 +8,21 @@ import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { ProfileFavs, ProfileHome, ProfileInfo, ProfileOrders } from "../../../widgets/profileTabs";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import "./profile.scss";
 
-const Profile: React.FC = (): React.JSX.Element => {
+const ProfileHome = lazy(() => import('../../../widgets/profileTabs/profileHome/ui/ProfileHome'));
+const ProfileOrders = lazy(() => import('../../../widgets/profileTabs/profileOrders/ui/ProfileOrders'));
+const ProfileFavs = lazy(() => import('../../../widgets/profileTabs/profileFavs/ui/ProfileFavs'));
+const ProfileInfo = lazy(() => import('../../../widgets/profileTabs/profileInfo/ui/ProfileInfo'));
+
+const Profile: FC = (): JSX.Element => {
     const { user, isLogged } = useAppSelector((state) => state.auth);
     const { items, status } = useAppSelector((state) => state.cars);
     const dispatch = useAppDispatch();
 
-    React.useEffect(() => {
+    useEffect(() => {
         dispatch(fetchCars());
     }, []);
 
@@ -73,10 +77,19 @@ const Profile: React.FC = (): React.JSX.Element => {
                     </div>
                     <div className="profile__route">
                         <Routes>
-                            <Route path="/user" element={<ProfileHome user={user} isLogged={isLogged} />} />
-                            <Route path="/orders" element={<ProfileOrders user={user} isLogged={isLogged} />} />
-                            <Route path="/favorites" element={checkStatus && <ProfileFavs user={user} items={items} />} />
-                            <Route path="/info" element={isLogged && <ProfileInfo userOld={user} />} />
+                            <Route path="/user" element={<Suspense fallback="Loading...">
+                                <ProfileHome user={user} isLogged={isLogged} />
+                            </Suspense>} />
+                            <Route path="/orders" element={<Suspense fallback="Loading...">
+                                <ProfileOrders user={user} isLogged={isLogged} />
+                            </Suspense>} />
+                            <Route path="/favorites" element={<Suspense fallback="Loading...">
+                                {checkStatus && <ProfileFavs user={user} items={items} />}
+                            </Suspense>} />
+                            <Route path="/info" element={<Suspense fallback="Loading...">
+                                    {isLogged && <ProfileInfo userOld={user} />}
+                                </Suspense>
+                            } />
                         </Routes>
                     </div>
                 </div>

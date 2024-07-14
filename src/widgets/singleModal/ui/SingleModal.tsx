@@ -33,9 +33,8 @@ const SingleModal: React.FC<TypePropsModal> = ({messageTop}): React.JSX.Element 
         register,
         handleSubmit,
         setValue,
-        watch,
         formState: { errors },
-    } = useForm<TypesModalForm>({
+    } = useForm<any>({
         resolver: yupResolver(FormShema)
     });
 

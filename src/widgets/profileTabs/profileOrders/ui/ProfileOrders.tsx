@@ -4,8 +4,8 @@ import { TypesModalForm } from "../../../../features/modalForm/model/typesModalF
 import { useAppDispatch } from "../../../../app/appStore";
 import { fetchPatchProfile } from "../../../../entities/viewer/model/userSlice";
 import { getAxiosCar, setShowWindow } from "../../../../entities/carblock/model/getCar";
-import "./profileOrders.scss";
 import { useNavigate } from "react-router-dom";
+import "./profileOrders.scss";
 
 const ProfileOrders: React.FC<ITypePropsProfileOrders> = (props): React.JSX.Element => {
     const { user, isLogged } = props;

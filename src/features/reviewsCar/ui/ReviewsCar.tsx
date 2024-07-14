@@ -2,8 +2,6 @@ import React from "react";
 import { Button, Rating } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ITypePropsReviewsCar, TypeInputsReviewsCar } from "../model/typesReviewsCar";
-import { instance } from "../../../shared/utils/axios";
-import { TypeReviewsCar } from "../../../entities/carblock/model/types";
 import { useAppDispatch } from "../../../app/appStore";
 import { patchCar } from "../../../entities/carblock/model/getCar";
 import "./reviewsCar.scss";
@@ -17,7 +15,6 @@ const ReviewsCar: React.FC<ITypePropsReviewsCar> = (props): React.JSX.Element =>
         register,
         handleSubmit,
         setValue,
-        formState: { errors },
     } = useForm<TypeInputsReviewsCar>()
 
     const onSubmit: SubmitHandler<TypeInputsReviewsCar> = (data) => {
