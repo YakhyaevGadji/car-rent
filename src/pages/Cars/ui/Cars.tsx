@@ -6,15 +6,13 @@ import { FilterBrand, FilterPrice, FilterSort, FiltersReset } from "../../../wid
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchFilterCars } from "../../../entities/carblock/model/getFilterCars";
 import { Search } from "../../../widgets/searchCars";
-import { Header } from "../../../widgets/header";
-import { Footer } from "../../../widgets/footer";
 import { SingleModal } from "../../../widgets/singleModal";
 import { Pagination } from "@mui/material";
 import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import "./cars.scss";
 
-const Cars: React.FC<ITypePropsCars> = ({messageTop}) => {
+const Cars: React.FC<ITypePropsCars> = ({ messageTop }) => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
     const { sort, searchCars, price, page, brand } = useAppSelector((state) => state.filters);
     const { showWindow } = useAppSelector((state) => state.getCar);
@@ -24,8 +22,8 @@ const Cars: React.FC<ITypePropsCars> = ({messageTop}) => {
         dispatch(fetchFilterCars({ sort, searchCars, price, page, brand }));
     };
 
-    const onChangePagination = (_: any, value: number) => {  
-        topScroll()   
+    const onChangePagination = (_: any, value: number) => {
+        topScroll()
         dispatch(setPage(value));
     };
 
@@ -35,31 +33,27 @@ const Cars: React.FC<ITypePropsCars> = ({messageTop}) => {
 
     return (
         <>
-            <Header/>
-                <main>
-                    <div className="container">
-                        <div className="cars__inner">
-                            <aside className="cars__filters">
-                                <FilterPrice />
-                                <FilterBrand />
-                                <FiltersReset />
-                            </aside>
-                            <div className="cars">
-                                <FilterSort />
-                                <Search />
-                                <ListCars/>
-                                <Pagination 
-                                    className="cars__pagination" 
-                                    onChange={onChangePagination} 
-                                    count={status === EnumStatus.SUCCESS ? items.meta.total_pages : 3} 
-                                    size="large" 
-                                />
-                            </div>
-                        </div> 
+            <div className="container">
+                <div className="cars__inner">
+                    <aside className="cars__filters">
+                        <FilterPrice />
+                        <FilterBrand />
+                        <FiltersReset />
+                    </aside>
+                    <div className="cars">
+                        <FilterSort />
+                        <Search />
+                        <ListCars />
+                        <Pagination
+                            className="cars__pagination"
+                            onChange={onChangePagination}
+                            count={status === EnumStatus.SUCCESS ? items.meta.total_pages : 3}
+                            size="large"
+                        />
                     </div>
-                    {showWindow === 'open' && <SingleModal messageTop={messageTop}/>}
-                </main>
-            <Footer/>
+                </div>
+            </div>
+            {showWindow === 'open' && <SingleModal messageTop={messageTop} />}
         </>
     );
 }

@@ -5,8 +5,6 @@ import { Advantage } from "../../../widgets/advantage";
 import { Faq } from "../../../widgets/faq";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
-import { Header } from "../../../widgets/header";
-import { Footer } from "../../../widgets/footer";
 import { SingleModal } from "../../../widgets/singleModal";
 import { iTypePropsHomePage } from "../model/TypeHomePage";
 
@@ -29,16 +27,12 @@ const Home: React.FC<iTypePropsHomePage> = ({contextHolder, messageTop}) => {
     return (
         <>
             {contextHolder}
-            <Header/>
-            <main>
-                <Heading/>
-                <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
-                <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
-                <Advantage/>
-                <Faq/>
-                {showWindow === 'open' && <SingleModal messageTop={messageTop}/>}
-            </main>
-            <Footer/>
+            <Heading/>
+            <SliderCar cars={carsAuto} status={status} title={'Автомат'}/>
+            <SliderCar cars={carsMechanical} status={status} title={'Механика'}/>
+            <Advantage/>
+            <Faq/>
+            {showWindow === 'open' && <SingleModal messageTop={messageTop}/>}
         </>
         
     );
