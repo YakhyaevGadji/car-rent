@@ -18,7 +18,6 @@ const Register: React.FC = (): React.JSX.Element => {
     const { 
         register, 
         handleSubmit, 
-        setValue,
         formState: { errors } 
     } = useForm<InputsRegister>({
         resolver: yupResolver(RegistShema)
