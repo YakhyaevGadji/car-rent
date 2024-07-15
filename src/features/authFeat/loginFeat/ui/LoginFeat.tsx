@@ -33,6 +33,7 @@ const LoginFeat: React.FC<IPropsLogin> = ({register, errors, isLoading}) => {
                 variant="outlined" 
                 placeholder="Введите ваш пароль"
             />
+            <p className="form__error">{`${!!errors.email && !!errors.password ? `Не верный логин или пароль` : ''}`}</p>
             <LoadingButton className="form__submit" loading={isLoading} fullWidth type="submit" sx={{fontFamily:'Poppins', marginTop: 2, marginBottom: 2, width: '60%'}} variant="contained" >Войти</LoadingButton>
             <Typography className="form__regist" variant="body1" sx={{fontFamily: 'Poppins', }}>У вас нет аккаунта? <Link to="/register">Регистрация</Link></Typography>
         </>

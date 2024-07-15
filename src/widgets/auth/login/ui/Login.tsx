@@ -16,6 +16,7 @@ const Login: React.FC = (): React.JSX.Element => {
     const {
         register,
         handleSubmit,
+        setError,
         formState: { errors },
     } = useForm<InputsLogin>({
         resolver: yupResolver(LoginShema)
@@ -29,9 +30,14 @@ const Login: React.FC = (): React.JSX.Element => {
 
     const onSubmit: SubmitHandler<InputsLogin> = async (data) => {
         try {
-            await dispatch(authUser(data));
+            const result = await dispatch(authUser(data));
 
-            navigate('/');
+            if(result.meta.requestStatus === 'rejected') {
+                setError('email', {message: ''});
+                setError('password', {message: ''})
+            }else if(result.meta.requestStatus === 'fulfilled') {
+                navigate('/');
+            }
         } catch (error) {
             return error;
         }

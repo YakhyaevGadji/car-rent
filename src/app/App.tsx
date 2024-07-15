@@ -11,10 +11,11 @@ import { useAuth } from "../shared/utils/hooks/useAuth";
 import { userAuthMe } from "../entities/viewer/model/userSlice";
 import { About } from "../pages/About";
 import { NoticeType } from "antd/es/message/interface";
-const Cars = lazy(() => import('../pages/Cars'));
-const Profile = lazy(() => import('../pages/Profile'));
 import "./styles/normalize.css";
 import "./styles/index.scss";
+
+const Cars = lazy(() => import('../pages/Cars'));
+const Profile = lazy(() => import('../pages/Profile'));
 
 const App: React.FC = () => {
     const { showWindow } = useAppSelector((state) => state.getCar);
