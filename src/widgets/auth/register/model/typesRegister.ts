@@ -13,6 +13,5 @@ export interface IPropsRegister<TFieldValues extends FieldValues = FieldValues> 
     register: UseFormRegister<InputsRegister>
     isLoading: boolean
     errors: FieldErrors<TFieldValues>,
-    setValue: UseFormSetValue<InputsRegister>
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import MuiPhoneNumber from "material-ui-phone-number";
 import { ProfileAvatarFeat } from "../../../../features/profileAvatarFeat";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Button, TextField } from "@mui/material";
@@ -13,13 +12,11 @@ import "./profileInfo.scss";
 const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element => {
     const { userOld } = props;
     const [ changeBoolean, setChangeBoolean ] = React.useState(true);
-    const [ numberPhoenValue, setNumberPhoenValue ] = React.useState<string>(userOld.data.numberPhone);
     const dispatch = useAppDispatch();
 
     const {
         register,
         handleSubmit,
-        setValue,
         formState: { errors },
     } = useForm<TypeUseFormPofile>({
         resolver: yupResolver(ChangeDataProfileShema)
@@ -46,13 +43,6 @@ const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element 
             email: userData.payload.email
         }));
     };
-
-    const handleOnChange = (value: any) => {
-        setNumberPhoenValue(value);
-        setChangeBoolean(false);
-    };
-
-    setValue('numberPhone', numberPhoenValue);
 
     return (
         <section className="prfile-info">
@@ -81,14 +71,16 @@ const ProfileInfo: React.FC<ITypePropsProfileInfo> = (props): React.JSX.Element 
                         size="small"
                         label="Email"
                     />
-                    <MuiPhoneNumber
+                    <TextField
+                        {...register('numberPhone')}
+                        type="number"
                         error={!!errors.numberPhone}
-                        value={numberPhoenValue}
+                        defaultValue={userOld.data.numberPhone}
                         helperText={errors.numberPhone ? `${errors.numberPhone.message}` : ''}
                         sx={{ mt: 1, mb: 2 }}
                         fullWidth
-                        defaultCountry={'tr'}
-                        onChange={handleOnChange}
+                        label="Phone"
+                        onChange={() => setChangeBoolean(false)}
                     />
                     <Button disabled={changeBoolean} type="submit" variant="outlined">Сохранить изменения</Button>
                 </form>

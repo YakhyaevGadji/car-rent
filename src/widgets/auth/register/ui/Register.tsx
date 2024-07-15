@@ -53,7 +53,7 @@ const Register: React.FC = (): React.JSX.Element => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <RegisterFeat register={register} errors={errors} isLoading={isLoading} setValue={setValue}/>
+            <RegisterFeat register={register} errors={errors} isLoading={isLoading}/>
         </form>
     );
 }
