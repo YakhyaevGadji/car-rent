@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from "react";
+import {FC, lazy, Suspense, useEffect} from "react";
 import PrivateRoute from "./route/privateRoute";
 import { Header } from "../widgets/header";
 import { Footer } from "../widgets/footer";
@@ -17,7 +17,7 @@ import "./styles/index.scss";
 const Cars = lazy(() => import('../pages/Cars'));
 const Profile = lazy(() => import('../pages/Profile'));
 
-const App: React.FC = () => {
+const App: FC = () => {
     const { showWindow } = useAppSelector((state) => state.getCar);
     const [messageApi, contextHolder] = message.useMessage();
     const dispatch = useAppDispatch();
@@ -44,24 +44,26 @@ const App: React.FC = () => {
 
     return (
         <BrowserRouter>
-        <Header/>
-            <main>
-                <Routes>
-                    <Route path="/" element={<Home contextHolder={contextHolder} messageTop={messageTop}/>}/>
-                    <Route path="/Cars" element={<Suspense fallback="Loading...">
-                        <Cars messageTop={messageTop}/>
-                    </Suspense>}/>
-                    <Route path="/login" element={<Auth/>}/>
-                    <Route path="/register" element={<Auth/>}/>
-                    <Route element={<PrivateRoute/>}>
-                        <Route path="/profile/*" element={<Suspense fallback="Loading...">
-                            <Profile/>
+            <div className="wrapper">
+                <Header/>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<Home contextHolder={contextHolder} messageTop={messageTop}/>}/>
+                        <Route path="/Cars" element={<Suspense fallback="Loading...">
+                            <Cars messageTop={messageTop}/>
                         </Suspense>}/>
-                    </Route>
-                    <Route path="/About"  element={<About/>}/>
-                </Routes>
-            </main>
-        <Footer/>
+                        <Route path="/login" element={<Auth/>}/>
+                        <Route path="/register" element={<Auth/>}/>
+                        <Route element={<PrivateRoute/>}>
+                            <Route path="/profile/*" element={<Suspense fallback="Loading...">
+                                <Profile/>
+                            </Suspense>}/>
+                        </Route>
+                        <Route path="/About"  element={<About/>}/>
+                    </Routes>
+                </main>
+                <Footer/>
+            </div>
         </BrowserRouter>
     );
 }

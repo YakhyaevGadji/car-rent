@@ -77,11 +77,7 @@ const SingleModal: React.FC<TypePropsModal> = ({messageTop}): React.JSX.Element 
 
     let booleanInfoCar;
 
-    if (valueButton === '1' || valueButton === '2') {
-        booleanInfoCar = true;
-    } else {
-        booleanInfoCar = false;
-    }
+    booleanInfoCar = valueButton === '1' || valueButton === '2';
 
     const formatDate = date === 1 ? 'день' : date <= 4 ? 'дня' : 'дней';
 
