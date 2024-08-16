@@ -10,8 +10,8 @@ import { SingleModal } from "../../../widgets/singleModal";
 import { Pagination } from "@mui/material";
 import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
 import { EnumStatus } from "../../../entities/carblock/model/types";
-import "./cars.scss";
 import FilterEngine from "../../../widgets/filters/filterEngine/FilterEngine.tsx";
+import "./cars.scss";
 
 const Cars: React.FC<ITypePropsCars> = ({ messageTop }) => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);

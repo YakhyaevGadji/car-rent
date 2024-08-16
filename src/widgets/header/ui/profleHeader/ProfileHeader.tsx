@@ -10,16 +10,12 @@ import { styled } from '@mui/system';
 import { CssTransition } from '@mui/base/Transitions';
 import { PopupContext } from '@mui/base/Unstable_Popup';
 import { Link } from "react-router-dom";
+import exitProfile from "../../../../shared/hooks/profileExit.ts";
 import "./profileHeader.scss";
+
 
 const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element => {
     const { sessionName, user } = props;
-    
-    const onClickExit = () => {
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('name');
-        location.reload();
-    };
 
     return (
         <Dropdown>
@@ -43,7 +39,7 @@ const ProfileHeader: React.FC<IPropsProfileHeader> = (props): React.JSX.Element 
                         Избранное
                     </MenuItem>
                 </Link>
-                <button onClick={onClickExit} className="profile-header__exit">
+                <button onClick={exitProfile} className="profile-header__exit">
                     <MenuItem>
                         Выход
                     </MenuItem>

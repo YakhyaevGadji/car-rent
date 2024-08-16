@@ -16,4 +16,11 @@
         width: 100%;
         text-align: left;
     }
+
+    @media(max-width: 1024px) {
+        .profile-header {
+            padding: 500px;
+        }
+    }
 }
+

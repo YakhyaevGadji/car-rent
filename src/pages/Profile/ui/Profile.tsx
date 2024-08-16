@@ -4,6 +4,7 @@ import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import exitProfile from "../../../shared/hooks/profileExit.ts";
 import { Route, Routes } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../app/appStore";
 import { Avatar } from "@mui/material";
@@ -11,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import { fetchCars } from "../../../entities/carblock/model/carsSlice";
 import "./profile.scss";
+
 
 const ProfileHome = lazy(() => import('../../../widgets/profileTabs/profileHome/ui/ProfileHome'));
 const ProfileOrders = lazy(() => import('../../../widgets/profileTabs/profileOrders/ui/ProfileOrders'));
@@ -68,10 +70,10 @@ const Profile: FC = (): JSX.Element => {
                                     <ContactEmergencyIcon sx={{ width: 27, height: 27 }} />
                                     Личная информация
                                 </NavLink>
-                                <NavLink to="/profile/exid" className="profile__list_link">
+                                <button onClick={exitProfile} className="profile__list_link">
                                     <ExitToAppIcon sx={{ width: 27, height: 27 }} />
                                     Выйти
-                                </NavLink>
+                                </button>
                             </li>
                         </ul>
                     </div>
