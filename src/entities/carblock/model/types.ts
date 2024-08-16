@@ -7,9 +7,13 @@ export type TypeReviewsCar = {
     name: string
 }
 
-type TypeTransmissionCar = {
-    label: string,
-    value: string
+export type TypeCarEngine = {
+    label: string;
+    value: string;
+}
+
+export type TypeTransmissionCar = {
+    name: TypeCarEngine[]
 };
 
 export type TypeItems = {
@@ -58,5 +62,6 @@ export interface IRequestProps {
     searchCars: string,
     price: number[],
     page: number,
-    brand: string
+    brand: string,
+    engine: string
 }

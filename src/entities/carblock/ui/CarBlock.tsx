@@ -1,12 +1,12 @@
 import React from "react";
 import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import Favorite from "@mui/icons-material/Favorite";
-import { TypeItems } from "../model/types";
-import { useAppDispatch, useAppSelector } from "../../../app/appStore";
-import { getAxiosCar, setShowWindow } from "../model/getCar";
-import { favoriteUser } from "../../viewer/model/userSlice";
-import { Checkbox, Rating } from "@mui/material";
-import { TypesModalForm } from "../../../features/modalForm/model/typesModalForm";
+import {TypeItems} from "../model/types";
+import {useAppDispatch, useAppSelector} from "../../../app/appStore";
+import {getAxiosCar, setShowWindow} from "../model/getCar";
+import {favoriteUser} from "../../viewer/model/userSlice";
+import {Checkbox, Rating} from "@mui/material";
+import {TypesModalForm} from "../../../features/modalForm/model/typesModalForm";
 import "./carBlock.scss";
 
 type TypeCarProps = {
@@ -44,11 +44,9 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
         }
         
         let total = ratings.reduce((acc, rating) => acc + rating, 0);
-        
-        
-        let average = total / ratings.length;
-        
-        return average;
+
+
+        return total / ratings.length;
     }
 
     const totalRating = calculateAverageRating(car.reviews.map((item) => item.rating));
@@ -57,11 +55,11 @@ const CarBlock: React.FC<TypeCarProps> = ({ car }) => {
         <>
             <li onClick={onClickcar} className="car">
                 {isLogged ? <div className="car__icon">
-                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} checked={favorites ? true : false} />
+                    <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} checked={!!favorites} />
                 </div> : ''}
                 <img className="car__img" src={car.mainImg} alt="" />
                 <p className="car__title">{car.fullTitle}</p>
-                <p className="car__details">{car.transmission.value}, {car.engine}л</p>
+                <p className="car__details">{car.transmission.name[1].value}, {car.engine}л</p>
                 <div className="car__rating">
                     <Rating
                         name="simple-controlled"

@@ -11,15 +11,16 @@ import { Pagination } from "@mui/material";
 import { setPage } from "../../../entities/carblock/model/carsFiltersSlices";
 import { EnumStatus } from "../../../entities/carblock/model/types";
 import "./cars.scss";
+import FilterEngine from "../../../widgets/filters/filterEngine/FilterEngine.tsx";
 
 const Cars: React.FC<ITypePropsCars> = ({ messageTop }) => {
     const { items, status } = useAppSelector((state) => state.getFilterCars);
-    const { sort, searchCars, price, page, brand } = useAppSelector((state) => state.filters);
+    const { sort, searchCars, price, page, brand, engine } = useAppSelector((state) => state.filters);
     const { showWindow } = useAppSelector((state) => state.getCar);
     const dispatch = useAppDispatch();
 
     const getCars = async () => {
-        dispatch(fetchFilterCars({ sort, searchCars, price, page, brand }));
+        dispatch(fetchFilterCars({ sort, searchCars, price, page, brand, engine }));
     };
 
     const onChangePagination = (_: any, value: number) => {
@@ -29,7 +30,7 @@ const Cars: React.FC<ITypePropsCars> = ({ messageTop }) => {
 
     React.useEffect(() => {
         getCars();
-    }, [sort, searchCars, price, page, brand]);
+    }, [sort, searchCars, price, page, brand, engine]);
 
     return (
         <>
@@ -38,6 +39,7 @@ const Cars: React.FC<ITypePropsCars> = ({ messageTop }) => {
                     <aside className="cars__filters">
                         <FilterPrice />
                         <FilterBrand />
+                        <FilterEngine/>
                         <FiltersReset />
                     </aside>
                     <div className="cars">

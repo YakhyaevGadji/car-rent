@@ -21,8 +21,8 @@ const Home: React.FC<iTypePropsHomePage> = ({contextHolder, messageTop}) => {
         getCars();
     }, []);
 
-    const carsAuto = items.filter((item) => item.transmission.value === 'Automatic');
-    const carsMechanical = items.filter((item) => item.transmission.value === 'mechanical');
+    const carsAuto = items.filter((item) => item.transmission.name[1].value === 'Automatic');
+    const carsMechanical = items.filter((item) => item.transmission.name[1].value === 'mechanical');
 
     return (
         <>

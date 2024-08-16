@@ -1,0 +1,12 @@
+.filter-engine {
+    padding: 20px;
+    border: 1px solid #e6e7eb;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+    &__title {
+        font-weight: 700;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+}

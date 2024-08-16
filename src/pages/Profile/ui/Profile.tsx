@@ -26,7 +26,7 @@ const Profile: FC = (): JSX.Element => {
         dispatch(fetchCars());
     }, []);
 
-    const checkStatus = isLogged && status === EnumStatus.SUCCESS ? true : false;
+    const checkStatus = !!(isLogged && status === EnumStatus.SUCCESS);
 
     return (
         <div className="profile">

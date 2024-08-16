@@ -105,7 +105,7 @@ const SingleModal: React.FC<TypePropsModal> = ({messageTop}): React.JSX.Element 
                                     <ul className="modal__character">
                                         <li className="modal__character-item">
                                             <p className="modal__character-title">Коробка передачи:</p>
-                                            <h5 className="modal__character-data">{item.transmission.value}</h5>
+                                            <h5 className="modal__character-data">{item.transmission.name[0].label}</h5>
                                         </li>
                                         <li className="modal__character-item">
                                             <p className="modal__character-title">Двигатель:</p>

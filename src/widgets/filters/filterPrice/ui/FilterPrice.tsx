@@ -2,13 +2,16 @@ import { Slider } from "@mui/material";
 import React from "react";
 import "./filterPrice.scss";
 import debounce from "lodash.debounce";
-import { useAppDispatch } from "../../../../app/appStore";
+import {useAppDispatch, useAppSelector} from "../../../../app/appStore";
 import { setPrice } from "../../../../entities/carblock/model/carsFiltersSlices";
 
 const FilterPrice: React.FC = () => {
+    const {price} = useAppSelector((state) => state.filters);
     const [value1, setValue1] = React.useState<number[]>([10, 90]);
     const dispatch = useAppDispatch();
     const minDistance = 10;
+
+    console.log(price);
 
     const handleChange1 = (_: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
@@ -42,9 +45,9 @@ const FilterPrice: React.FC = () => {
         <section className="price">
             <p className="price__title">Фильтр по цене</p>
             <div className="price__inputs-block">
-                <input className="price__input" type="number" disabled value={value1[0]} />
+                <input className="price__input" type="number" disabled value={price[0]} />
                 <span>-</span>
-                <input className="price__input" type="number" disabled value={value1[1]} />
+                <input className="price__input" type="number" disabled value={price[1]} />
             </div>
             <Slider
                 getAriaLabel={() => 'Minimum distance'}
