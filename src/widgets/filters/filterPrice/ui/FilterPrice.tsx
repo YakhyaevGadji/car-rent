@@ -11,8 +11,6 @@ const FilterPrice: React.FC = () => {
     const dispatch = useAppDispatch();
     const minDistance = 10;
 
-    console.log(price);
-
     const handleChange1 = (_: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
             return;
