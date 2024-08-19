@@ -19,7 +19,7 @@ const ProfileOrders = lazy(() => import('../../../widgets/profileTabs/profileOrd
 const ProfileFavs = lazy(() => import('../../../widgets/profileTabs/profileFavs/ui/ProfileFavs'));
 const ProfileInfo = lazy(() => import('../../../widgets/profileTabs/profileInfo/ui/ProfileInfo'));
 
-const Profile: FC = (): JSX.Element => {
+const Profile: FC = () => {
     const { user, isLogged } = useAppSelector((state) => state.auth);
     const { items, status } = useAppSelector((state) => state.cars);
     const dispatch = useAppDispatch();
