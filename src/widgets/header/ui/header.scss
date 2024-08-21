@@ -95,10 +95,45 @@
     }
 
     @media(max-width: 1024px) {
+        &__back_active {
+            position: fixed;
+            height: 100%;
+            z-index: 9;
+            background-color: rgb(0, 0, 0, .5);
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        &__list {
+            display: block;
+            height: 100%;
+
+            &-item {
+                margin-bottom: 30px;
+                font-size: 30px;
+            }
+        }
+
         &__nav {
+            position: fixed;
+            background-color: #121214;
+            transition: all 0.3s ease;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            left: 100%;
+            z-index: 10;
+            padding: 50px;
+        }
+
+        &__nav_active {
+            left: 50%;
+        }
+
+        &__logo {
             display: none;
         }
-        
+
         &__burger {
             display: block;
             position: relative;
@@ -107,11 +142,7 @@
             height: 25px;
             width: 30px;
             transition: all 0.3s ease;
-            z-index: 2;
-        }
-
-        .profile-header {
-            display: none;
+            z-index: 10;
         }
     }
 }
@@ -120,4 +151,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+body.lock {
+    overflow: hidden;
 }
