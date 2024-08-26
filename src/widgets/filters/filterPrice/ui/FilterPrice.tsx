@@ -1,9 +1,9 @@
 import { Slider } from "@mui/material";
 import React from "react";
-import "./filterPrice.scss";
 import debounce from "lodash.debounce";
 import {useAppDispatch, useAppSelector} from "../../../../app/appStore";
 import { setPrice } from "../../../../entities/carblock/model/carsFiltersSlices";
+import "./filterPrice.scss";
 
 const FilterPrice: React.FC = () => {
     const {price} = useAppSelector((state) => state.filters);
@@ -37,15 +37,18 @@ const FilterPrice: React.FC = () => {
         }, 500),
         []
     );
- 
-    
+
+    React.useEffect(() => {
+        setValue1(price);
+    }, [price]);
+
     return (
         <section className="price">
             <p className="price__title">Фильтр по цене</p>
             <div className="price__inputs-block">
-                <input className="price__input" type="number" disabled value={price[0]} />
+                <input className="price__input" type="number" disabled value={value1[0]} />
                 <span>-</span>
-                <input className="price__input" type="number" disabled value={price[1]} />
+                <input className="price__input" type="number" disabled value={value1[1]} />
             </div>
             <Slider
                 getAriaLabel={() => 'Minimum distance'}
