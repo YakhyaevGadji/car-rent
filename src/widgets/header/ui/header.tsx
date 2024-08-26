@@ -11,14 +11,16 @@ export const Header: React.FC = () => {
 
     //Удалет и добавляет в body класс при клике на бургер
     const handleToggle = () => {
-        setToggleBurger(!toggleBurger);
+        if(window.innerWidth < 1024) {
+            setToggleBurger(!toggleBurger);
 
-        let bodyClassName = document.body;
+            let bodyClassName = document.body;
 
-        if(bodyClassName.className !== 'lock') {
-            bodyClassName.className = 'lock';
-        }else {
-            bodyClassName.classList.remove('lock');
+            if(bodyClassName.className !== 'lock') {
+                bodyClassName.className = 'lock';
+            }else {
+                bodyClassName.classList.remove('lock');
+            }
         }
     }
 
@@ -30,25 +32,25 @@ export const Header: React.FC = () => {
                     <nav className={`header__nav ${toggleBurger ? `header__nav_active` : ''}`}>
                         <ul className="header__list">
                             <li className="header__list-item">
-                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/">Домой</NavLink>
+                                <NavLink onClick={handleToggle} className="header__list-link" to="/">Домой</NavLink>
                             </li>
                             <li className="header__list-item">
-                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/Cars">Машины</NavLink>
+                                <NavLink onClick={handleToggle} className="header__list-link" to="/Cars">Машины</NavLink>
                             </li>
                             <li className="header__list-item">
-                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/About">О нас</NavLink>
+                                <NavLink onClick={handleToggle} className="header__list-link" to="/About">О нас</NavLink>
                             </li>
                         </ul>
                     </nav>
 
-                    <button onClick={() => handleToggle} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
+                    <button onClick={handleToggle} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
                         <span></span>
                     </button>
                     {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> :
                         <NavLink className="header__sign" to="/login">Sign / In</NavLink>}
                 </div>
             </header>
-            <div onClick={() => handleToggle()} className={`header__back ${toggleBurger ? `header__back_active` : ''}`}></div>
+            <div onClick={handleToggle} className={`header__back ${toggleBurger ? `header__back_active` : ''}`}></div>
         </>
     );
 }

@@ -1,8 +1,8 @@
 import * as yup from "yup";
 
 export const LoginShema = yup.object().shape({
-    email: yup.string().email('Введите корректрный email').required('Это поле обязательное'),
-    password: yup.string().min(8, 'Минимальная длина 8 символов').required('Это поле обязательное')
+    email: yup.string().required('Это поле обязательное'),
+    password: yup.string().required('Это поле обязательное')
 });
 
 export const RegistShema = yup.object().shape({
@@ -16,7 +16,6 @@ export const RegistShema = yup.object().shape({
 
 export const FormShema = yup.object().shape({
     fullName: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное'),
-    // address: yup.string().min(4, 'Минимальная длина 2 символов').required('Это поле обязательное')
 });
 
 export const ChangeDataProfileShema = yup.object().shape({
