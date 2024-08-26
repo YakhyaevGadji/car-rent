@@ -30,18 +30,18 @@ export const Header: React.FC = () => {
                     <nav className={`header__nav ${toggleBurger ? `header__nav_active` : ''}`}>
                         <ul className="header__list">
                             <li className="header__list-item">
-                                <NavLink onClick={handleToggle} className="header__list-link" to="/">Домой</NavLink>
+                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/">Домой</NavLink>
                             </li>
                             <li className="header__list-item">
-                                <NavLink onClick={handleToggle} className="header__list-link" to="/Cars">Машины</NavLink>
+                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/Cars">Машины</NavLink>
                             </li>
                             <li className="header__list-item">
-                                <NavLink onClick={handleToggle} className="header__list-link" to="/About">О нас</NavLink>
+                                <NavLink onClick={() => handleToggle} className="header__list-link" to="/About">О нас</NavLink>
                             </li>
                         </ul>
                     </nav>
 
-                    <button onClick={handleToggle} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
+                    <button onClick={() => handleToggle} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
                         <span></span>
                     </button>
                     {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> :
