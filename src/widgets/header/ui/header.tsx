@@ -9,17 +9,10 @@ export const Header: React.FC = () => {
     const [ toggleBurger, setToggleBurger] = React.useState(false);
     const sessionName = sessionStorage.getItem('name');
 
-    //Удалет и добавляет в body класс при клике на бургер
-    const handleToggle = () => {
-        setToggleBurger(!toggleBurger);
-
-        let bodyClassName = document.body;
-
-        if (bodyClassName.className !== 'lock') {
-            bodyClassName.className = 'lock';
-        } else {
-            bodyClassName.classList.remove('lock');
-        }
+    if(toggleBurger) {
+        document.body.className = 'lock';
+    }else {
+        document.body.classList.remove('lock');
     }
 
     return (
@@ -41,7 +34,7 @@ export const Header: React.FC = () => {
                         </ul>
                     </nav>
 
-                    <button onClick={handleToggle} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
+                    <button onClick={() => setToggleBurger(!toggleBurger)} className={`header__burger ${toggleBurger ? `header__burger--active` : ''}`}>
                         <span></span>
                     </button>
                     {sessionName || isLogged ? <ProfileHeader sessionName={sessionName} user={user}/> :
