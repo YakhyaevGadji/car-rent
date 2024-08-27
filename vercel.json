@@ -3,9 +3,9 @@
     { "source": "/(.*)", "destination": "/" }
   ],
   "routes": [
-    { "src": "/", "dest": "/" },
-    { "src": "/Cars", "dest": "/" },
-    { "src": "/login", "dest": "/" },
-    { "src": "/tos", "dest": "/" }
+    {
+      "src": "/[^.]+",
+      "dest": "/"
+    }
   ]
 }
