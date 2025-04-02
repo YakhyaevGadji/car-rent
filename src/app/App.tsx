@@ -1,4 +1,5 @@
 import {FC, lazy, Suspense, useEffect} from "react";
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import PrivateRoute from "./route/privateRoute";
 import { Header } from "../widgets/header";
 import { Footer } from "../widgets/footer";
@@ -61,9 +62,11 @@ const App: FC = () => {
                         </Route>
                         <Route path="/About"  element={<About/>}/>
                     </Routes>
+
                 </main>
                 <Footer/>
             </div>
+            <SpeedInsights/>
         </BrowserRouter>
     );
 }
